@@ -2,26 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+html {
+    background-image: linear-gradient(to bottom right, rgb(33, 33, 33), gray);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    font-family: helvetica;
+    color: white;
+    margin:0;
+    padding:0;
+}
+
+.topContainer{
+  width: 100%;
+  float:left;
+}
+
+.topInfoContainer{
+  float:left;
+  width: 33.33%;
+  border: solid 1px white;
+}
+.topTD{
+  font-size: xx-large;
+  width: 100%;
+  border: solid 1px white;
+  /* background:transparent; */
+}
+
+.topTD > input{
+  padding:0;
+  margin:0;
+  background:inherit;
+  float: left;
+}
+.topTD > label{
+  width: 50%;
+}
+
+.imageContainer{
+  width: 400px;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 2px solid black;
+  box-sizing: border-box;
 }
