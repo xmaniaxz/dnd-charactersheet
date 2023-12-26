@@ -7,10 +7,10 @@ export default function TopbarInfo()
     return(
     <div>
             <div className="topInfoContainer">
-                <InputField InputText='Race'/>
-                <InputField InputText='Class'/>
-                <InputField InputText='Sub-class'/>
-                <InputField InputText='Background'/>
+                <InputField InputText='Race :'/>
+                <InputField InputText='Class :'/>
+                <InputField InputText='Sub-class :'/>
+                <InputField InputText='Background :'/>
             </div>
             <div className="topInfoContainer">
                 <div className="imageContainer">
@@ -18,10 +18,9 @@ export default function TopbarInfo()
                 </div>                
             </div>
             <div className="topInfoContainer">
-            <InputField InputText='Race' reversed={true}/>
-            <InputField InputText='Class' reversed={true}/>
-            <InputField InputText='Sub-class' reversed={true}/>
-            <InputField InputText='Background' reversed={true}/>
+            <InputField InputText=': Playername' reversed={true}/>
+            <InputField InputText=': Alignment' reversed={true}/>
+            <InputField InputText=': Exp' reversed={true}/>
         </div>
     </div>
     )    
