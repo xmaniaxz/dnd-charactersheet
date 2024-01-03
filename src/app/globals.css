@@ -1,0 +1,218 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    background-image: linear-gradient(to bottom right, rgb(33, 33, 33), gray);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    
+}
+
+body {
+    font-family: helvetica;
+    color: white;
+    margin:20px;
+    padding:0;
+}
+
+.topContainer{
+  width: 100%;
+  float:left;
+}
+.underHPContainer{
+  margin: auto;
+  width: 30%;
+  height: 10vh;
+  /* border: solid white 1px; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.underHP{
+  margin: 10px 0;
+  /* border: 1px solid white; */
+}
+.underHP > input{
+  margin: 0 3px;
+  width: 50%;
+  height: 3vh;
+  padding:0;
+  background:inherit;
+  float: left;
+  border: 1px solid white;
+}
+.underHP > label{
+  margin: 10px 0;
+  width: 50%;
+  height: 3vh;
+}
+
+.topInfoContainer{
+  float:left;
+  width: 33.33%;
+  height: 33vh;
+  /* border: solid 1px white; */
+}
+.topTD{
+  font-size: xx-large;
+  margin: 30px 0;
+  width: 100%;
+  /* border: solid 1px white; */
+  /* background:transparent; */
+}
+
+.topTD > input{
+  
+  width: 50%;
+  padding: 0 20px;
+  font-size: large;
+  background:inherit;
+  float: left;
+  border: 1px solid white;
+}
+.topTD > label{
+  width: 50%;
+}
+
+.imageContainer{
+  width: 400px;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 2px solid black;
+  box-sizing: border-box;
+  margin: auto;
+}
+
+.statsContainer{
+  display: flex;
+  flex-direction: row;
+  /* border: 1px solid white; */
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 20vh;
+  float: left;
+}
+
+.statContainer{
+  width:10rem;
+  margin: 0 40px;
+  min-height: 12rem;
+  background-color:white;
+  border-radius: 20px;
+  color: black;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  float: left;
+}
+
+.statContainer > input{
+  margin: auto;
+
+  width: 80%;
+  text-align: center;
+  background: transparent;
+}
+
+.statContainer > button{
+  background-color: rgb(208, 210, 215);
+  width: 80%;
+  height: 2.5vh;
+  border-radius: 20px;
+  margin:  auto;
+}
+
+ button{
+  width: 80%;
+  height: 4vh;
+  background: rgb(203, 203, 203);
+  color:  black;
+  border-radius: 5px;
+ }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+
+input[type=number]
+{
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+.bottominfoContainerHeader{
+  width: 50%;
+  height: 9%;
+  border: solid 1px white;
+  float: left;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.bottomContainer {
+  width: 90%;
+  height: 40vh;
+  margin: 0px auto;
+  border: 1px solid white;
+}
+
+.bottominfoContainerButtons {
+  float: left;
+  width: 25%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  border: solid 1px white;
+}
+
+.bottomInfoContainerBody {
+  float:left;
+  height: calc(90%);
+  width: 50%; /* Adjust the width of the body container */
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: solid 1px white;
+  padding: 10px; /* Add padding to create space between the container border and its content */
+  /* box-sizing: content-box; */
+  /* margin: 20px; */
+}
+
+.bottomSpellsContainer{
+  height:  100%;
+  width: 100%;
+  overflow-y: auto;
+  /* border: 1px solid green; */
+
+}
+
+.spellButton {
+  width: 80%; /* Make the SpellButton take 100% width of the parent container */
+   /* Limit the maximum width if needed */
+  margin: 2.5px;
+  box-sizing: border-box;
+
+  
+}
+
+.filterButton{
+  width: 100%;
+  height: 100%;
+  margin: 5px;
+  
+}
