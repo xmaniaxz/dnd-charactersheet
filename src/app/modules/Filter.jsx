@@ -46,7 +46,7 @@ export default function Filter({ filterName, Options }) {
         <ul>
           {/*Options go here*/}
           {Options.map((values) => {
-            return <FilterOption key={values} onClick={()=>handeClick(values)} filterName={values}/>           
+            return <FilterOption key={values} onChange={()=>handeClick(values)} filterName={values}/>           
           })}
           
         </ul>
