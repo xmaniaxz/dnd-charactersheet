@@ -1,11 +1,16 @@
 'use client'
 import { useState } from "react";
 
-export default function FilterOption({filterName}) {
+export default function FilterOption({filterName, onChange}) {
   const [isClicked, setIsClicked] = useState(false);
+
+
   const handleClick = () => {
     setIsClicked(!isClicked);
+    onChange(filterName)
   };
+
+  
   return (
     <div className="filterButton">
       <button

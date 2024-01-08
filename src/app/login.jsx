@@ -1,16 +1,23 @@
 'use client'
 import { useState } from 'react';
-import { account } from './modules/appwrite';
+import { account } from "../utils/appwrite"
 import { usePathname, useRouter } from 'next/navigation';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [user,SetUser] = useState('');
   const [loading, setLoading] = useState(false);
-  const pathname = usePathname();
   
   const router = useRouter();
+
+  const IsLoggedIn = async () =>{
+    try{
+      var res = await account.get()
+    }
+    catch (e){
+      console.log("IsLogged In: " + e)
+    }
+  }
 
   async function handleLogin() {
     try {
@@ -18,8 +25,9 @@ export default function LoginPage() {
       await account.createEmailSession(email, password);
       setPassword('');
       setLoading(false);
+      IsLoggedIn();
       // Redirect to the desired page after successful login
-      redirectTo('/pages/CharacterPage');
+      redirectTo('./characterpage');
     } catch (error) {
       console.error(error);
       setLoading(false);
@@ -32,10 +40,12 @@ export default function LoginPage() {
       await account.create(ID.unique(),email,password)
       setPassword('');
       setLoading(false);
+      IsLoggedIn();
       // Redirect to the desired page after successful login
-      redirectTo('./sheet');
+      redirectTo('./characterpage');
     } catch (error) {
       console.error(error);
+
       setLoading(false);
     }
   }

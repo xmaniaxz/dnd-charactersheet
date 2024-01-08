@@ -1,7 +1,6 @@
 "use client"
 import InputField from "./Inputfields"
 import Image from "next/image"
-import ProfilePicture from '../../Images/ProfilePicture/alexis.png'
 export default function TopbarInfo()
 {
     return(
@@ -14,7 +13,7 @@ export default function TopbarInfo()
             </div>
             <div className="topInfoContainer">
                 <div className="imageContainer">
-                <Image src={ProfilePicture} alt="" width='1500' height='2400' style={{ alignSelf: 'start' }}/>
+                <Image src="/ProfilePicture/alexis.png" alt="" width='1500' height='2400' style={{ alignSelf: 'start' }}/>
                 </div>                
             </div>
             <div className="topInfoContainer">
