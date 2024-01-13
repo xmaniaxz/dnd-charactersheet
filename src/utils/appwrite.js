@@ -1,6 +1,6 @@
 import {Client, Account} from "appwrite"
 
-const client = new Client();
+export const client = new Client();
 
 client
     .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT)

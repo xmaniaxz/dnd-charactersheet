@@ -2,32 +2,32 @@
 import { useState } from 'react';
 import { account } from "@/utils/appwrite"
 import { usePathname, useRouter } from 'next/navigation';
+import {ID} from "appwrite"
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  
+
   const router = useRouter();
 
-  const IsLoggedIn = async () =>{
-    try{
-      var res = await account.get()
+  const IsLoggedIn = async () => {
+    try {
+      var res = await account.get();
+    } catch (e) {
+      console.log("IsLogged In: " + e);
     }
-    catch (e){
-      console.log("IsLogged In: " + e)
-    }
-  }
+  };
 
   async function handleLogin() {
     try {
       setLoading(true);
       await account.createEmailSession(email, password);
-      setPassword('');
+      setPassword("");
       setLoading(false);
       IsLoggedIn();
       // Redirect to the desired page after successful login
-      redirectTo('./characterpage');
+      redirectTo("./characterpage");
     } catch (error) {
       console.error(error);
       setLoading(false);
@@ -37,12 +37,12 @@ export default function LoginPage() {
   async function handleRegister() {
     try {
       setLoading(true);
-      await account.create(ID.unique(),email,password)
-      setPassword('');
+      await account.create(ID.unique(), email, password);
+      setPassword("");
       setLoading(false);
       IsLoggedIn();
       // Redirect to the desired page after successful login
-      redirectTo('./characterpage');
+      redirectTo("./characterpage");
     } catch (error) {
       console.error(error);
 

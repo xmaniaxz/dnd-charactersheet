@@ -5,34 +5,32 @@ import Filter from "./Filter";
 import SpellButton from "./Spellbutton";
 
 export default function BottomContainer() {
+  const [data, setData] = useState();
   const [spellData, setSpellData] = useState([]);
   const [isLoadingSpellData, setLoadingSpellData] = useState(true);
   const [activeFilters, setActiveFilters] = useState([]);
+  const [activePage, setActivePage] = useState("");
 
-  // Define a debounce function
-  const debounce = (func, delay) => {
-    let timeoutId;
-    return function (...args) {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => func.apply(this, args), delay);
-    };
-  };
+  useEffect(() => {
+    FetchData().then(setData);
+    console.log(data);
+  }, [activeFilters]);
 
   const FetchData = async () => {
-    try {
-      setLoadingSpellData(true);
-      let value = await GetServerSpells(activeFilters);
-      let sortedValue = await SortSpells(value["documents"]);
-      setSpellData(sortedValue);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    } finally {
-      setLoadingSpellData(false);
-    }
+    var promise = await GetServerSpells(activeFilters);
+    return promise;
   };
 
-  // Wrap FetchData with debounce
-  const debouncedFetchData = debounce(FetchData, 1000); // Set the desired delay (in milliseconds)
+  // // Define a debounce function
+  // const debounce = (func, delay) => {
+  //   let timeoutId;
+  //   return function (...args) {
+  //     clearTimeout(timeoutId);
+  //     timeoutId = setTimeout(() => func.apply(this, args), delay);
+  //   };
+  // };
+
+  // const debouncedFetchData = debounce(FetchData, 1000);
 
   const toggleFilter = (filterType, filter) => {
     const index = activeFilters.findIndex(
@@ -48,15 +46,15 @@ export default function BottomContainer() {
       const newArray = [...activeFilters];
       newArray.splice(index, 1);
       setActiveFilters(newArray);
-      
     }
-    
   };
 
-  useEffect(() => {
-    console.log(activeFilters)
-    debouncedFetchData();
-  }, [activeFilters]);
+  const ActiveInfoPage = (PageName) => {
+    if (activePage === PageName) {
+      setActivePage("");
+      if (spellData.length < 1) debouncedFetchData();
+    } else setActivePage(PageName);
+  };
 
   const ClassOptions = [
     "Artificer",
@@ -88,56 +86,68 @@ export default function BottomContainer() {
     <div className="w-full float-left m-0 p-0">
       <div className="bottomContainer">
         <div className="bottominfoContainerButtons">
-          <button>Spells</button>
-          <button>Inventory</button>
-          <button>Character info</button>
+          <button onClick={() => ActiveInfoPage("SpellsContainer")}>
+            Spells
+          </button>
+          <button onClick={() => ActiveInfoPage("InventoryContainer")}>
+            Inventory
+          </button>
+          <button onClick={() => ActiveInfoPage("Info")}>Character info</button>
         </div>
-        <div className="bottominfoContainerHeader">
-          <div className="flex">
-            <Filter
-              key={"Class"}
-              filterName="Class"
-              Options={ClassOptions}
-              onFilterUpdate={(filterValue, value) =>
-                toggleFilter(filterValue, value)
-              }
-            />
-            <Filter
-              key={"School"}
-              filterName="School"
-              Options={SchoolOptions}
-              onFilterUpdate={(filterValue, value) =>
-                toggleFilter(filterValue, value)
-              }
-            />
-            <Filter
-              key={"SpellLevel"}
-              filterName="SpellLevel"
-              Options={LevelOptions}
-              onFilterUpdate={(filterValue, value) =>
-                toggleFilter(filterValue, value)
-              }
-            />
+        <div
+          id="SpellsContainer"
+          style={{
+            display: activePage === "SpellsContainer" ? "block" : "none",
+          }}
+        >
+          <div className="bottominfoContainerHeader">
+            <div className="flex">
+              <Filter
+                key={"Class"}
+                filterName="Class"
+                Options={ClassOptions}
+                onFilterUpdate={(filterValue, value) =>
+                  toggleFilter(filterValue, value)
+                }
+              />
+              <Filter
+                key={"School"}
+                filterName="School"
+                Options={SchoolOptions}
+                onFilterUpdate={(filterValue, value) =>
+                  toggleFilter(filterValue, value)
+                }
+              />
+              <Filter
+                key={"SpellLevel"}
+                filterName="SpellLevel"
+                Options={LevelOptions}
+                onFilterUpdate={(filterValue, value) =>
+                  toggleFilter(filterValue, value)
+                }
+              />
+            </div>
+          </div>
+          <div className="bottomInfoContainerBody">
+            {/* <div className="bottomSpellsContainer">
+              {isLoadingSpellData ? (
+                <div>Loading...</div>
+              ) : (
+                // <div>loaded</div>
+                spellData.map((spells) => {
+                  return (
+                    <SpellButton
+                      key={spells.Spell}
+                      SpellText={spells.Spell}
+                      SpellLevel={spells.SpellLevel}
+                    />
+                  );
+                })
+              )}
+            </div> */}
           </div>
         </div>
-        <div className="bottomInfoContainerBody">
-          <div className="bottomSpellsContainer">
-            {isLoadingSpellData ? (
-              <div>Loading...</div>
-            ) : (
-              // <div>loaded</div>
-              spellData.map((spells) => {
-                return (
-                  <SpellButton
-                    key={spells.Spell}
-                    SpellText={spells.Spell}
-                    SpellLevel={spells.SpellLevel}
-                  />
-                );
-              })
-            )}
-          </div>
-        </div>
+        <div id="InventoryContainer"></div>
       </div>
     </div>
   );

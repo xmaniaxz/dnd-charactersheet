@@ -2,7 +2,6 @@ import TopbarInfo from '@/components/TopbarInfo'
 import UnderInfo from '@/components/UnderProfile'
 import StatsContainer from '@/components/StatsContainer'
 import BottomContainer from '@/components/BottomBarContainer'
-import { SendToDB,ClearDB,GetListCount } from '@/utils/JsonToDataBase'
 
 export const metadata = {
   title: 'D&DMCT | Sheet',
@@ -10,9 +9,6 @@ export const metadata = {
 }
 
 export default function Home() {
-  // SendToDB();
-  // ClearDB()
-  // GetListCount()
   return (
     <main >
       <div className="topContainer">
