@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { GetServerSpells } from "./Database";
+import { GetServerSpells, SortSpells } from "./Database";
 import Filter from "./Filter";
 import SpellButton from "./Spellbutton";
 
@@ -9,23 +9,53 @@ export default function BottomContainer() {
   const [isLoadingSpellData, setLoadingSpellData] = useState(true);
   const [activeFilters, setActiveFilters] = useState([]);
 
-  const toggleFilter = (filter) => {
-    const index = activeFilters.indexOf(filter);
+  // Define a debounce function
+  const debounce = (func, delay) => {
+    let timeoutId;
+    return function (...args) {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => func.apply(this, args), delay);
+    };
+  };
+
+  const FetchData = async () => {
+    try {
+      setLoadingSpellData(true);
+      let value = await GetServerSpells(activeFilters);
+      let sortedValue = await SortSpells(value["documents"]);
+      setSpellData(sortedValue);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoadingSpellData(false);
+    }
+  };
+
+  // Wrap FetchData with debounce
+  const debouncedFetchData = debounce(FetchData, 1000); // Set the desired delay (in milliseconds)
+
+  const toggleFilter = (filterType, filter) => {
+    const index = activeFilters.findIndex(
+      (f) => f[0] === filterType && f[1] === filter
+    );
 
     if (index === -1) {
-      // If the string is not in the array, add it
-      setActiveFilters([...activeFilters, filter]);
+      setActiveFilters((prevActiveFilters) => [
+        ...prevActiveFilters,
+        [filterType, filter],
+      ]);
     } else {
-      // If the string is already in the array, remove it
       const newArray = [...activeFilters];
       newArray.splice(index, 1);
       setActiveFilters(newArray);
+      
     }
-
+    
   };
 
   useEffect(() => {
-    console.log(activeFilters);
+    console.log(activeFilters)
+    debouncedFetchData();
   }, [activeFilters]);
 
   const ClassOptions = [
@@ -41,19 +71,21 @@ export default function BottomContainer() {
   ];
   const SchoolOptions = ["Abjuration", "Conjuration"];
 
-  useEffect(() => {
-    async function FetchData() {
-      let value = await GetServerSpells(activeFilters)
-      console.log(value);
-      console.log(typeof value);
-      setSpellData(value);
-      setLoadingSpellData(false);
-    }
-    FetchData()
-  }, []);
+  const LevelOptions = [
+    "Cantrips",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+  ];
 
   return (
-    <div className="float-left w-screen m-0 p-0">
+    <div className="w-full float-left m-0 p-0">
       <div className="bottomContainer">
         <div className="bottominfoContainerButtons">
           <button>Spells</button>
@@ -61,36 +93,49 @@ export default function BottomContainer() {
           <button>Character info</button>
         </div>
         <div className="bottominfoContainerHeader">
-          <div className=" flex">
-            {/* onButtonPressed is callback */}
+          <div className="flex">
             <Filter
               key={"Class"}
               filterName="Class"
               Options={ClassOptions}
-              onFilterUpdate={(value) => {
-                toggleFilter(value);
-              }}
+              onFilterUpdate={(filterValue, value) =>
+                toggleFilter(filterValue, value)
+              }
             />
             <Filter
               key={"School"}
               filterName="School"
               Options={SchoolOptions}
-              onFilterUpdate={(value) => toggleFilter(value)}
+              onFilterUpdate={(filterValue, value) =>
+                toggleFilter(filterValue, value)
+              }
+            />
+            <Filter
+              key={"SpellLevel"}
+              filterName="SpellLevel"
+              Options={LevelOptions}
+              onFilterUpdate={(filterValue, value) =>
+                toggleFilter(filterValue, value)
+              }
             />
           </div>
         </div>
         <div className="bottomInfoContainerBody">
           <div className="bottomSpellsContainer">
-            {spellData.length > 0 &&
+            {isLoadingSpellData ? (
+              <div>Loading...</div>
+            ) : (
+              // <div>loaded</div>
               spellData.map((spells) => {
                 return (
                   <SpellButton
-                    key={spells.spellName}
-                    SpellText={spells.spellName}
+                    key={spells.Spell}
+                    SpellText={spells.Spell}
                     SpellLevel={spells.SpellLevel}
                   />
                 );
-              })}
+              })
+            )}
           </div>
         </div>
       </div>

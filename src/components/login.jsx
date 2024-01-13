@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react';
-import { account } from "../utils/appwrite"
+import { account } from "@/utils/appwrite"
 import { usePathname, useRouter } from 'next/navigation';
 
 export default function LoginPage() {

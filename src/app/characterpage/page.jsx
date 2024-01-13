@@ -2,10 +2,17 @@ import TopbarInfo from '@/components/TopbarInfo'
 import UnderInfo from '@/components/UnderProfile'
 import StatsContainer from '@/components/StatsContainer'
 import BottomContainer from '@/components/BottomBarContainer'
-import { GetServerSpells } from '@/components/Database'
+import { SendToDB,ClearDB,GetListCount } from '@/utils/JsonToDataBase'
+
+export const metadata = {
+  title: 'D&DMCT | Sheet',
+  description: 'D&D Character Management Tool'
+}
 
 export default function Home() {
-  // ServerSpells();
+  // SendToDB();
+  // ClearDB()
+  // GetListCount()
   return (
     <main >
       <div className="topContainer">
@@ -13,7 +20,7 @@ export default function Home() {
         <UnderInfo />   
         <StatsContainer />        
       </div>
-      <BottomContainer action={GetServerSpells} />
+      <BottomContainer />
     </main>
   )
 }

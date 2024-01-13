@@ -9,7 +9,7 @@ export default function Filter({ filterName, Options, onFilterUpdate }) {
   return (
     <div className="mx-2">
       <button
-        className="overflow-hidden flex flex-row justify-evenly items-center w-20 h-8 rounded-10 hover:cursor-pointer"
+        className="overflow-hidden flex flex-row justify-evenly items-center w-28 h-8 rounded-10 hover:cursor-pointer"
         onClick={() => setdropdownOpen(!dropdownOpen)}
       >
         {filterName}
@@ -26,7 +26,7 @@ export default function Filter({ filterName, Options, onFilterUpdate }) {
             return (
               <FilterOption
                 key={values}
-                onChange={() => onFilterUpdate(values)}
+                onChange={() => onFilterUpdate(filterName,values)}
                 filterName={values}
               />
             );
