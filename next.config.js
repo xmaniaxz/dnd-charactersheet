@@ -3,6 +3,6 @@ const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: ["node-appwrite"],
   },
-}
- 
-export default nextConfig
+};
+
+module.exports = nextConfig;

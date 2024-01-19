@@ -1,37 +1,15 @@
 "use client";
-import { useState, useEffect } from "react";
-import { GetServerSpells, SortSpells } from "./Database";
+import { useState, useEffect, useTransition } from "react";
 import Filter from "./Filter";
 import SpellButton from "./Spellbutton";
 
-export default function BottomContainer() {
-  const [data, setData] = useState();
+export default function SpellContainer({ Database}) {
   const [spellData, setSpellData] = useState([]);
-  const [isLoadingSpellData, setLoadingSpellData] = useState(true);
   const [activeFilters, setActiveFilters] = useState([]);
   const [activePage, setActivePage] = useState("");
+  const [isLoadingSpellData, setLoadingSpellData] = useState(true);
 
-  useEffect(() => {
-    FetchData().then(setData);
-    console.log(data);
-  }, [activeFilters]);
-
-  const FetchData = async () => {
-    var promise = await GetServerSpells(activeFilters);
-    return promise;
-  };
-
-  // // Define a debounce function
-  // const debounce = (func, delay) => {
-  //   let timeoutId;
-  //   return function (...args) {
-  //     clearTimeout(timeoutId);
-  //     timeoutId = setTimeout(() => func.apply(this, args), delay);
-  //   };
-  // };
-
-  // const debouncedFetchData = debounce(FetchData, 1000);
-
+  // setSpellData(Database);
   const toggleFilter = (filterType, filter) => {
     const index = activeFilters.findIndex(
       (f) => f[0] === filterType && f[1] === filter
@@ -129,7 +107,7 @@ export default function BottomContainer() {
             </div>
           </div>
           <div className="bottomInfoContainerBody">
-            {/* <div className="bottomSpellsContainer">
+            <div className="bottomSpellsContainer">
               {isLoadingSpellData ? (
                 <div>Loading...</div>
               ) : (
@@ -144,7 +122,7 @@ export default function BottomContainer() {
                   );
                 })
               )}
-            </div> */}
+            </div>
           </div>
         </div>
         <div id="InventoryContainer"></div>

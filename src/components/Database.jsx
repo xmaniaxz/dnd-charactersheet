@@ -1,17 +1,19 @@
-'use server'
-import {DB} from "@/utils/appwrite.server"
-import {Query} from "node-appwrite"
+"use server"
 
-export async function GetServerSpells(activeFilters) {
-  // console.log('Got filters:', activeFilters);
-  const queryOptions = [
-    Query.limit(850)
-  ];
+import { DB } from "@/utils/appwrite.server";
+import { Query } from "node-appwrite";
+import { revalidatePath } from "next/cache";
 
-  // Include active filters in the query
-  activeFilters.forEach((filter) => {
-      queryOptions.push(Query.equal(filter[0],filter[1]));
-  });
+export async function GetServerSpells(IncomingFilters) {
+  const activeFilters = IncomingFilters || [];
+  console.log("Got filters:", activeFilters);
+  const queryOptions = [Query.limit(850)];
+  if (activeFilters.length > 0) {
+    //Include active filters in the query
+    activeFilters.forEach((filter) => {
+      queryOptions.push(Query.equal(filter[0], filter[1]));
+    });
+  }
 
   console.log("Got a fetch request");
   const x = await DB.listDocuments(
@@ -24,21 +26,21 @@ export async function GetServerSpells(activeFilters) {
   return x;
 }
 
-// export async function SortSpells(spellList){
-//     Object.values(spellList).map((spells)=>{
-    
-//       if(spells.SpellLevel === 'cantrips')
-//       {
-//         spells.SpellLevel = '0';
-//       }
-//     })
-//     spellList.sort((a, b) => parseInt(a.SpellLevel) - parseInt(b.SpellLevel))
-//     Object.values(spellList).map((spells)=>{
-    
-//       if(spells.SpellLevel === '0')
-//       {
-//         spells.SpellLevel = 'cantrip';
-//       }
-//     })
-//     return spellList
-//   }
+export async function GetHello(){
+  return ["Hello"];
+}
+
+export async function SortSpells(spellList) {
+  Object.values(spellList).map((spells) => {
+    if (spells.SpellLevel === "cantrips") {
+      spells.SpellLevel = "0";
+    }
+  });
+  spellList.sort((a, b) => parseInt(a.SpellLevel) - parseInt(b.SpellLevel));
+  Object.values(spellList).map((spells) => {
+    if (spells.SpellLevel === "0") {
+      spells.SpellLevel = "cantrip";
+    }
+  });
+  return spellList;
+}

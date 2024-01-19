@@ -1,6 +1,3 @@
-// "use server"
-import "server-only"
-
 import sdk, { Databases } from "node-appwrite";
 
 export const client = new sdk.Client();
