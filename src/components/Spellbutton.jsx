@@ -1,19 +1,17 @@
 'use client'
 import { useState } from "react";
 
-export default function SpellButton({ SpellText,SpellLevel }) {
-    const [isClicked, setIsClicked] = useState(false);
+export default function SpellButton({ SpellText,SpellLevel, onButtonClick,isActiveSpell}) {
   
     const handleClick = () => {
-      setIsClicked(!isClicked);
+      onButtonClick();
     };
-  
     return (
-      <div>
+      <div style={{width: "80%",margin:"3.5px auto"}}>
         <button
         className="spellButton"
           
-          style={{ backgroundColor: isClicked ? 'lime' : 'lightgray' }}
+          style={{backgroundColor: isActiveSpell ? 'lightgray' : 'gray'}}
           onClick={handleClick}
         >
           {SpellText} lvl {SpellLevel}

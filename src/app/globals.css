@@ -7,7 +7,7 @@ html {
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
-    min-height: 115vh;
+    min-height: 100vh;
     height: auto;
     
 }
@@ -89,45 +89,70 @@ body {
   margin: auto;
 }
 
-.statsContainer{
+.statsContainer {
   display: flex;
   flex-direction: row;
-  /* border: 1px solid white; */
   justify-content: center;
-  align-items: center;
+  margin: auto;
   width: 100%;
-  height: 20vh;
-  float: left;
+  height: 100%;
 }
 
-.statContainer{
-  width:10rem;
+.statContainer {
+  position: relative;
+  z-index: 1;
+  width: 10rem;
   margin: 0 40px;
   min-height: 12rem;
-  background-color:white;
-  border-radius: 20px;
+  background-color: white;
   color: black;
   text-align: center;
   display: flex;
   flex-direction: column;
-  float: left;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.5s ease;
+}
+
+.SkillContainer {
+  position: relative;
+  z-index: 0;
+  width: 10rem;
+  margin: 0 40px;
+  min-height: 5rem;
+  background-color: white;
+  color: black;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  transform: translateY(-100%);
+  opacity: 0; 
+  visibility: hidden; 
+}
+
+.SkillContainer.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-20px);
 }
 
 .statContainer > input{
   margin: auto;
-
   width: 80%;
   text-align: center;
   background: transparent;
 }
 
 .statContainer > button{
-  background-color: rgb(208, 210, 215);
-  width: 80%;
-  height: 2.5vh;
-  border-radius: 20px;
-  margin:  auto;
+  margin: auto;
+  height: 10%;
+  border-radius: 10px
 }
+
 
  button{
   width: 80%;
@@ -149,24 +174,16 @@ input[type=number]
     -moz-appearance: textfield;
 }
 
-.bottominfoContainerHeader{
-  width: 50%;
-  height: 9%;
-  border: solid 1px white;
-  float: left;
-  display: flex;
-  align-items: center;
-  box-sizing: border-box;
-}
+
 
 .bottomContainer {
   width: 90%;
   height: 40vh;
-  margin: 0px auto;
+  margin: 0 auto;
   border: 1px solid white;
 }
 
-.bottominfoContainerButtons {
+.BottomInfoContainerButtons {
   float: left;
   width: 25%;
   height: 100%;
@@ -177,41 +194,130 @@ input[type=number]
   gap: 15px;
   border: solid 1px white;
 }
+.BottomInfoContainer {
+  float: left;
+  height: 100%;
+  width: 40%;
+  border:  solid 1px white;
+  box-sizing: border-box; /* Include box-sizing property for consistency */
+}
 
-.bottomInfoContainerBody {
-  float:left;
-  height: calc(90%);
-  width: 50%; /* Adjust the width of the body container */
-  
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.BottomInfoContainerHeader {
+  float: left;
+  width: 100%;
+  height: 10%;
   border: solid 1px white;
-  padding: 10px;
-}
-
-.bottomSpellsContainer{
-  height:  100%;
-  width: 90%;
-  margin: auto;
-  overflow-y: auto;
-  /* border: 1px solid green; */
-
-}
-
-.spellButton {
-  width: 80%; /* Make the SpellButton take 100% width of the parent container */
-   /* Limit the maximum width if needed */
-  margin: 2.5px;
+  display: flex;
+  align-items: center;
   box-sizing: border-box;
+}
 
+.BottomInfoSpellsContainer {
+  float: left;
+  overflow-y: auto;
+  height: 37dvh;
+  width: 100%; 
+  box-sizing: border-box;
+}
+
+.SpellsOffsetContainer {
+  width: 90%;
+  height: 90%;
+  margin: 1% auto;
+  /* border: solid greenyellow 3px; */
+}
+
+
+.SpellInfoContainer{
   
+  width: 35%;
+  float: left;
+  height: 40vh;
+  /* border: solid green 2px; */
+  
+}
+
+.SpellInfoOffset{
+  overflow-y: auto;
+  width: 90%;
+  height: calc(100% - 10px);
+  margin: 5px auto;
+}
+.spellButton {
+  width: 100%; 
+  box-sizing: border-box;
 }
 
 .filterButton{
   width: 100%;
   height: 100%;
   margin: 5px;
+}
+
+.InventoryContainer{
+  float: left;
+  width: 75%;
+  height: 40vh;
+  overflow-y: auto;
+  /* border: 2px solid rgb(0, 255, 0); */
+}
+.MoneyContainer{
+  margin: 20px 20px;
+  float: left;
+  width: 50%;
+}
+.InventoryMoneyInputFields > input{
+  background-color: transparent;
+  width: 5em;
+  height: 40px;
+  border: solid 1px white;
+}
+.InventoryMoneyInputFields > label{
+  width:  7.5em;
+  margin: 10px 10px;
+}
+
+
+.BackgroundImageTextArea{
+  background-image: url('/OldPaper.png');
+  background-size: cover;
+  width: 60%;
+  height: calc(100% - 20px);
+  margin: 10px auto;
+  /* border: solid 1px white; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-position: center center;
+}
+
+.InventoryAreaHeader{
+  width: 90%;
+
+  /* border: solid 1px green; */
+  font-family: cursive;
+  font-size: x-large;
+  text-align: center;
+  margin-top: 5%;
+  color:black;
+}
+
+.InventoryArea{
+  flex:1;
+  width: 90%;
+  height: 75%;
+  resize: none;
+  color:  black;
+  font-size: x-large;
+  font-family: cursive;
+  overflow-y: auto;
+  /* border: solid 1px green; */
+  background-color: transparent;
+  margin-bottom: 5%;
   
+}
+
+
+.InventoryArea:focus{
+  outline:none;
 }

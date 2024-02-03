@@ -1,12 +1,8 @@
-"use server"
-
-import { DB } from "@/utils/appwrite.server";
-import { Query } from "node-appwrite";
-import { revalidatePath } from "next/cache";
+import { database } from "@/utils/appwrite";
+import {Query } from "appwrite";
 
 export async function GetServerSpells(IncomingFilters) {
   const activeFilters = IncomingFilters || [];
-  console.log("Got filters:", activeFilters);
   const queryOptions = [Query.limit(850)];
   if (activeFilters.length > 0) {
     //Include active filters in the query
@@ -14,20 +10,13 @@ export async function GetServerSpells(IncomingFilters) {
       queryOptions.push(Query.equal(filter[0], filter[1]));
     });
   }
-
-  console.log("Got a fetch request");
-  const x = await DB.listDocuments(
+  const x = await database.listDocuments(
     process.env.NEXT_PUBLIC_DATABASE_ID,
     process.env.NEXT_PUBLIC_COLLECTION_SPELL_ID,
     queryOptions
   );
-
-  revalidatePath("/characterpage");
-  return x;
-}
-
-export async function GetHello(){
-  return ["Hello"];
+  const list = await SortSpells(x["documents"]);
+  return list;
 }
 
 export async function SortSpells(spellList) {

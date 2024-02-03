@@ -1,53 +1,79 @@
 "use client";
-import { useState,useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import SkillContainer from "./Skill";
+export default function StatBox({ statName, Skills, onValueChanged,defaultValue}) {
+  if(isNaN(defaultValue)) defaultValue = 10;
+  const [inputValue, setInputValue] = useState(defaultValue);
+  const [modifier, setModifier] = useState(0);
+  const [isSkillContainerVisible, setSkillContainerVisible] = useState(true);
+  const [skillsContainerHeight, setSkillsContainerHeight] = useState("auto");
 
-export default function StatBox({ statName, onValueChanged }) {
-  const [InputValue, setInputValue] = useState("");
-  const [modifier,setModifier] = useState();
-  const GetOnChangeValue = (event) => {
-    setInputValue(event.target.value) 
-    
+  const skillsContainerRef = useRef(null);
+
+  const calcModifier = (input) => {
+    const number = parseInt(input);
+    return Math.floor((number - 10) / 2);
   };
 
-  useEffect(()=>{ 
-    setModifier(CalcModifier(InputValue));
-    onValueChanged = modifier
-  },[InputValue])
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+    onValueChanged(event.target.value,statName);
+  };
+
+  useEffect(() => {
+    setModifier(calcModifier(inputValue));
+  }, [inputValue]);
+
+  useEffect(() => {
+    if (skillsContainerRef.current) {
+      setSkillsContainerHeight(
+        isSkillContainerVisible
+          ? `${skillsContainerRef.current.scrollHeight}px`
+          : "0"
+      );
+    }
+  }, [Skills, isSkillContainerVisible]);
 
   return (
     <div>
       <div className="statContainer">
         <input
           type="number"
-          defaultValue="10"
-          onChange={GetOnChangeValue}
-          className=" text-7xl"
+          value={inputValue}
+          onChange={handleInputChange}
+          className="text-7xl"
           name="MainStat"
         />
         <input
           type="number"
-          defaultValue="0"
           value={modifier}
-          className=" text-3xl"
+          readOnly
+          className="text-3xl"
           name="Modifier"
         />
-        <label className=" text-2xl" htmlFor="MainStat">
+        <label className="text-2xl" htmlFor="MainStat">
           {statName}
         </label>
-        <button>Show Stats</button>
+        <button
+          onClick={() => setSkillContainerVisible(!isSkillContainerVisible)}
+        >
+          Show Stats
+        </button>
+      </div>
+      <div
+        id="Skills"
+        ref={skillsContainerRef}
+        className={`SkillContainer ${isSkillContainerVisible ? "visible" : ""}`}
+        style={{ height: skillsContainerHeight }}
+      >
+        <div className="mt-5">
+          {Skills &&
+            Skills.map((values) => {
+              return(
+              <SkillContainer key={values} skillName={values} modifier={modifier} />
+              )})}
+        </div>
       </div>
     </div>
   );
-}
-
-function CalcModifier(input){
-    if(typeof input === "string" && input !== "")
-    {
-        let number = parseInt(input);
-        let modifier = 0;
-        for (let i = 0; i < number; i++) {
-            modifier = -5 + Math.floor(number / 2);
-        }
-         return modifier;
-    }
 }
