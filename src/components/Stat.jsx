@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import SkillContainer from "./Skill";
-export default function StatBox({ statName, Skills, onValueChanged,defaultValue}) {
+export default function StatBox({ statName, Skills, onValueChanged,defaultValue,forceUpdate}) {
   if(isNaN(defaultValue)) defaultValue = 10;
   const [inputValue, setInputValue] = useState(defaultValue);
   const [modifier, setModifier] = useState(0);
@@ -69,8 +69,10 @@ export default function StatBox({ statName, Skills, onValueChanged,defaultValue}
         <div className="mt-5">
           {Skills &&
             Skills.map((values) => {
-              return(
-              <SkillContainer key={values} skillName={values} modifier={modifier} />
+              console.log(values+"-"+forceUpdate)
+              return(          
+              <SkillContainer key={values+"-"+forceUpdate} skillName={values} modifier={modifier} />
+              
               )})}
         </div>
       </div>

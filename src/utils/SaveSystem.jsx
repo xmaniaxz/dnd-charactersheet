@@ -10,6 +10,7 @@ function LoadFile() {
   if (doc) {
     Object.assign(CharacterInfo, doc);
   }
+  console.log("Loaded documents: " + JSON.stringify(CharacterInfo))
   document.dispatchEvent(new Event("CharacterFileUpdated"))
 }
 
