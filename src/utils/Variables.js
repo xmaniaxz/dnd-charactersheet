@@ -22,6 +22,7 @@
  let playerInventory;
 
 export let CharacterInfo = {
+  SheetID: null,
   playerInfo,
   playerStats,
   playerInventory

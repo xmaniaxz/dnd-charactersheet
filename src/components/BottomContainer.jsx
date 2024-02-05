@@ -5,7 +5,7 @@ import SpellInfoData from "./SpellInfoData";
 import Filter from "./Filter";
 import SpellButton from "./Spellbutton";
 import Inventory from "./InventoryContainer";
-import { SaveFile,LoadFile } from "@/utils/SaveSystem";
+import { WriteSheetToDatabase } from "./Database";
 
 export default function SpellContainer() {
   const [spellData, setSpellData] = useState([]);
@@ -90,7 +90,7 @@ export default function SpellContainer() {
             Inventory
           </button>
           <button onClick={() => ActiveInfoPage("Info")}>Character info</button>
-          <button onClick={()=>SaveFile()}>Save Document</button>
+          <button onClick={()=>WriteSheetToDatabase()}>Save Document</button>
           <button onClick={()=>LoadFile()}>Load Document</button>
         </div>
 

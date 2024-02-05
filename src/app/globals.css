@@ -3,13 +3,9 @@
 @tailwind utilities;
 
 html {
-    background-image: linear-gradient(to bottom right, rgb(33, 33, 33), gray);
+    background: linear-gradient(135deg, rgb(53, 53, 53), gray);
     background-repeat: no-repeat;
     background-size: cover;
-    width: 100%;
-    min-height: 100vh;
-    height: auto;
-    
 }
 
 body {

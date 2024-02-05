@@ -2,8 +2,10 @@
 import StatBox from "./Stat";
 import { CharacterInfo } from "@/utils/Variables";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function StatsContainer() {
+  const router = useRouter();
   const HandleValueChange = (value, type) => {
     if (!isNaN(parseInt(value))) value = parseInt(value);
     else value = 10;
@@ -32,7 +34,10 @@ export default function StatsContainer() {
   //Reload Current page
   const [forceUpdate, setForceUpdate] = useState(false);
   const HandleEvent = () => {
-    setForceUpdate((prev) => !prev);
+    // setForceUpdate((prev) => !prev);
+    console.log(CharacterInfo);
+    router.refresh();
+    //console.log(CharacterInfo);
   };
   useEffect(() => {
     document.addEventListener("CharacterFileUpdated", HandleEvent);

@@ -69,7 +69,6 @@ export default function StatBox({ statName, Skills, onValueChanged,defaultValue,
         <div className="mt-5">
           {Skills &&
             Skills.map((values) => {
-              console.log(values+"-"+forceUpdate)
               return(          
               <SkillContainer key={values+"-"+forceUpdate} skillName={values} modifier={modifier} />
               

@@ -1,0 +1,114 @@
+.html {
+    font-family: helvetica;
+    background: linear-gradient(135deg, #111111, #222222);
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #ffffff; /* Default text color on the page */
+    min-height: 100vh;
+}
+
+.container {
+    /* background-size: cover; */
+    background: linear-gradient(135deg,#242424, #323232);
+    border:solid black 1px;
+    height:  inherit;
+    margin: 0 auto;
+    display: flex;
+    justify-content:center;
+}
+
+.previewContainer{
+    width: 95%;
+    height: 95%;
+    display: flex;
+    overflow-y: auto;
+    margin: 2.5% auto;
+    gap:40px;
+}
+
+.sheetPreview{
+    width: 250px;
+    height: 325px;
+    background: rgb(221, 221, 229,0.5);
+    color :black;
+    border-radius: 5px;
+    text-align: center;
+    transition: all 0.4s ease;
+}
+
+.sheetPreview:hover{
+    background: rgb(221, 221, 229,0.8);
+    scale: 110%;
+}
+
+.newSheetButton {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 25px;
+    color: #ffffff; /* Text color */
+    background: linear-gradient(45deg, #3498db, #2980b9); /* Gradient background (blue) */
+    border: 2px solid #3498db; /* Border color (blue) */
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Optional box shadow for depth */
+
+    /* Set width and height */
+    width: 150px; /* Adjust as needed */
+    height: 50px; /* Adjust as needed */
+
+    /* Hover effect */
+    transition: all 0.4s ease;
+}
+
+.newSheetButton:hover {
+    background: linear-gradient(45deg, #2980b9, #3498db); /* Gradient background on hover (blue) */
+}
+
+
+.logOutButton{
+    display: inline-block;
+    padding: 10px 10px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 25px;
+    color: #ffffff; /* Text color */
+    background: linear-gradient(45deg, #3498db, #2980b9); /* Gradient background (blue) */
+    border: 2px solid #3498db; /* Border color (blue) */
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Optional box shadow for depth */
+
+    /* Set width and height */
+    width: 100px; /* Adjust as needed */
+    height: 50px; /* Adjust as needed */
+
+    /* Hover effect */
+    transition: all 0.4s ease;
+}
+
+.logOutButton:hover {
+    background: linear-gradient(45deg, #c81818, #e52828); /* Gradient background on hover (blue) */
+}
+
+/* Loader animation */
+.loader {
+  border: 8px solid #f3f3f300; /* Light grey */
+  border-top: 8px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  margin-top: calc(25% - 100px);
+  animation: spin 1s linear infinite;
+}
+
+/* Keyframe animation for the loader spin */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+

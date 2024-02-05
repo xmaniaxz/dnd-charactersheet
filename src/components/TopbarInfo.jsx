@@ -2,10 +2,10 @@
 import InputField from "./Inputfields";
 import Image from "next/image";
 import { CharacterInfo } from "@/utils/Variables";
-import { useEffect } from "react";
+import { useEffect,useContext } from "react";
 import { LoadFile } from "@/utils/SaveSystem";
-
-export default function TopbarInfo() {
+export default function TopbarInfo({CharacterInfo}) {
+  
   const HandleValueChanged = (value, type) => {
     switch (type) {
       case "Race":
