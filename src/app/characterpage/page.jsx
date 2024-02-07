@@ -15,7 +15,6 @@ export default function CharacterPage({ searchParams }) {
     if (searchParams && searchParams.CharacterInfo) {
       const sheet = JSON.parse(searchParams.CharacterInfo);
       updateCharacterInfo(sheet); // Update characterInfo using the context
-      console.log("boop");
       setPageIsLoading(false);
     }
   }, [searchParams]); 
