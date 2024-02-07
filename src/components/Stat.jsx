@@ -5,7 +5,7 @@ export default function StatBox({ statName, Skills, onValueChanged,defaultValue,
   if(isNaN(defaultValue)) defaultValue = 10;
   const [inputValue, setInputValue] = useState(defaultValue);
   const [modifier, setModifier] = useState(0);
-  const [isSkillContainerVisible, setSkillContainerVisible] = useState(true);
+  const [isSkillContainerVisible, setSkillContainerVisible] = useState(false);
   const [skillsContainerHeight, setSkillsContainerHeight] = useState("auto");
 
   const skillsContainerRef = useRef(null);

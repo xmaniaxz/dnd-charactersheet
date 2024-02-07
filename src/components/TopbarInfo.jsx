@@ -1,61 +1,69 @@
 "use client";
 import InputField from "./Inputfields";
 import Image from "next/image";
-import { CharacterInfo } from "@/utils/Variables";
-import { useEffect,useContext } from "react";
-import { LoadFile } from "@/utils/SaveSystem";
-export default function TopbarInfo({CharacterInfo}) {
-  
+import { useCharacterInfo } from "@/utils/characterinfocontext";
+import { useEffect,useState } from "react";
+export default function TopbarInfo() {
+  const { characterInfo, updateCharacterInfo } = useCharacterInfo();
+  const [updatedValue, setUpdatedValue] = useState(true);
   const HandleValueChanged = (value, type) => {
     switch (type) {
       case "Race":
-        CharacterInfo.playerInfo.Race = value;
+        characterInfo.playerInfo.Race = value;
         break;
       case "Class":
-        CharacterInfo.playerInfo.Class = value;
+        characterInfo.playerInfo.Class = value;
         break;
       case "SubClass":
-        CharacterInfo.playerInfo.SubClass = value;
+        characterInfo.playerInfo.SubClass = value;
         break;
       case "Background":
-        CharacterInfo.playerInfo.Background = value;
+        characterInfo.playerInfo.Background = value;
         break;
       case "PlayerName":
-        CharacterInfo.playerInfo.PlayerName = value;
+        characterInfo.playerInfo.PlayerName = value;
         break;
       case "Alignment":
-        CharacterInfo.playerInfo.Alignment = value;
+        characterInfo.playerInfo.Alignment = value;
         break;
       case "Experience":
-        CharacterInfo.playerInfo.Experience = value;
+        characterInfo.playerInfo.Experience = value;
         break;
     }
   };
 
+  useEffect(()=>{
+    setUpdatedValue(false);
+    console.log(characterInfo.playerInfo.Class)
+  },[characterInfo])
   return (
     <div>
       <div className="topInfoContainer">
         <InputField
-          classname={"topTD"}
-          defaultValue={CharacterInfo.playerInfo.Race}
+          key={1+updatedValue}
+          classname={"topTD"}   
           InputText="Race :"
           onValueChanged={(value) => HandleValueChanged(value, "Race")}
+          defaultValue={characterInfo.playerInfo.Race}
         />
         <InputField
+          key={2+updatedValue}
           classname={"topTD"}
-          defaultValue={CharacterInfo.playerInfo.Class}
+          defaultValue={characterInfo.playerInfo.Class}
           InputText="Class :"
           onValueChanged={(value) => HandleValueChanged(value, "Class")}
         />
         <InputField
+          key={3+updatedValue}
           classname={"topTD"}
-          defaultValue={CharacterInfo.playerInfo.SubClass}
+          defaultValue={characterInfo.playerInfo.SubClass}
           InputText="Sub-class :"
           onValueChanged={(value) => HandleValueChanged(value, "SubClass")}
         />
         <InputField
+        key={4+updatedValue}
           classname={"topTD"}
-          defaultValue={CharacterInfo.playerInfo.Background}
+          defaultValue={characterInfo.playerInfo.Background}
           InputText="Background :"
           onValueChanged={(value) => HandleValueChanged(value, "Background")}
         />
@@ -74,21 +82,21 @@ export default function TopbarInfo({CharacterInfo}) {
       <div className="topInfoContainer">
         <InputField
           classname={"topTD"}
-          defaultValue={CharacterInfo.playerInfo.PlayerName}
+          defaultValue={characterInfo.playerInfo.PlayerName}
           InputText=": Playername"
           reversed={true}
           onValueChanged={(value) => HandleValueChanged(value, "PlayerName")}
         />
         <InputField
           classname={"topTD"}
-          defaultValue={CharacterInfo.playerInfo.Alignment}
+          defaultValue={characterInfo.playerInfo.Alignment}
           InputText=": Alignment"
           reversed={true}
           onValueChanged={(value) => HandleValueChanged(value, "Alignment")}
         />
         <InputField
           classname={"topTD"}
-          defaultValue={CharacterInfo.playerInfo.Experience}
+          defaultValue={characterInfo.playerInfo.Experience}
           InputText=": Exp"
           reversed={true}
           onValueChanged={(value) => HandleValueChanged(value, "Experience")}

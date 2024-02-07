@@ -1,82 +1,71 @@
 "use client";
 import StatBox from "./Stat";
-import { CharacterInfo } from "@/utils/Variables";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useCharacterInfo } from "@/utils/characterinfocontext";
 
 export default function StatsContainer() {
   const router = useRouter();
+  const { characterInfo, updateCharacterInfo } = useCharacterInfo();
+  const [updatedValue, setUpdatedValue] = useState(true);
+
   const HandleValueChange = (value, type) => {
     if (!isNaN(parseInt(value))) value = parseInt(value);
     else value = 10;
     switch (type) {
       case "Strength":
-        CharacterInfo.playerStats.Strength = value;
+        characterInfo.playerStats.Strength = value;
         break;
       case "Constitution":
-        CharacterInfo.playerStats.Constitution = value;
+        characterInfo.playerStats.Constitution = value;
         break;
       case "Dexterity":
-        CharacterInfo.playerStats.Dexterity = value;
+        characterInfo.playerStats.Dexterity = value;
         break;
       case "Intelligence":
-        CharacterInfo.playerStats.Intelligence = value;
+        characterInfo.playerStats.Intelligence = value;
         break;
       case "Wisdom":
-        CharacterInfo.playerStats.Wisdom = value;
+        characterInfo.playerStats.Wisdom = value;
         break;
       case "Charisma":
-        CharacterInfo.playerStats.Charisma = value;
+        characterInfo.playerStats.Charisma = value;
         break;
     }
   };
 
-  //Reload Current page
-  const [forceUpdate, setForceUpdate] = useState(false);
-  const HandleEvent = () => {
-    // setForceUpdate((prev) => !prev);
-    console.log(CharacterInfo);
-    router.refresh();
-    //console.log(CharacterInfo);
-  };
+
   useEffect(() => {
-    document.addEventListener("CharacterFileUpdated", HandleEvent);
-    return () => {
-      document.removeEventListener("CharacterFileUpdated", HandleEvent);
-    };
-  }, []);
+    setUpdatedValue(false);
+  }, [characterInfo]);
 
   return (
     <div className="statsContainer">
       <StatBox
-        key={`Strength-${forceUpdate}`}
-        forceUpdate={forceUpdate}
+        key={`Strength-${updatedValue}`}
         statName={"Strength"}
-        defaultValue={CharacterInfo.playerStats.Strength}
+        defaultValue={characterInfo.playerStats.Strength}
         Skills={["Saving throw", "Athletics"]}
         onValueChanged={(value) => HandleValueChange(value, "Strength")}
       />
       <StatBox
-        key={`Constitution-${forceUpdate}`}
-        forceUpdate={forceUpdate}
+        key={`Constitution-${updatedValue}`}
         statName={"Constitution"}
-        defaultValue={CharacterInfo.playerStats.Constitution}
+        defaultValue={characterInfo.playerStats.Constitution}
         Skills={["Saving throw"]}
         onValueChanged={(value) => HandleValueChange(value, "Constitution")}
       />
       <StatBox
-        key={`Dexterity-${forceUpdate}`}
-        forceUpdate={forceUpdate}
+        key={`Dexterity-${updatedValue}`}
         statName={"Dexterity"}
-        defaultValue={CharacterInfo.playerStats.Dexterity}
+        defaultValue={characterInfo.playerStats.Dexterity}
         Skills={["Saving throw", "Acrobatics", "Sleight of hand", "Stealth"]}
         onValueChanged={(value) => HandleValueChange(value, "Dexterity")}
       />
       <StatBox
-        key={`Intelligence-${forceUpdate}`}
-        forceUpdate={forceUpdate}
+        key={`Intelligence-${updatedValue}`}
         statName={"Intelligence"}
-        defaultValue={CharacterInfo.playerStats.Intelligence}
+        defaultValue={characterInfo.playerStats.Intelligence}
         Skills={[
           "Saving throw",
           "Arcana",
@@ -88,10 +77,9 @@ export default function StatsContainer() {
         onValueChanged={(value) => HandleValueChange(value, "Intelligence")}
       />
       <StatBox
-        key={`Wisdom-${forceUpdate}`}
-        forceUpdate={forceUpdate}
+        key={`Wisdom-${updatedValue}`}
         statName={"Wisdom"}
-        defaultValue={CharacterInfo.playerStats.Wisdom}
+        defaultValue={characterInfo.playerStats.Wisdom}
         Skills={[
           "Saving throw",
           "Animal handling",
@@ -103,10 +91,9 @@ export default function StatsContainer() {
         onValueChanged={(value) => HandleValueChange(value, "Wisdom")}
       />
       <StatBox
-        key={`Charisma-${forceUpdate}`}
-        forceUpdate={forceUpdate}
+        key={`Charisma-${updatedValue}`}
         statName={"Charisma"}
-        defaultValue={CharacterInfo.playerStats.Charisma}
+        defaultValue={characterInfo.playerStats.Charisma}
         Skills={[
           "Saving throw",
           "Deception",

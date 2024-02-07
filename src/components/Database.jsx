@@ -1,6 +1,5 @@
 import { database } from "@/utils/appwrite";
 import { Query } from "appwrite";
-import { CharacterInfo } from "@/utils/Variables";
 import { ID } from "appwrite";
 import { userId } from "@/utils/appwrite";
 
@@ -38,45 +37,63 @@ export async function SortSpells(spellList) {
 }
 
 export async function GetUserCharacterSheets() {
-
   const SheetList = await database.listDocuments(
     process.env.NEXT_PUBLIC_SHEET_DATABASE_ID,
     process.env.NEXT_PUBLIC_SHEET_COLLECTION_ID,
-    [Query.equal("UserID",await userId)]
+    [Query.equal("UserID", await userId)]
   );
-  return SheetList
-
+  return SheetList;
 }
-export async function WriteSheetToDatabase() {
+export async function WriteSheetToDatabase(FileToSend) {
   //Make JSON string
-  const JsonData = JSON.stringify(CharacterInfo);
+  const JsonData = JSON.stringify(FileToSend);
+  let SheetID = FileToSend.SheetID;
+  const userID = await userId;
+  if (!userID) {
+    console.error("Could not find active Session!");
+    return;
+  }
   const fileObject = {
-    UserID: await userId,
+    UserID: userID,
     JSONFile: JsonData,
+    SheetID: SheetID,
   };
   //If there is already an existing version, overwrite new saveData
-  if (CharacterInfo.SheetID) {
-    await database.updateDocument(
-      process.env.NEXT_PUBLIC_SHEET_DATABASE_ID,
-      process.env.NEXT_PUBLIC_SHEET_COLLECTION_ID,
-      CharacterInfo.SheetID,
-      fileObject
-    );
-  }
-  //If there is no existing version. Add it to the database 
-  else {
+  if (!SheetID) {
+    //make document with unique ID.
     const Doc = await database.createDocument(
       process.env.NEXT_PUBLIC_SHEET_DATABASE_ID,
       process.env.NEXT_PUBLIC_SHEET_COLLECTION_ID,
       ID.unique(),
       fileObject
     );
-    CharacterInfo.SheetID = Doc.$id;
+
+    fileObject.SheetID = Doc.$id;
+    FileToSend.SheetID = fileObject.SheetID;
+    fileObject.JSONFile = JSON.stringify(FileToSend);
+    console.log("Saved CharacterSheet");
+    
+    //Grab doc and grab the $id which is uniqueID. add said ID to to FileToSend.SheetID;
+    if (fileObject.SheetID !== null) {
+      await database.updateDocument(
+        process.env.NEXT_PUBLIC_SHEET_DATABASE_ID,
+        process.env.NEXT_PUBLIC_SHEET_COLLECTION_ID,
+        fileObject.SheetID,
+        fileObject
+      );
+    } else {
+      console.error("SheetID is null");
+    }
+  }
+
+  //If there is no existing version. Add it to the database
+  else {
     await database.updateDocument(
       process.env.NEXT_PUBLIC_SHEET_DATABASE_ID,
       process.env.NEXT_PUBLIC_SHEET_COLLECTION_ID,
-      CharacterInfo.SheetID,
+      SheetID,
       fileObject
     );
+    console.log("Saved document");
   }
 }

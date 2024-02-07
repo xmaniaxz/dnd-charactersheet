@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import { CharacterInfo } from "@/utils/Variables";
-import { LoadFile } from "@/utils/SaveSystem";
 
 export default function SkillContainer({ skillName, modifier}) {
   const [isProficient, setProficiency] = useState(false);

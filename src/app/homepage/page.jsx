@@ -17,10 +17,6 @@ export default function Home() {
     router.push("/");
   };
 
-  const handlePageRedirect = async (value) => {
-    router.push("/characterpage", params);
-  };
-
   useEffect(() => {
     async function GetSpellData() {
       setLoadingSheetData(true);

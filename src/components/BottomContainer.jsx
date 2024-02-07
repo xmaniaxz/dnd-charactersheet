@@ -1,11 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
-import { GetServerSpells, SortSpells } from "./Database";
+import { GetServerSpells,WriteSheetToDatabase } from "./Database";
 import SpellInfoData from "./SpellInfoData";
 import Filter from "./Filter";
 import SpellButton from "./Spellbutton";
 import Inventory from "./InventoryContainer";
-import { WriteSheetToDatabase } from "./Database";
+import { useCharacterInfo } from "@/utils/characterinfocontext";
 
 export default function SpellContainer() {
   const [spellData, setSpellData] = useState([]);
@@ -13,7 +13,7 @@ export default function SpellContainer() {
   const [activeFilters, setActiveFilters] = useState([]);
   const [activePage, setActivePage] = useState("InventoryContainer");
   const [isLoadingSpellData, setLoadingSpellData] = useState(true);
-
+  const {characterInfo,updateCharacterInfo} = useCharacterInfo();
   //#region Filter
   const toggleFilter = (filterType, filter) => {
     const index = activeFilters.findIndex(
@@ -90,7 +90,7 @@ export default function SpellContainer() {
             Inventory
           </button>
           <button onClick={() => ActiveInfoPage("Info")}>Character info</button>
-          <button onClick={()=>WriteSheetToDatabase()}>Save Document</button>
+          <button onClick={()=>WriteSheetToDatabase(characterInfo)}>Save Document</button>
           <button onClick={()=>LoadFile()}>Load Document</button>
         </div>
 
@@ -110,7 +110,7 @@ export default function SpellContainer() {
                   key={"Class"}
                   filterName="Class"
                   Options={ClassOptions}
-                  onFilterUpdate={async (filterValue, value) => {
+                  onFilterUpdate={(filterValue, value) => {
                     toggleFilter(filterValue, value);
                   }}
                 />
@@ -118,7 +118,7 @@ export default function SpellContainer() {
                   key={"School"}
                   filterName="School"
                   Options={SchoolOptions}
-                  onFilterUpdate={async (filterValue, value) => {
+                  onFilterUpdate={(filterValue, value) => {
                     toggleFilter(filterValue, value);
                   }}
                 />
@@ -126,7 +126,7 @@ export default function SpellContainer() {
                   key={"SpellLevel"}
                   filterName="SpellLevel"
                   Options={LevelOptions}
-                  onFilterUpdate={async (filterValue, value) => {
+                  onFilterUpdate={(filterValue, value) => {
                     toggleFilter(filterValue, value);
                   }}
                 />

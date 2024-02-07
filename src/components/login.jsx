@@ -15,7 +15,12 @@ export default function LoginPage() {
   const IsLoggedIn = async () => {
     try {
       var res = await account.get();
-      redirectTo("./homepage");
+      if(res)
+      {
+        console.log(res)
+        redirectTo("./homepage");
+      }
+      
     } catch (e) {
       console.log("IsLogged In: " + e);
     }
