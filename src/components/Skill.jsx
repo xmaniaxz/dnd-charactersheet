@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { CharacterInfo } from "@/utils/Variables";
 
 export default function SkillContainer({ skillName, modifier}) {

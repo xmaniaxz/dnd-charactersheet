@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import SkillContainer from "./Skill";
+import SkillContainer from "@/components/Skill";
 export default function StatBox({ statName, Skills, onValueChanged,defaultValue,forceUpdate}) {
   if(isNaN(defaultValue)) defaultValue = 10;
   const [inputValue, setInputValue] = useState(defaultValue);

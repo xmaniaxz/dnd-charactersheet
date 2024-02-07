@@ -1,5 +1,4 @@
-import LoginPage from "../components/login";
-// import './globals.css'
+import LoginPage from "@/components/login";
 
 export const metadata = {
     title: 'D&DMCT | Login',

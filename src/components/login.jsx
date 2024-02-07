@@ -1,9 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import { account } from "@/utils/appwrite";
-import { usePathname, useRouter } from "next/navigation";
+import {useRouter } from "next/navigation";
 import { ID } from "appwrite";
-import { userID } from "@/utils/Variables";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");

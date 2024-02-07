@@ -1,5 +1,5 @@
-import InputField from "./Inputfields";
-import WeaponsSys from "./Weapons";
+import InputField from "@/components/Inputfields";
+import WeaponsSys from "@/components/Weapons";
 export default function Inventory() {
   return (
     <div>

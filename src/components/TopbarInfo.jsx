@@ -1,7 +1,7 @@
 "use client";
-import InputField from "./Inputfields";
+import InputField from "@/components/Inputfields";
 import Image from "next/image";
-import { useCharacterInfo } from "@/utils/characterinfocontext";
+import { useCharacterInfo } from "@/components/characterinfocontext";
 import { useEffect,useState } from "react";
 export default function TopbarInfo() {
   const { characterInfo, updateCharacterInfo } = useCharacterInfo();

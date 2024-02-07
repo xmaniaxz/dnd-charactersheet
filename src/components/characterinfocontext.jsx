@@ -1,6 +1,6 @@
 "use client"
 import { createContext, useContext, useState } from "react";
-import { CharacterInfo } from "./Variables";
+import { CharacterInfo } from "@/utils/Variables";
 
 const CharacterInfoContext = createContext();
 

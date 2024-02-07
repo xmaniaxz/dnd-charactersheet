@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import FilterOption from "./FilterButton";
 
 export default function Dropdown({ Options }) {
   const [dropdownOpen, setdropdownOpen] = useState(false);

@@ -1,7 +1,7 @@
 "use client";
-import InputField from "./Inputfields";
+import InputField from "@/components/Inputfields";
 import { useEffect, useState } from "react";
-import { useCharacterInfo } from "@/utils/characterinfocontext";
+import { useCharacterInfo } from "@/components/characterinfocontext";
 export default function UnderInfo() {
   const { characterInfo } = useCharacterInfo();
   const [updatedValue, setUpdatedValue] = useState(true);

@@ -1,4 +1,4 @@
-import { CharacterInfoProvider } from '@/utils/characterinfocontext'
+import { CharacterInfoProvider } from '@/components/characterinfocontext'
 import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 

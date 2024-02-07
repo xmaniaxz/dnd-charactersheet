@@ -5,7 +5,7 @@ import SpellInfoData from "./SpellInfoData";
 import Filter from "./Filter";
 import SpellButton from "./Spellbutton";
 import Inventory from "./InventoryContainer";
-import { useCharacterInfo } from "@/utils/characterinfocontext";
+import { useCharacterInfo } from "@/components/characterinfocontext";
 
 export default function SpellContainer() {
   const [spellData, setSpellData] = useState([]);
