@@ -6,7 +6,7 @@ import BottomContainer from "@/components/BottomContainer";
 import { useEffect, useState } from "react";
 import { useCharacterInfo } from "@/utils/characterinfocontext" // Import the context
 
-export default function CharacterPage({ searchParams }) {
+export default function Home({ searchParams }) {
   const { updateCharacterInfo } = useCharacterInfo(); // Use the context hook
   const [pageIsLoading, setPageIsLoading] = useState(true);
 

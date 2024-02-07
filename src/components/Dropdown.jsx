@@ -24,9 +24,8 @@ export default function Dropdown({ Options }) {
           {/*Options go here*/}
           {Options.map((values) => {
             return (
-              <div>
-                <button
-                key={"key-"+values}
+              <div key={"key-"+values}>
+                <button                
                 style={{backgroundColor: damageType === values ? "blue" : "lightgray" }}
                 onClick={()=> {setDamageType(values),setdropdownOpen(false)}}                  
                   className={`hover:bg-gray-300 hover:cursor-pointer`}
