@@ -3,6 +3,7 @@ import { Query } from "appwrite";
 import { ID } from "appwrite";
 import { userId } from "@/utils/appwrite";
 
+
 export async function GetServerSpells(IncomingFilters) {
   const activeFilters = IncomingFilters || [];
   const queryOptions = [Query.limit(850)];
@@ -38,7 +39,7 @@ export async function SortSpells(spellList) {
 
 export async function GetUserCharacterSheets() {
   const SheetList = await database.listDocuments(
-    process.env.NEXT_PUBLIC_SHEET_DATABASE_ID,
+    process.env.NEXT_PUBLIC_DATABASE_ID,
     process.env.NEXT_PUBLIC_SHEET_COLLECTION_ID,
     [Query.equal("UserID", await userId)]
   );
@@ -62,7 +63,7 @@ export async function WriteSheetToDatabase(FileToSend) {
   if (!SheetID) {
     //make document with unique ID.
     const Doc = await database.createDocument(
-      process.env.NEXT_PUBLIC_SHEET_DATABASE_ID,
+      process.env.NEXT_PUBLIC_DATABASE_ID,
       process.env.NEXT_PUBLIC_SHEET_COLLECTION_ID,
       ID.unique(),
       fileObject
@@ -72,11 +73,11 @@ export async function WriteSheetToDatabase(FileToSend) {
     FileToSend.SheetID = fileObject.SheetID;
     fileObject.JSONFile = JSON.stringify(FileToSend);
     console.log("Saved CharacterSheet");
-    
+
     //Grab doc and grab the $id which is uniqueID. add said ID to to FileToSend.SheetID;
     if (fileObject.SheetID !== null) {
       await database.updateDocument(
-        process.env.NEXT_PUBLIC_SHEET_DATABASE_ID,
+        process.env.NEXT_PUBLIC_DATABASE_ID,
         process.env.NEXT_PUBLIC_SHEET_COLLECTION_ID,
         fileObject.SheetID,
         fileObject
@@ -89,7 +90,7 @@ export async function WriteSheetToDatabase(FileToSend) {
   //If there is no existing version. Add it to the database
   else {
     await database.updateDocument(
-      process.env.NEXT_PUBLIC_SHEET_DATABASE_ID,
+      process.env.NEXT_PUBLIC_DATABASE_ID,
       process.env.NEXT_PUBLIC_SHEET_COLLECTION_ID,
       SheetID,
       fileObject

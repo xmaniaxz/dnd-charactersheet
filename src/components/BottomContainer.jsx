@@ -141,15 +141,15 @@ export default function SpellContainer() {
                   spellData.map((spells) => {
                     return (
                       <SpellButton
-                        key={spells.Spell}
-                        SpellText={spells.Spell}
+                        key={spells.SpellName}
+                        SpellText={spells.SpellName}
                         SpellLevel={spells.SpellLevel}
                         onButtonClick={() => {
                           ActiveSpellPage(spells);
                         }}
                         isActiveSpell={
                           activeSpell !== undefined &&
-                          activeSpell.Spell === spells.Spell
+                          activeSpell.SpellName === spells.SpellName
                         }
                       />
                     );
