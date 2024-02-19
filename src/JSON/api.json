@@ -4187,11 +4187,8 @@
             "duration": "Concentration, up to 1 hour",
             "components": "V",
             "description": "",
-            "higherLevel": "window['nitroAds'].createAd('wad-dnd5e-below-content', {",
-            "spelllists": [
-                "1",
-                "action"
-            ]
+            "higherLevel": "",
+            "spelllists": []
         },
         {
             "spellName": "Invisibility To Cameras (UA)",
@@ -4201,11 +4198,8 @@
             "duration": "Concentration, up to 1 minute",
             "components": "V, S, M",
             "description": "",
-            "higherLevel": "window['nitroAds'].createAd('wad-dnd5e-below-content', {",
-            "spelllists": [
-                "1",
-                "action"
-            ]
+            "higherLevel": "",
+            "spelllists": []
         },
         {
             "spellName": "Leomund's Tiny Hut",
@@ -4215,11 +4209,8 @@
             "duration": "8 hours",
             "components": "V, S, M",
             "description": "",
-            "higherLevel": "window['nitroAds'].createAd('wad-dnd5e-below-content', {",
-            "spelllists": [
-                "1",
-                "action"
-            ]
+            "higherLevel": "",
+            "spelllists": []
         },
         {
             "spellName": "Life Transference",
@@ -4230,10 +4221,7 @@
             "components": "V, S",
             "description": "",
             "higherLevel": "",
-            "spelllists": [
-                "1",
-                "action"
-            ]
+            "spelllists": []
         },
         {
             "spellName": "Lightning Arrow",

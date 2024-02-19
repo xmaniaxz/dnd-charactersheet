@@ -10,7 +10,13 @@ export async function GetServerSpells(IncomingFilters) {
   if (activeFilters.length > 0) {
     //Include active filters in the query
     activeFilters.forEach((filter) => {
+      if(filter[0] !== "Class"){
       queryOptions.push(Query.equal(filter[0], filter[1]));
+      }
+      else{
+        ////Code for class system
+        queryOptions.push(Query.search(filter[0],filter[1]))
+      }
     });
   }
   const x = await database.listDocuments(
@@ -19,6 +25,7 @@ export async function GetServerSpells(IncomingFilters) {
     queryOptions
   );
   const list = await SortSpells(x["documents"]);
+  console.log(`Database.jsx: Found list: ${list}`)
   return list;
 }
 

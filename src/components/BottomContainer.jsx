@@ -35,6 +35,7 @@ export default function SpellContainer() {
   useEffect(() => {
     async function GetSpellData() {
       setLoadingSpellData(true);
+      console.log(`trying to find spells with filters: ${activeFilters}`)
       setSpellData(await GetServerSpells(activeFilters));
       setLoadingSpellData(false);
     }
