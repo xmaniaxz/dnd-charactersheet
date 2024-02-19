@@ -4,9 +4,8 @@ import UnderInfo from "@/components/UnderProfile";
 import StatsContainer from "@/components/StatsContainer";
 import BottomContainer from "@/components/BottomContainer";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useCharacterInfo } from "@/components/characterinfocontext"; // Import the context
-import { isUndefined } from "swr/_internal";
 
 export default function CharacterSheet() {
   const searchParams = useSearchParams();
@@ -14,7 +13,7 @@ export default function CharacterSheet() {
   const [pageIsLoading, setPageIsLoading] = useState(true);
 
   useEffect(() => {
-    console.log("CharacterSheet.jsx: Hook Firing")
+    console.log("CharacterSheet.jsx: Hook Firing");
     setPageIsLoading(true);
     if (searchParams && searchParams.get("characterInfo")) {
       console.log(characterInfo);
@@ -23,19 +22,20 @@ export default function CharacterSheet() {
       console.log(`CharacterSheet.jsx: Loaded sheet: ${JSON.stringify(sheet)}`);
       setPageIsLoading(false);
     } else {
-      console.error(`CharacterSheet.jsx: Couldnt find Params. Check: ${searchParams}`);
+      console.error(
+        `CharacterSheet.jsx: Couldn't find Params. Check: ${searchParams}`
+      );
     }
   }, []);
 
-
   return (
     <div>
-      <div className="topContainer">
-        <TopbarInfo />
-        <UnderInfo />
-        <StatsContainer />
-      </div>
-      <BottomContainer />
+        <div className="topContainer">
+          <TopbarInfo />
+          <UnderInfo />
+          <StatsContainer />
+        </div>
+        <BottomContainer />
     </div>
   );
 }

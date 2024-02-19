@@ -1,5 +1,5 @@
-"use client"
-import { createContext, useContext, useState } from "react";
+"use client";
+import { Suspense, createContext, useContext, useState } from "react";
 import { CharacterInfo } from "@/utils/Variables";
 
 const CharacterInfoContext = createContext();
@@ -13,9 +13,13 @@ export const CharacterInfoProvider = ({ children }) => {
   };
 
   return (
-    <CharacterInfoContext.Provider value={{ characterInfo, updateCharacterInfo }}>
-      {children}
-    </CharacterInfoContext.Provider>
+    <Suspense>
+      <CharacterInfoContext.Provider
+        value={{ characterInfo, updateCharacterInfo }}
+      >
+        {children}
+      </CharacterInfoContext.Provider>
+    </Suspense>
   );
 };
 
