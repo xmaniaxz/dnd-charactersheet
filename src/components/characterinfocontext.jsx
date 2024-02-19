@@ -9,9 +9,6 @@ export const CharacterInfoProvider = ({ children }) => {
 
   const updateCharacterInfo = (newCharacterInfo) => {
     setCharacterInfo(newCharacterInfo);
-
-    // Code to save updated characterInfo to your save file
-    // For simplicity, we'll just log the updated characterInfo
     console.log("Updated characterInfo:", newCharacterInfo);
   };
 

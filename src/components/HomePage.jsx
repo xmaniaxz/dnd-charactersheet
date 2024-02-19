@@ -70,7 +70,7 @@ export default function HomePage() {
   }, [showAlertBox]);
 
   return (
-    <main>
+    <div>
       <div>
         {showAlertBox ? (
           <AlertBox onCallback={(e) => HandleAlertBoxCallback(e)} />
@@ -133,12 +133,6 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
-}
-
-{
-  /* <div className="sheetPreview">
-
-</div> */
 }

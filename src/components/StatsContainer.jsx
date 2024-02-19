@@ -6,7 +6,7 @@ import { useCharacterInfo } from "@/components/characterinfocontext";
 
 export default function StatsContainer() {
   const router = useRouter();
-  const { characterInfo, updateCharacterInfo } = useCharacterInfo();
+  const { characterInfo } = useCharacterInfo();
   const [updatedValue, setUpdatedValue] = useState(true);
 
   const HandleValueChange = (value, type) => {

@@ -6,6 +6,7 @@ import BottomContainer from "@/components/BottomContainer";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useCharacterInfo } from "@/components/characterinfocontext"; // Import the context
+import { isUndefined } from "swr/_internal";
 
 export default function CharacterSheet() {
   const searchParams = useSearchParams();
@@ -13,26 +14,28 @@ export default function CharacterSheet() {
   const [pageIsLoading, setPageIsLoading] = useState(true);
 
   useEffect(() => {
+    console.log("CharacterSheet.jsx: Hook Firing")
     setPageIsLoading(true);
     if (searchParams && searchParams.get("characterInfo")) {
+      console.log(characterInfo);
       const sheet = JSON.parse(searchParams.get("characterInfo"));
       updateCharacterInfo(sheet); // Update characterInfo using the context
-      console.log(`Loaded sheet: ${sheet}`);
+      console.log(`CharacterSheet.jsx: Loaded sheet: ${JSON.stringify(sheet)}`);
       setPageIsLoading(false);
     } else {
-      console.error(`Couldnt find Params. Check: ${searchParams}`);
+      console.error(`CharacterSheet.jsx: Couldnt find Params. Check: ${searchParams}`);
     }
   }, []);
 
 
   return (
-    <main>
+    <div>
       <div className="topContainer">
         <TopbarInfo />
         <UnderInfo />
         <StatsContainer />
       </div>
       <BottomContainer />
-    </main>
+    </div>
   );
 }

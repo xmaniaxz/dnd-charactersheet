@@ -18,7 +18,7 @@ async function GetUserID(){
     }
     catch
     {
-        return null;
+        return null
     }
     
 }
