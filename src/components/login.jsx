@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { account } from "@/utils/appwrite";
-import {useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ID } from "appwrite";
 
 export default function LoginPage() {
@@ -14,14 +14,12 @@ export default function LoginPage() {
   const IsLoggedIn = async () => {
     try {
       var res = await account.get();
-      if(res)
-      {
-        console.log(res)
+      if (res) {
         redirectTo("./homepage");
       }
-      
     } catch (e) {
       console.log("IsLogged In: " + e);
+      setLoading(false);
     }
   };
 
@@ -45,8 +43,6 @@ export default function LoginPage() {
       setPassword("");
       setLoading(false);
       IsLoggedIn();
-      // Redirect to the desired page after successful login
-      redirectTo("./characterpage");
     } catch (error) {
       console.error(error);
 
@@ -68,40 +64,47 @@ export default function LoginPage() {
         <h1 className="text-3xl font-semibold mb-4">Login</h1>
         <form>
           {/* email Input */}
-          <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-600"
-            >
-              Email
-            </label>
-            <input
-              id="email"
-              type="text"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-            />
-          </div>
+          {loading ? (
+            <div className="spinner absolute inset-0 flex items-center justify-center">
+              <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-blue-300 border-r-0 border-b-0 border-l-0"></div>
+            </div>
+          ) : (
+            <div>
+              <div className="mb-4">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-600"
+                >
+                  Email
+                </label>
+                <input
+                  id="email"
+                  type="text"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                />
+              </div>
 
-          {/* Password Input */}
-          <div className="mb-4">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-600"
-            >
-              Password
-            </label>
-            <input
-              id="password"
-              type="password"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-            />
-          </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-600"
+                >
+                  Password
+                </label>
+                <input
+                  id="password"
+                  type="password"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                />
+              </div>
+            </div>
+          )}
           <div className="flex justify-center items-center">
             {/* Login Button with Spinner */}
             <button

@@ -98,3 +98,12 @@ export async function WriteSheetToDatabase(FileToSend) {
     console.log("Saved document");
   }
 }
+
+export async function DeleteSheetFromDatabase(SheetID){
+  await database.deleteDocument(
+    process.env.NEXT_PUBLIC_DATABASE_ID,
+    process.env.NEXT_PUBLIC_SHEET_COLLECTION_ID,
+    SheetID,
+  );
+  console.log("Deleted document")
+}

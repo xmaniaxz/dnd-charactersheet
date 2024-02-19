@@ -19,11 +19,21 @@
     "Wisdom":10,
     "Charisma":10,
   };
- let playerInventory;
+ let playerInventory = {
+    Weapons: [],
+    Coins: {
+      "Copper": 0,
+      "Silver":0,
+      "Gold":0,
+      "Platinum":0
+    },
+    Inventory: ""
+
+ };
 
 export let CharacterInfo = {
   SheetID: null,
   playerInfo,
   playerStats,
-  playerInventory
+  playerInventory,
 }

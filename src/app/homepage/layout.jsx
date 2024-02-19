@@ -3,8 +3,8 @@ import styles from '@/app/homepage/homepage.module.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'D&DMCT',
-  description: 'D&D Character Management Tool'
+  title: 'D&DCMT | Home',
+  description: 'D&D Character Management Tool Login page'
 }
 
 export default function RootLayout({ children }) {

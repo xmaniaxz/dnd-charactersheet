@@ -1,7 +1,7 @@
 import LoginPage from "@/components/login";
 
 export const metadata = {
-    title: 'D&DMCT | Login',
+    title: 'D&DCMT | Login',
     description: 'D&D Character Management Tool Login page'
   }
 

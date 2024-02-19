@@ -91,7 +91,6 @@ export default function SpellContainer() {
           </button>
           <button onClick={() => ActiveInfoPage("Info")}>Character info</button>
           <button onClick={()=>WriteSheetToDatabase(characterInfo)}>Save Document</button>
-          <button onClick={()=>LoadFile()}>Load Document</button>
         </div>
 
         <div

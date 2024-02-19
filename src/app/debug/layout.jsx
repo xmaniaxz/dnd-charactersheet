@@ -1,18 +1,17 @@
 import { CharacterInfoProvider } from '@/components/characterinfocontext'
 import { Inter } from 'next/font/google'
+import Script from 'next/script'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'D&DCMT | Sheet',
+  title: 'D&DCMT | Debug',
   description: 'D&D Character Management Tool'
 }
 
 export default function RootLayout({ children }) {
   return (
     <html  lang="en">
-      <CharacterInfoProvider>
-      <body className={inter}>{children}</body>
-      </CharacterInfoProvider>
+      <body className={`m-0 latin`}>{children}</body>  
     </html>
   )
 }

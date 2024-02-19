@@ -34,7 +34,7 @@ export default function TopbarInfo() {
 
   useEffect(()=>{
     setUpdatedValue(false);
-    console.log(characterInfo.playerInfo.Class)
+
   },[characterInfo])
   return (
     <div>

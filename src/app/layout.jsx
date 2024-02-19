@@ -4,11 +4,6 @@ import "@/app/WeaponSys.css";
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata = {
-  title: 'D&DMCT',
-  description: 'D&D Character Management Tool'
-}
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
