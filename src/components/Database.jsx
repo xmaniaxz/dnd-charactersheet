@@ -3,29 +3,34 @@ import { Query } from "appwrite";
 import { ID } from "appwrite";
 import { userId } from "@/utils/appwrite";
 
-
 export async function GetServerSpells(IncomingFilters) {
   const activeFilters = IncomingFilters || [];
   const queryOptions = [Query.limit(850)];
   if (activeFilters.length > 0) {
     //Include active filters in the query
     activeFilters.forEach((filter) => {
-      if(filter[0] !== "Class"){
-      queryOptions.push(Query.equal(filter[0], filter[1]));
-      }
-      else{
-        ////Code for class system
-        queryOptions.push(Query.search(filter[0],filter[1]))
+      switch (filter[0]) {
+        case "SpellName":
+          //console.log(`Database.jsx: Got: SpellName with filters ${filter[0]} | ${filter[1]}}`)
+          queryOptions.push(Query.search(filter[0],`./${filter[1]}/`));
+          break;
+        case "Class":
+          queryOptions.push(Query.search(filter[0], filter[1]));
+          break;
+        default:
+          queryOptions.push(Query.equal(filter[0], filter[1]));
+          break;
       }
     });
   }
+  //console.log(`trying to find spells with filters: ${queryOptions}`);
   const x = await database.listDocuments(
     process.env.NEXT_PUBLIC_DATABASE_ID,
     process.env.NEXT_PUBLIC_COLLECTION_SPELL_ID,
     queryOptions
   );
   const list = await SortSpells(x["documents"]);
-  console.log(`Database.jsx: Found list: ${list}`)
+  //console.log(`Database.jsx: Found list: ${JSON.stringify(list)}`);
   return list;
 }
 
@@ -106,11 +111,11 @@ export async function WriteSheetToDatabase(FileToSend) {
   }
 }
 
-export async function DeleteSheetFromDatabase(SheetID){
+export async function DeleteSheetFromDatabase(SheetID) {
   await database.deleteDocument(
     process.env.NEXT_PUBLIC_DATABASE_ID,
     process.env.NEXT_PUBLIC_SHEET_COLLECTION_ID,
-    SheetID,
+    SheetID
   );
-  console.log("Deleted document")
+  console.log("Deleted document");
 }

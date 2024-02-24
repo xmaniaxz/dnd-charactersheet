@@ -6,13 +6,11 @@ export default function UnderInfo() {
   const { characterInfo } = useCharacterInfo();
   const [updatedValue, setUpdatedValue] = useState(true);
   const handleProficiencyChange = (value) => {
-
     value = parseInt(value);
     if (isNaN(value)) {
       value = 0;
     }
     characterInfo.playerStats.Proficiency = value;
-    
   };
   const handleCharacterNameChange = (value) => {
     characterInfo.playerInfo.CharacterName = value;

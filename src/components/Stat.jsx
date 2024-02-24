@@ -1,13 +1,19 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import SkillContainer from "@/components/Skill";
-export default function StatBox({ statName, Skills, onValueChanged,defaultValue,forceUpdate}) {
-  if(isNaN(defaultValue)) defaultValue = 10;
+import { useCharacterInfo } from "./characterinfocontext";
+export default function StatBox({
+  statName,
+  Skills,
+  onValueChanged,
+  defaultValue,
+  forceUpdate,
+}) {
   const [inputValue, setInputValue] = useState(defaultValue);
   const [modifier, setModifier] = useState(0);
   const [isSkillContainerVisible, setSkillContainerVisible] = useState(false);
   const [skillsContainerHeight, setSkillsContainerHeight] = useState("auto");
-
+  const {characterInfo} = useCharacterInfo();
   const skillsContainerRef = useRef(null);
 
   const calcModifier = (input) => {
@@ -17,8 +23,20 @@ export default function StatBox({ statName, Skills, onValueChanged,defaultValue,
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
-    onValueChanged(event.target.value,statName);
+    onValueChanged(event.target.value, statName);
   };
+
+  const handleProficiency = (type,isProficient) =>{
+    type = type.replace(" ","")
+    //For some reason isProficient is being sent as an inversed variable
+    try{
+      characterInfo.playerStats.Proficiencies[type] = !isProficient
+    }
+    catch(e)
+    {
+      console.error(`Stat.jsx: ` + e);
+    }
+  }
 
   useEffect(() => {
     setModifier(calcModifier(inputValue));
@@ -69,10 +87,17 @@ export default function StatBox({ statName, Skills, onValueChanged,defaultValue,
         <div className="mt-5">
           {Skills &&
             Skills.map((values) => {
-              return(          
-              <SkillContainer key={values+"-"+forceUpdate} skillName={values} modifier={modifier} />
-              
-              )})}
+              // {console.log(`${statName} ${values}`)}
+              return (
+                <SkillContainer
+                  key={`${statName} ${values}-${modifier}`}
+                  skillName={values}
+                  modifier={modifier}
+                  isproficient={(e)=>handleProficiency(statName+values,e)}
+                  identifier={statName+values}
+                />
+              );
+            })}
         </div>
       </div>
     </div>
