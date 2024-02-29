@@ -1,4 +1,4 @@
-import styles from "@/app/homepage/homepage.module.css";
+import styles from "@/CSS/homepage.module.css";
 import { useState,useEffect } from "react";
 
 export default function AlertBox({ onCallback }) {

@@ -1,5 +1,6 @@
 'use client'
 import { useState } from "react";
+import style from "@/CSS/filter.module.css"
 
 export default function FilterOption({filterName, onChange}) {
   const [isClicked, setIsClicked] = useState(false);
@@ -12,16 +13,14 @@ export default function FilterOption({filterName, onChange}) {
 
   
   return (
-    <div className="filterButton">
+    <div className={`${style.filterButtonContainer}`}>
       <button
         onClick={handleClick}
-        style= {{ backgroundColor: isClicked ? 'lime' : 'lightgray' }}
-        className={`hover:bg-gray-300 hover:cursor-pointer`}
+        className={`${isClicked ? style.filterButtonActive :  style.filterButton}`}
       >
         <li>{filterName}</li>
 
       </button>
-      <hr />
     </div>
   )
 }

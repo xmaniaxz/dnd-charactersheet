@@ -2,10 +2,12 @@
 import { useEffect, useState } from "react";
 import { account } from "@/utils/appwrite";
 import { useRouter } from "next/navigation";
-import { ID } from "appwrite";
+import styles from "@/CSS/loginpage.module.css";
+import { AppwriteException, ID } from "appwrite";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -18,7 +20,7 @@ export default function LoginPage() {
         redirectTo("./homepage");
       }
     } catch (e) {
-      console.log("IsLogged In: " + e);
+    } finally {
       setLoading(false);
     }
   };
@@ -30,8 +32,22 @@ export default function LoginPage() {
       setPassword("");
       setLoading(false);
       IsLoggedIn();
-    } catch (error) {
-      console.error(error);
+    } catch (e) {
+      if (e instanceof AppwriteException) {
+        console.log(e.type);
+        switch (e.type) {
+          case "user_invalid_credentials":
+            setErrorMessage("Invalid username or password");
+            break;
+          case "general_argument_invalid":
+            setErrorMessage("Invalid Email adress");
+            break;
+          default:
+            setErrorMessage("Something went wrong, Try again");
+            break;
+        }
+      }
+    } finally {
       setLoading(false);
     }
   }
@@ -59,87 +75,43 @@ export default function LoginPage() {
   }, []);
 
   return (
-    <div className="flex h-screen justify-center items-center">
-      <div className="text-black bg-white p-8 rounded shadow-md h-82 w-96">
-        <h1 className="text-3xl font-semibold mb-4">Login</h1>
-        <form>
-          {/* email Input */}
-          {loading ? (
-            <div className="spinner absolute inset-0 flex items-center justify-center">
-              <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-blue-300 border-r-0 border-b-0 border-l-0"></div>
-            </div>
-          ) : (
-            <div>
-              <div className="mb-4">
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-600"
-                >
-                  Email
-                </label>
-                <input
-                  id="email"
-                  type="text"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-                />
-              </div>
-
-              <div className="mb-4">
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium text-gray-600"
-                >
-                  Password
-                </label>
-                <input
-                  id="password"
-                  type="password"
-                  placeholder="Enter your password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-                />
-              </div>
-            </div>
-          )}
-          <div className="flex justify-center items-center">
-            {/* Login Button with Spinner */}
+    <div className="w-screen h-[100vh]">
+      <div className={`${styles.background}`}></div>
+      <div className={`${styles.container}`}>
+        <div className={`${styles.loginContainer}`}>
+        <div className="logo"/>
+          <div className={`${styles.inputContainer}`}>
+            <input
+              className={`${styles.inputField}`}
+              placeholder="Email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              className={`${styles.inputField}`}
+              placeholder="Password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <p className={`text-[red]`}>{errorMessage}</p>
+          <div className={`${styles.buttonContainer}`}>
             <button
-              type="button"
-              onClick={handleLogin}
-              className={`relative bg-blue-500 text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600 ${
-                loading && "opacity-50 cursor-not-allowed"
-              }`}
-              disabled={loading}
+              className={`${styles.loginButton}`}
+              onClick={() => handleLogin()}
             >
-              {loading && (
-                <div className="spinner absolute inset-0 flex items-center justify-center">
-                  <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-blue-300 border-r-0 border-b-0 border-l-0"></div>
-                </div>
-              )}
-              {loading ? "Loading..." : "Login"}
+              Login
             </button>
-            {/* Register button */}
             <button
-              type="button"
-              onClick={handleRegister}
-              className={`relative ml-2 bg-blue-500 text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600 ${
-                loading && "opacity-50 cursor-not-allowed"
-              }`}
-              disabled={loading}
+              className={`${styles.registerButton}`}
+              onClick={() => handleRegister()}
             >
-              {loading && (
-                <div className="spinner absolute inset-0 flex items-center justify-center">
-                  <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-blue-300 border-r-0 border-b-0 border-l-0"></div>
-                </div>
-              )}
-              {loading ? "Loading..." : "Register"}
+              Register
             </button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );

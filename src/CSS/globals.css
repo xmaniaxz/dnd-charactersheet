@@ -2,26 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --BorderGray: rgb(44, 44, 44);
+  --BorderGrayA: 44,44,44;
+}
+
+html{
+  padding: 0;
+  margin: 0;
+}
+
 html {
-    background: linear-gradient(135deg, rgb(53, 53, 53), gray);
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 120vh;
+  background: linear-gradient(135deg, rgb(53, 53, 53), gray);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
 }
 
 body {
-    font-family: helvetica;
-    color: white;
-    margin:20px;
-    padding:0;
-    
+  font-family: helvetica;
+  color: white;
+  margin: 0;
+  padding: 0;
 }
 
-.topContainer{
+.topContainer {
   width: 100%;
-  float:left;
+  float: left;
 }
-.underHPContainer{
+.underHPContainer {
   margin: auto;
   width: 30%;
   height: 10vh;
@@ -31,32 +40,32 @@ body {
   align-items: center;
   justify-content: center;
 }
-.underHP{
+.underHP {
   margin: 10px 0;
   /* border: 1px solid white; */
 }
-.underHP > input{
+.underHP > input {
   margin: 0 3px;
   width: 50%;
   height: 3vh;
-  padding:0;
-  background:inherit;
+  padding: 0;
+  background: inherit;
   float: left;
   border: 1px solid white;
 }
-.underHP > label{
+.underHP > label {
   margin: 10px 0;
   width: 50%;
   height: 3vh;
 }
 
-.topInfoContainer{
-  float:left;
+.topInfoContainer {
+  float: left;
   width: 33.33%;
   height: 33vh;
   /* border: solid 1px white; */
 }
-.topTD{
+.topTD {
   font-size: xx-large;
   margin: 30px 0;
   width: 100%;
@@ -64,20 +73,19 @@ body {
   /* background:transparent; */
 }
 
-.topTD > input{
-  
+.topTD > input {
   width: 50%;
   padding: 0 20px;
   font-size: large;
-  background:inherit;
+  background: inherit;
   float: left;
   border: 1px solid white;
 }
-.topTD > label{
+.topTD > label {
   width: 50%;
 }
 
-.imageContainer{
+.imageContainer {
   width: 400px;
   height: 400px;
   overflow: hidden;
@@ -91,9 +99,9 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin: auto;
+  /* border: solid 1px white; */
+  margin: 3vh 0;
   width: 100%;
-  height: 100%;
 }
 
 .statContainer {
@@ -109,7 +117,16 @@ body {
   flex-direction: column;
   border-radius: 20px;
   overflow: hidden;
-  transition: transform 0.5s ease;
+  transition: all 0.5s ease;
+  border: solid black 2px;
+}
+
+.statsButton{
+  border: solid 1px var(--BorderGray);
+  transition: all ease-in-out 0.2s;
+}
+.statsButton:hover{
+  background: rgb(215, 215, 215);
 }
 
 .SkillContainer {
@@ -117,68 +134,65 @@ body {
   z-index: 0;
   width: 10rem;
   margin: 0 40px;
-  min-height: 5rem;
   background-color: white;
   color: black;
   text-align: center;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+  transition: all 0.3s ease;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   transform: translateY(-100%);
-  opacity: 0; 
-  visibility: hidden; 
+  opacity: 0;
+  visibility: hidden;
 }
 
 .SkillContainer.visible {
   opacity: 1;
   visibility: visible;
-  transform: translateY(-20px);
+  transform: translateY(-15px);
+  border:  solid 2px black;
 }
 
-.statContainer > input{
+.statContainer > input {
   margin: auto;
   width: 80%;
   text-align: center;
   background: transparent;
 }
 
-.statContainer > button{
+.statContainer > button {
   margin: auto;
   height: 10%;
-  border-radius: 10px
+  border-radius: 10px;
 }
 
-
- button{
+button {
   width: 80%;
   height: 4vh;
   background: rgb(203, 203, 203);
-  color:  black;
+  color: black;
   border-radius: 5px;
- }
+}
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
+  -webkit-appearance: none;
 }
 
-
-input[type=number]
-{
-    appearance: textfield;
-    -moz-appearance: textfield;
+input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
 }
-
-
 
 .bottomContainer {
   width: 90%;
   height: 40vh;
   margin: 0 auto;
-  border: 1px solid white;
+  border: 2px solid var(--BorderGray);
+  box-shadow: 5px 5px rgba(38, 38, 38, 0.253);
+  border-radius: 10px;
 }
 
 .BottomInfoContainerButtons {
@@ -190,21 +204,46 @@ input[type=number]
   justify-content: center;
   align-items: center;
   gap: 15px;
-  border: solid 1px white;
+  /* border: solid 1px white; */
 }
+
+.BottomContainerButton {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #f0f0f0; /* Light grey text */
+  background-color: rgba(
+    212,
+    212,
+    212,
+    0.246
+  ); /* Semi-transparent dark grey background */
+  border: solid rgb(143, 143, 143) 2px;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.BottomContainerButton:hover {
+  background-color: #555555;
+}
+
 .BottomInfoContainer {
   float: left;
   height: 100%;
   width: 40%;
-  border:  solid 1px white;
+  border: solid 1px var(--BorderGray);
   box-sizing: border-box; /* Include box-sizing property for consistency */
 }
 
 .BottomInfoContainerHeader {
   float: left;
   width: 100%;
-  height: 10%;
-  border: solid 1px white;
+  height: 3vh;
+  border: solid 2px var(--BorderGray);
   display: flex;
   align-items: center;
   box-sizing: border-box;
@@ -214,7 +253,7 @@ input[type=number]
   float: left;
   overflow-y: auto;
   height: 37dvh;
-  width: 100%; 
+  width: 100%;
   box-sizing: border-box;
 }
 
@@ -226,59 +265,56 @@ input[type=number]
   overflow-y: auto;
 }
 
-
-.SpellInfoContainer{
-  
+.SpellInfoContainer {
   width: 35%;
   float: left;
   height: 40vh;
   /* border: solid green 2px; */
-  
 }
 
-.SpellInfoOffset{
+.SpellInfoOffset {
   overflow-y: auto;
   width: 90%;
   height: calc(100% - 10px);
   margin: 5px auto;
 }
 .spellButton {
-  width: 100%; 
-  box-sizing: border-box;
-}
-
-.filterButton{
   width: 100%;
-  height: 100%;
-  margin: 5px;
+  transition: ease-in-out 0.3s all;
+  border: solid 1px gray;
+  /* box-sizing: border-box; */
+}
+.spellButton:hover{
+  background: rgba(128, 128, 128, 0.279);
+  border : solid 3px #575757;
 }
 
-.InventoryContainer{
+.InventoryContainer {
   float: left;
   width: 75%;
   height: 40vh;
   overflow-y: auto;
   /* border: 2px solid rgb(0, 255, 0); */
 }
-.MoneyContainer{
+.MoneyContainer {
   margin: 20px 20px;
   float: left;
   width: 50%;
 }
-.InventoryMoneyInputFields > input{
+.InventoryMoneyInputFields > input {
   background-color: transparent;
+  text-align: center;
   width: 5em;
   height: 40px;
-  border: solid 1px white;
+  border: solid 1px var(--BorderGray);
 }
-.InventoryMoneyInputFields > label{
-  width:  7.5em;
+.InventoryMoneyInputFields > label {
+  width: 7.5em;
   margin: 10px 10px;
 }
 
-
-.BackgroundImageTextArea{
-  background-image: url('/OldPaper.png');
+.BackgroundImageTextArea {
+  background-image: url("/OldPaper.png");
   background-size: cover;
   width: 60%;
   height: calc(100% - 20px);
@@ -290,7 +326,7 @@ input[type=number]
   background-position: center center;
 }
 
-.InventoryAreaHeader{
+.InventoryAreaHeader {
   width: 90%;
 
   /* border: solid 1px green; */
@@ -298,53 +334,109 @@ input[type=number]
   font-size: x-large;
   text-align: center;
   margin-top: 5%;
-  color:black;
+  color: black;
 }
 
-.InventoryArea{
-  flex:1;
+.InventoryArea {
+  flex: 1;
   width: 90%;
   height: 75%;
   resize: none;
-  color:  black;
+  color: black;
   font-size: x-large;
   font-family: cursive;
   overflow-y: auto;
   /* border: solid 1px green; */
   background-color: transparent;
   margin-bottom: 5%;
-  
 }
 
-.InventoryArea:focus{
-  outline:none;
+.InventoryArea:focus {
+  outline: none;
 }
 
-
-.SearchBarContainer{
+.SearchBarContainer {
   border-radius: 5px;
   border: solid 1px white;
+  width: 100%;
+  height: 80%;
+  margin-top: 4px;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
 }
-.SearchBar{
+.SearchBar {
   background: transparent;
-  color:white;
+  color: white;
   width: 75%;
 }
-.SearchBar:focus{
+.SearchBar:focus {
   border-radius: 5px;
   border: solid 1px white;
   outline: none;
 }
 
-.gg-remove{
-  background: transparent;
-  color: white;
-  transition: all ease 0.2s;
+.spellListContainer{
+  float: left;
+  border: solid 1px var(--BorderGray);
+  width: 75%;
+  height: 39.9vh;
+  border: solid 1px white;
 }
-.gg-remove:hover{
-  color: red;
+
+.spellLevelListContainer{
+  width: 25%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.spellAlertBox{
+  position: relative;
+  width: 40%;
+  height: 80vh;
+  background: rgba(127, 127, 127, 0.578);
+  border: solid 1px var(--BorderGray);
+  border-radius: 20px;
+}
+
+.listContainer{
+  overflow-y: auto;
+  height: calc(100% - 10vh);
+  margin-top: 4vh;
+  padding: 0px 30px;
+}
+
+.spellName:hover +  .spellInfoContainer {
+  display: block;
+}
+
+.spellInfoContainer{
+  display: none;
+  position: absolute;
+  top: 8vh;
+  right: 20px;
+  width: 60%;
+  height: 70vh;
+  border: solid 3px var(--BorderGray);
+  border-radius: 20px;
+  background: rgba(var(--BorderGrayA),0.7);
+}
+
+
+.spellName:hover{
+  background: rgb(73, 73, 73);
+}
+
+
+.logo{
+  top: -200px;
+  position: relative;
+  background-image: url("/Logo.png");
+  background-size: cover;
+  width: 400px;
+  height: 400px;
+  /* border: solid 1px white; */
 }

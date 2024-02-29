@@ -1,5 +1,5 @@
 "use client";
-import styles from "@/app/homepage/homepage.module.css";
+import styles from "@/CSS/homepage.module.css";
 import { GetUserCharacterSheets,DeleteSheetFromDatabase } from "@/components/Database";
 import { account } from "@/utils/appwrite";
 import { useRouter } from "next/navigation";

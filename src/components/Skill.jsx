@@ -29,7 +29,8 @@ export default function SkillContainer({ skillName, modifier, isproficient,ident
       />
       <input
         className="w-6 text-center"
-        Value={isProficient ? modifier + characterInfo.playerStats.Proficiency : modifier}
+        value={isProficient ? modifier + characterInfo.playerStats.Proficiency : modifier}
+        readOnly
         type="number"
       />
       <p>{skillName}</p>

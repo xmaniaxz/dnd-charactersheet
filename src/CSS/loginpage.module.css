@@ -1,0 +1,95 @@
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("/painting-mountain-lake-with-mountain-background.jpg");
+  filter: blur(2px);
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -1;
+  height: 100vh;
+}
+
+
+.container{
+  height: 100%;
+  min-width: 30%;
+  max-width: 30%;
+}
+
+@media (max-width: 1667px) {
+   .container {
+     max-width: 500px !important;
+     /* min-width: none;
+     max-width: none; */
+   }
+}
+
+.loginContainer {
+  height: 100%;
+  background: rgba(46, 46, 46, 0.403);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 90%;
+  height: 10vh;
+}
+
+.inputField {
+  text-align: center;
+  height: 4vh;
+  background: rgba(255, 255, 255, 0.691);
+  border: none;
+  border-radius: 25px;
+  padding: 0.5rem;
+  font-size: 1rem;
+  color: #333;
+  outline: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: solid 2px rgba(255, 255, 255, 0.691);
+  transition: border 0.3s ease;
+}
+
+.inputField::placeholder {
+  color: #999;
+}
+
+.inputField:hover {
+  border: solid 2px rgba(0, 103, 182,0.8);
+}
+
+.inputField:focus {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.buttonContainer {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginButton,
+.registerButton {
+  margin: 0.5rem;
+  width: 50%;
+  border-radius: 25px;
+  border: solid 1px black;
+  background: rgba(255, 255, 255, 0.691);
+  transition: ease 0.3s all;
+}
+
+
+.loginButton:hover,.registerButton:hover{
+  border: solid 5px rgba(0, 103, 182,0.8);
+  background: rgba(255, 255, 255, 0.8);
+}

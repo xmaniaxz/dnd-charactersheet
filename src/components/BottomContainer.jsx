@@ -6,13 +6,14 @@ import Filter from "./Filter";
 import SpellButton from "./Spellbutton";
 import Inventory from "./InventoryContainer";
 import Searchbar from "./SearchBar";
+import SpellList from "./SpellList";
 import { useCharacterInfo } from "@/components/characterinfocontext";
 
 export default function SpellContainer() {
   const [spellData, setSpellData] = useState([]);
   const [activeSpell, setActiveSpell] = useState();
   const [activeFilters, setActiveFilters] = useState([]);
-  const [activePage, setActivePage] = useState("InventoryContainer");
+  const [activePage, setActivePage] = useState("SpellListContainer");
   const [isLoadingSpellData, setLoadingSpellData] = useState(true);
   const { characterInfo, updateCharacterInfo } = useCharacterInfo();
 
@@ -128,14 +129,17 @@ export default function SpellContainer() {
     <div className="w-full flex">
       <div className="bottomContainer">
         <div className="BottomInfoContainerButtons">
-          <button onClick={() => ActiveInfoPage("SpellsContainer")}>
+          <button className="BottomContainerButton" onClick={() => ActiveInfoPage("SpellsContainer")}>
             Spells
           </button>
-          <button onClick={() => ActiveInfoPage("InventoryContainer")}>
+          <button className="BottomContainerButton" onClick={() => ActiveInfoPage("SpellListContainer")}>
+            Spell List
+          </button>
+          <button className="BottomContainerButton" onClick={() => ActiveInfoPage("InventoryContainer")}>
             Inventory
           </button>
-          <button onClick={() => ActiveInfoPage("Info")}>Character info</button>
-          <button onClick={() => WriteSheetToDatabase(characterInfo)}>
+          <button className="BottomContainerButton" onClick={() => ActiveInfoPage("Info")}>Character info</button>
+          <button className="BottomContainerButton" onClick={() => WriteSheetToDatabase(characterInfo)}>
             Save Document
           </button>
         </div>
@@ -151,7 +155,7 @@ export default function SpellContainer() {
           <div id="SpellsContainer">
             {/* Show all filters on a bar */}
             <div className="BottomInfoContainerHeader">
-              <div className=" flex flex-row">
+              <div className="flex flex-row w-full h-[inherit] justify-evenly">
                 <Filter
                   key={"Class"}
                   filterName="Class"
@@ -182,6 +186,7 @@ export default function SpellContainer() {
                   }}
                 ></Searchbar>
               </div>
+              <hr />
             </div>
             {/* Show all the spells */}
             <div className="BottomInfoSpellsContainer">
@@ -231,6 +236,10 @@ export default function SpellContainer() {
           }}
         >
           <Inventory />
+        </div>
+
+        <div id="SpellListContainer" style={{display:activePage === "SpellListContainer" ? "block" : "none"}}>
+          <SpellList spellData={spellData}/>
         </div>
       </div>
     </div>

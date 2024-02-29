@@ -73,6 +73,7 @@ export default function StatBox({
           {statName}
         </label>
         <button
+          className="statsButton" 
           onClick={() => setSkillContainerVisible(!isSkillContainerVisible)}
         >
           Show Stats
