@@ -2,39 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  z-index: -2;
+  background: linear-gradient(135deg, rgb(53, 53, 53), gray);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
+
+
 :root {
   --BorderGray: rgb(44, 44, 44);
   --BorderGrayA: 44,44,44;
 }
 
-html{
-  padding: 0;
-  margin: 0;
-}
-
-html {
-  background: linear-gradient(135deg, rgb(53, 53, 53), gray);
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 100%;
-}
-
 body {
   font-family: helvetica;
   color: white;
-  margin: 0;
-  padding: 0;
-}
-
-.topContainer {
-  width: 100%;
-  float: left;
 }
 .underHPContainer {
+  position: relative;
+  top: 2vh;
   margin: auto;
-  width: 30%;
+  width: 100%;
   height: 10vh;
-  /* border: solid white 1px; */
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -42,27 +35,33 @@ body {
 }
 .underHP {
   margin: 10px 0;
-  /* border: 1px solid white; */
 }
 .underHP > input {
-  margin: 0 3px;
-  width: 50%;
-  height: 3vh;
-  padding: 0;
+  margin: 0 4px;
+  width: 200px;
+  height: 40px;
   background: inherit;
   float: left;
   border: 1px solid white;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.underHP > input:focus{
+  outline: none; /* Remove the default focus outline */
+  background: rgba(255, 255, 255, 0.199);
 }
 .underHP > label {
   margin: 10px 0;
-  width: 50%;
+  white-space: nowrap;
+  width: 120px;
   height: 3vh;
 }
 
 .topInfoContainer {
   float: left;
   width: 33.33%;
-  height: 33vh;
+  height: 45vh;
   /* border: solid 1px white; */
 }
 .topTD {
@@ -98,18 +97,18 @@ body {
 .statsContainer {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-around;
   /* border: solid 1px white; */
-  margin: 3vh 0;
+  margin: 3vh auto;
   width: 100%;
+  transition: all 0.5s ease;;
 }
 
 .statContainer {
   position: relative;
   z-index: 1;
-  width: 10rem;
-  margin: 0 40px;
-  min-height: 12rem;
+  width: 175px;
+  height: 200px;
   background-color: white;
   color: black;
   text-align: center;
@@ -124,6 +123,12 @@ body {
 .statsButton{
   border: solid 1px var(--BorderGray);
   transition: all ease-in-out 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+  box-sizing: border-box;
 }
 .statsButton:hover{
   background: rgb(215, 215, 215);
@@ -132,27 +137,27 @@ body {
 .SkillContainer {
   position: relative;
   z-index: 0;
-  width: 10rem;
-  margin: 0 40px;
+  width: 175px;
   background-color: white;
   color: black;
   text-align: center;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
-  transform: translateY(-100%);
   opacity: 0;
-  visibility: hidden;
+  visibility: visible;
+  transform: translateY(-40px);
+  transform-origin: top center; /* Update the transform-origin property */
 }
 
 .SkillContainer.visible {
   opacity: 1;
   visibility: visible;
   transform: translateY(-15px);
-  border:  solid 2px black;
+  border: solid 2px black;
 }
 
 .statContainer > input {
@@ -252,7 +257,7 @@ input[type="number"] {
 .BottomInfoSpellsContainer {
   float: left;
   overflow-y: auto;
-  height: 37dvh;
+  height: 37vh;
   width: 100%;
   box-sizing: border-box;
 }
@@ -268,7 +273,7 @@ input[type="number"] {
 .SpellInfoContainer {
   width: 35%;
   float: left;
-  height: 40vh;
+  height: 35vh;
   /* border: solid green 2px; */
 }
 
@@ -292,7 +297,7 @@ input[type="number"] {
 .InventoryContainer {
   float: left;
   width: 75%;
-  height: 40vh;
+  height: 35vh;
   overflow-y: auto;
   /* border: 2px solid rgb(0, 255, 0); */
 }
@@ -377,26 +382,11 @@ input[type="number"] {
   outline: none;
 }
 
-.spellListContainer{
-  float: left;
-  border: solid 1px var(--BorderGray);
-  width: 75%;
-  height: 39.9vh;
-  border: solid 1px white;
-}
-
-.spellLevelListContainer{
-  width: 25%;
-  height: 80%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
+/* region  SpellInfoContainer*/
 .spellAlertBox{
   position: relative;
   width: 40%;
-  height: 80vh;
+  height: 75vh;
   background: rgba(127, 127, 127, 0.578);
   border: solid 1px var(--BorderGray);
   border-radius: 20px;
@@ -413,30 +403,108 @@ input[type="number"] {
   display: block;
 }
 
-.spellInfoContainer{
-  display: none;
-  position: absolute;
-  top: 8vh;
-  right: 20px;
-  width: 60%;
-  height: 70vh;
-  border: solid 3px var(--BorderGray);
-  border-radius: 20px;
-  background: rgba(var(--BorderGrayA),0.7);
-}
-
-
 .spellName:hover{
   background: rgb(73, 73, 73);
+  cursor: pointer;
 }
 
+.spellInfoContainer{
+  position: absolute;
+  width: 60%;
+  height: 90%;
+  background: rgba(54, 54, 54, 0.396);
+  bottom: 20px;
+  right: 20px;
+  display: none;
+}
+
+/* endregion SpellInfoContainer */
+
+/* region  SpellListContainer*/
+
+.spellInfoListContainer{
+  float: right;
+  width: 50%;
+  height: inherit;
+  /* border: solid 1px white; */
+}
+.spellListContainer{
+  float: left;
+  width: 75%;
+  height: 39vh;
+  border: solid 1px white;
+}
+
+.spellList{
+  float: left;
+  margin: 12px;
+  height: 95%;
+  width: 45%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  flex-direction: row;
+  overflow-y: auto;
+  /* border: 1px solid white; */
+}
+.spellLevelContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  /* border: 1px solid white; */
+  width: 90%;
+  height: 100%;
+
+}
+.spellDetails{
+  width: 100%;
+  height: 25px;
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+}
+
+.levelHeader{
+  text-align: center;
+  font-size: x-large;
+  text-decoration: underline;
+}
+/* endregion SpellListContainer */
 
 .logo{
-  top: -200px;
+  top: -10%;
   position: relative;
   background-image: url("/Logo.png");
   background-size: cover;
   width: 400px;
   height: 400px;
   /* border: solid 1px white; */
+}
+
+
+
+@media (max-height: 700px)
+{
+  .logo{
+    display: none;
+  }
+}
+
+@media (max-width: 1000px) {
+  .statContainer{
+    scale: 0.8;
+  }
+  .statsContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0px;
+  }
+  .SkillContainer{
+    width: 140px;
+    margin: 0 auto;
+  }
+  .SkillContainer.visible{
+    transform-origin: top center;
+    transform: translateY(-40px);
+  }
 }

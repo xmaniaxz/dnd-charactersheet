@@ -1,41 +1,53 @@
-"use client";
+"use client"
 import TopbarInfo from "@/components/TopbarInfo";
-import UnderInfo from "@/components/UnderProfile";
 import StatsContainer from "@/components/StatsContainer";
 import BottomContainer from "@/components/BottomContainer";
-import { useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
-import { useCharacterInfo } from "@/components/characterinfocontext"; // Import the context
+import { useEffect, useState } from "react";
+import { useCharacterInfo } from "@/components/characterinfocontext";
+import { GetCharacterSheet } from "./Database";
+import { Suspense } from "react";
 
 export default function CharacterSheet() {
-  const searchParams = useSearchParams();
-  const { characterInfo, updateCharacterInfo } = useCharacterInfo(); // Use the context hook
+  const { characterInfo,updateCharacterInfo } = useCharacterInfo();
   const [pageIsLoading, setPageIsLoading] = useState(true);
+
 
   useEffect(() => {
     console.log("CharacterSheet.jsx: Hook Firing");
     setPageIsLoading(true);
-    if (searchParams && searchParams.get("characterInfo")) {
-      console.log(characterInfo);
-      const sheet = JSON.parse(searchParams.get("characterInfo"));
-      updateCharacterInfo(sheet); // Update characterInfo using the context
-      console.log(`CharacterSheet.jsx: Loaded sheet: ${JSON.stringify(sheet)}`);
+    const characterInfoCookie = document.cookie.replace(
+      /(?:(?:^|.*;\s*)characterInfo\s*\=\s*([^;]*).*$)|^.*$/,
+      "$1"
+    );
+    if (characterInfoCookie) {
+      const ID = JSON.parse(characterInfoCookie); //This is the SheetID String
+
+      const fetchSheet = async () => {
+        try {
+          let sheet = await GetCharacterSheet(ID);
+          updateCharacterInfo(JSON.parse(sheet[0].JSONFile))
+        } catch (error) {
+          console.error("Error fetching character sheet:", error);
+        }
+      };
+
+      fetchSheet();
       setPageIsLoading(false);
     } else {
-      console.error(
-        `CharacterSheet.jsx: Couldn't find Params. Check: ${searchParams}`
-      );
+      console.error(`CharacterSheet.jsx: Couldn't find characterInfo cookie.`);
     }
-  }, []);
+  }, []); // Empty dependency array
 
   return (
     <div>
-        <div className="topContainer">
+      {pageIsLoading ? <div className="w-screen h-screen">Loading...</div> : 
+          <div>
           <TopbarInfo />
-          <UnderInfo />
           <StatsContainer />
-        </div>
-        <BottomContainer />
+          <BottomContainer />
+          </div>
+      }
+        
     </div>
   );
 }

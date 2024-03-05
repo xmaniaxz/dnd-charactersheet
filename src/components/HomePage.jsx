@@ -14,13 +14,14 @@ export default function HomePage() {
   const [alertBoxActivePage,setAlertBoxActivePage] = useState();
   const router = useRouter();
   const handleLogout = async () => {
-    account.deleteSession("current");
+    await account.deleteSession("current");
     router.push("/");
   };
 
   const HandleSendToSheet = (event, values) => {
     event.stopPropagation();
-    router.push(`./characterpage/?characterInfo=${JSON.stringify(values)}`)
+    document.cookie = `characterInfo=${JSON.stringify(values.SheetID)}; path=/`;
+    router.push("./characterpage");
   };
 
   const HandleAlertBox = (event,Sheet) => {
@@ -62,11 +63,7 @@ export default function HomePage() {
   }, [sheetData]);
 
   useEffect(() => {
-    if (showAlertBox) {
-      document.body.classList.add("disable-events");
-    } else {
-      document.body.classList.remove("disable-events");
-    }
+    showAlertBox ? (document.body.classList.add("disable-events")) : (document.body.classList.remove("disable-events"));
   }, [showAlertBox]);
 
   return (
@@ -79,7 +76,7 @@ export default function HomePage() {
         )}
       </div>
       <div className="w-full float-left">
-        <Link className={styles.newSheetButton} href={"./characterpage"}>
+        <Link className={styles.newSheetButton} href={"./characterpage"} onClick={() => document.cookie = 'characterInfo=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'}>
           New Sheet
         </Link>
         <button className={styles.logOutButton} onClick={handleLogout}>
@@ -110,21 +107,7 @@ export default function HomePage() {
                       }}
                     >
                       {/* trashcan icon */}
-                      <svg
-                        className={styles.trashcan}
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="white"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        {" "}
-                        <polyline points="3 6 5 6 21 6" />{" "}
-                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />{" "}
-                        <line x1="10" y1="11" x2="10" y2="17" />{" "}
-                        <line x1="14" y1="11" x2="14" y2="17" />
-                      </svg>
+                      <span className={`gg-trash`}/>
                     </div>
                   </div>
                 );

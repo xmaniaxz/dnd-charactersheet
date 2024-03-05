@@ -2,7 +2,8 @@
 import InputField from "@/components/Inputfields";
 import Image from "next/image";
 import { useCharacterInfo } from "@/components/characterinfocontext";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
+import UnderInfo from "@/components/UnderProfile";
 export default function TopbarInfo() {
   const { characterInfo, updateCharacterInfo } = useCharacterInfo();
   const [updatedValue, setUpdatedValue] = useState(true);
@@ -32,36 +33,35 @@ export default function TopbarInfo() {
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     setUpdatedValue(false);
-
-  },[characterInfo])
+  }, [characterInfo]);
   return (
     <div>
       <div className="topInfoContainer">
         <InputField
-          key={1+updatedValue}
-          classname={"topTD"}   
+          key={1 + updatedValue}
+          classname={"topTD"}
           InputText="Race :"
           onValueChanged={(value) => HandleValueChanged(value, "Race")}
           defaultValue={characterInfo.playerInfo.Race}
         />
         <InputField
-          key={2+updatedValue}
+          key={2 + updatedValue}
           classname={"topTD"}
           defaultValue={characterInfo.playerInfo.Class}
           InputText="Class :"
           onValueChanged={(value) => HandleValueChanged(value, "Class")}
         />
         <InputField
-          key={3+updatedValue}
+          key={3 + updatedValue}
           classname={"topTD"}
           defaultValue={characterInfo.playerInfo.SubClass}
           InputText="Sub-class :"
           onValueChanged={(value) => HandleValueChanged(value, "SubClass")}
         />
         <InputField
-        key={4+updatedValue}
+          key={4 + updatedValue}
           classname={"topTD"}
           defaultValue={characterInfo.playerInfo.Background}
           InputText="Background :"
@@ -78,6 +78,10 @@ export default function TopbarInfo() {
             style={{ alignSelf: "start" }}
           />
         </div>
+        <div>
+        <UnderInfo/>
+        </div>
+        
       </div>
       <div className="topInfoContainer">
         <InputField

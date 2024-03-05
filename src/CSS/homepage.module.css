@@ -1,16 +1,18 @@
 .html {
+  z-index: -2;
   font-family: helvetica;
   background: linear-gradient(135deg, #111111, #222222);
   background-size: cover;
   background-repeat: no-repeat;
-  color: #ffffff; /* Default text color on the page */
+  color: #ffffff;
   min-height: 100vh;
 }
 
 .container {
-  /* background-size: cover; */
+
   background: linear-gradient(135deg, #242424, #323232);
   border: solid black 1px;
+  width: 95%;
   height: inherit;
   margin: 0 auto;
   display: flex;
@@ -26,7 +28,6 @@
   margin: 2.5% auto;
   gap: 40px;
   display: relative;
-  /* border: solid 1px white; */
 }
 
 .sheetPreview {
@@ -54,30 +55,18 @@
   text-align: center;
   text-decoration: none;
   border-radius: 25px;
-  color: #ffffff; /* Text color */
-  background: linear-gradient(
-    45deg,
-    #3498db,
-    #2980b9
-  ); /* Gradient background (blue) */
-  border: 2px solid #3498db; /* Border color (blue) */
+  color: #ffffff;
+  background: linear-gradient(45deg, #3498db, #2980b9);
+  border: 2px solid #3498db;
   cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Optional box shadow for depth */
-
-  /* Set width and height */
-  width: 150px; /* Adjust as needed */
-  height: 50px; /* Adjust as needed */
-
-  /* Hover effect */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  width: 150px;
+  height: 50px;
   transition: all 0.4s ease;
 }
 
 .newSheetButton:hover {
-  background: linear-gradient(
-    45deg,
-    #2980b9,
-    #3498db
-  ); /* Gradient background on hover (blue) */
+  background: linear-gradient(45deg, #2980b9, #3498db);
 }
 
 .logOutButton {
@@ -88,36 +77,23 @@
   text-align: center;
   text-decoration: none;
   border-radius: 25px;
-  color: #ffffff; /* Text color */
-  background: linear-gradient(
-    45deg,
-    #3498db,
-    #2980b9
-  ); /* Gradient background (blue) */
-  border: 2px solid #3498db; /* Border color (blue) */
+  color: #ffffff;
+  background: linear-gradient(45deg, #3498db, #2980b9);
+  border: 2px solid #3498db;
   cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Optional box shadow for depth */
-
-  /* Set width and height */
-  width: 100px; /* Adjust as needed */
-  height: 50px; /* Adjust as needed */
-
-  /* Hover effect */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  width: 100px;
+  height: 50px;
   transition: all 0.4s ease;
 }
 
 .logOutButton:hover {
-  background: linear-gradient(
-    45deg,
-    #c81818,
-    #e52828
-  ); /* Gradient background on hover (blue) */
+  background: linear-gradient(45deg, #c81818, #e52828);
 }
 
-/* Loader animation */
 .loader {
-  border: 8px solid #f3f3f300; /* Light grey */
-  border-top: 8px solid #3498db; /* Blue */
+  border: 8px solid #f3f3f300;
+  border-top: 8px solid #3498db;
   border-radius: 50%;
   width: 100px;
   height: 100px;
@@ -134,29 +110,18 @@
   right: 10px;
   top: 10px;
   background: radial-gradient(rgb(255, 70, 70), rgb(216, 0, 0));
-  /* border: solid 1px rgb(131, 0, 0); */
   box-shadow: 3px 3px 0 0 #00000072;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: all ease 0.4s;
+  transition: all ease 0.2s;
   border-radius: 25%;
 }
 
 .deleteButton:hover {
   background: transparent;
   border: solid red 3px;
-
   cursor: pointer;
-}
-
-.trashcan {
-  width: 25px;
-  height: 25px;
-  margin: auto;
-}
-.trashcan:hover {
-  stroke: red;
 }
 
 .alertBGContainer {
@@ -189,7 +154,6 @@
   overflow: hidden;
 }
 
-/* Keyframe animation for the loader spin */
 @keyframes spin {
   0% {
     transform: rotate(0deg);

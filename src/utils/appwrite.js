@@ -16,9 +16,8 @@ async function GetUserID(){
         const res = await account.get();
     return res.$id
     }
-    catch
-    {
-        return null
+    catch(e){
+        // console.error("Could not find active Session! " + e)
     }
     
 }

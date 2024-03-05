@@ -50,12 +50,23 @@ export async function SortSpells(spellList) {
 }
 
 export async function GetUserCharacterSheets() {
+    const userID = await userId;
+   const SheetList = await database.listDocuments(
+     process.env.NEXT_PUBLIC_DATABASE_ID,
+     process.env.NEXT_PUBLIC_SHEET_COLLECTION_ID,
+     [Query.equal("UserID", userID)]
+   );
+   return SheetList;
+}
+
+export async function GetCharacterSheet(sheetID)
+{
   const SheetList = await database.listDocuments(
     process.env.NEXT_PUBLIC_DATABASE_ID,
     process.env.NEXT_PUBLIC_SHEET_COLLECTION_ID,
-    [Query.equal("UserID", await userId)]
+    [Query.equal("SheetID", sheetID)]
   );
-  return SheetList;
+  return SheetList.documents;
 }
 export async function WriteSheetToDatabase(FileToSend) {
   //Make JSON string

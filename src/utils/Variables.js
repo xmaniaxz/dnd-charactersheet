@@ -57,9 +57,23 @@ let playerInventory = {
   Inventory: "",
 };
 
+let playerSpells = {
+  cantrip: Array(10).fill({ prepared: false, spell: null }),
+  1: Array(10).fill({ prepared: false, spell: null }),
+  2: Array(10).fill({ prepared: false, spell: null }),
+  3: Array(10).fill({ prepared: false, spell: null }),
+  4: Array(10).fill({ prepared: false, spell: null }),
+  5: Array(10).fill({ prepared: false, spell: null }),
+  6: Array(10).fill({ prepared: false, spell: null }),
+  7: Array(10).fill({ prepared: false, spell: null }),
+  8: Array(10).fill({ prepared: false, spell: null }),
+  9: Array(10).fill({ prepared: false, spell: null }),
+};
+
 export let CharacterInfo = {
   SheetID: null,
   playerInfo,
   playerStats,
+  playerSpells,
   playerInventory,
 };

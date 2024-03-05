@@ -46,3 +46,11 @@
 .closeButton:after {
   transform: rotate(-45deg);
 }
+
+.gg-trash {
+  color: white;
+  transition: all ease 0.2s;
+}
+.gg-trash:hover {
+  color: red;
+}

@@ -238,8 +238,8 @@ export default function SpellContainer() {
           <Inventory />
         </div>
 
-        <div id="SpellListContainer" style={{display:activePage === "SpellListContainer" ? "block" : "none"}}>
-          <SpellList spellData={spellData}/>
+        <div className="spellListContainer" style={{display:activePage === "SpellListContainer" ? "block" : "none"}}>
+          <SpellList/>
         </div>
       </div>
     </div>
