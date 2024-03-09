@@ -2,6 +2,7 @@ import { database } from "@/utils/appwrite";
 import { Query } from "appwrite";
 import { ID } from "appwrite";
 import { userId } from "@/utils/appwrite";
+import { publish } from "./events";
 
 export async function GetServerSpells(IncomingFilters) {
   const activeFilters = IncomingFilters || [];
@@ -69,12 +70,19 @@ export async function GetCharacterSheet(sheetID)
   return SheetList.documents;
 }
 export async function WriteSheetToDatabase(FileToSend) {
+
   //Make JSON string
   const JsonData = JSON.stringify(FileToSend);
   let SheetID = FileToSend.SheetID;
   const userID = await userId;
   if (!userID) {
-    console.error("Could not find active Session!");
+    publish("ShowPopUp",{
+      text: "Could not find active Session!",
+      visibility: true,
+      backgroundColor: "red",
+      top: "10px",
+      right: "20px",
+    });
     return;
   }
   const fileObject = {
@@ -95,8 +103,6 @@ export async function WriteSheetToDatabase(FileToSend) {
     fileObject.SheetID = Doc.$id;
     FileToSend.SheetID = fileObject.SheetID;
     fileObject.JSONFile = JSON.stringify(FileToSend);
-    console.log("Saved CharacterSheet");
-
     //Grab doc and grab the $id which is uniqueID. add said ID to to FileToSend.SheetID;
     if (fileObject.SheetID !== null) {
       await database.updateDocument(
@@ -105,12 +111,17 @@ export async function WriteSheetToDatabase(FileToSend) {
         fileObject.SheetID,
         fileObject
       );
-    } else {
-      console.error("SheetID is null");
+      publish("ShowPopUp",{
+        text: "Created new character!",
+        visibility: true,
+        backgroundColor: "green",
+        top: "10px",
+        right: "20px",
+      });
     }
   }
 
-  //If there is no existing version. Add it to the database
+  //If there is a existing version update to the database
   else {
     await database.updateDocument(
       process.env.NEXT_PUBLIC_DATABASE_ID,
@@ -118,7 +129,13 @@ export async function WriteSheetToDatabase(FileToSend) {
       SheetID,
       fileObject
     );
-    console.log("Saved document");
+    publish("ShowPopUp",{
+      text: "saved character sheet",
+      visibility: true,
+      backgroundColor: "green",
+      top: "10px",
+      right: "20px",
+    });
   }
 }
 
@@ -128,5 +145,11 @@ export async function DeleteSheetFromDatabase(SheetID) {
     process.env.NEXT_PUBLIC_SHEET_COLLECTION_ID,
     SheetID
   );
-  console.log("Deleted document");
+  publish("ShowPopUp",{
+    text: "Deleted character",
+    visibility: true,
+    backgroundColor: "red",
+    top: "10px",
+    right: "20px",
+  });
 }

@@ -1,6 +1,6 @@
 "use client";
 import styles from "@/CSS/homepage.module.css";
-import { GetUserCharacterSheets,DeleteSheetFromDatabase } from "@/components/Database";
+import { GetUserCharacterSheets,DeleteSheetFromDatabase } from "@/utils/Database";
 import { account } from "@/utils/appwrite";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -33,10 +33,10 @@ export default function HomePage() {
   const HandleAlertBoxCallback = async (callbackValue) => {
     switch (callbackValue) {
       case 0:
-        setLoadingSheetData(true)
-        await DeleteSheetFromDatabase(alertBoxActivePage)
-        window.location.reload()
-        setLoadingSheetData(false)
+        setLoadingSheetData(true);
+        await DeleteSheetFromDatabase(alertBoxActivePage);
+        setSheetData(await GetUserCharacterSheets());
+        setLoadingSheetData(false);
         break;
     }
     setAlertBoxActivePage(null)
@@ -76,7 +76,7 @@ export default function HomePage() {
         )}
       </div>
       <div className="w-full float-left">
-        <Link className={styles.newSheetButton} href={"./characterpage"} onClick={() => document.cookie = 'characterInfo=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'}>
+        <Link className={styles.newSheetButton} href={"./characterpage"} onClick={() => document.cookie = 'characterInfo="new character"; path=/;'}>
           New Sheet
         </Link>
         <button className={styles.logOutButton} onClick={handleLogout}>

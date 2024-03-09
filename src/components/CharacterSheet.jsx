@@ -4,8 +4,8 @@ import StatsContainer from "@/components/StatsContainer";
 import BottomContainer from "@/components/BottomContainer";
 import { useEffect, useState } from "react";
 import { useCharacterInfo } from "@/components/characterinfocontext";
-import { GetCharacterSheet } from "./Database";
-import { Suspense } from "react";
+import { GetCharacterSheet } from "../utils/Database";
+import PopUp from "@/components/popup";
 
 export default function CharacterSheet() {
   const { characterInfo,updateCharacterInfo } = useCharacterInfo();
@@ -20,6 +20,11 @@ export default function CharacterSheet() {
       "$1"
     );
     if (characterInfoCookie) {
+      if(characterInfoCookie === "new character"){
+        console.log("CharacterSheet.jsx: New Character Detected");
+        setPageIsLoading(false);
+        return;
+      }
       const ID = JSON.parse(characterInfoCookie); //This is the SheetID String
 
       const fetchSheet = async () => {
@@ -42,6 +47,7 @@ export default function CharacterSheet() {
     <div>
       {pageIsLoading ? <div className="w-screen h-screen">Loading...</div> : 
           <div>
+          <PopUp/>
           <TopbarInfo />
           <StatsContainer />
           <BottomContainer />

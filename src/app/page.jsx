@@ -1,4 +1,5 @@
 import LoginPage from "@/components/login";
+import PopUp from "@/components/popup";
 
 export const metadata = {
     title: 'D&DCMT | Login',
@@ -8,6 +9,7 @@ export const metadata = {
 export default function Home(){
     return(
         <main>
+            <PopUp/>
             <LoginPage/>
         </main>
     )

@@ -41,7 +41,7 @@ export default function SpellAlertBox({
                   className="w-[30%] hover:cursor-pointer"
                   key={index}
                   onClick={() => {
-                    onSelection(index);
+                    onSelection(values.SpellName);
                   }}
                 >
                   <div className="spellName">{values.SpellName}</div>

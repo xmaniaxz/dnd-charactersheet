@@ -1,8 +1,10 @@
-import HomePage from "@/components/HomePage"
-export default function Home(){
-  return(
-      <div>
-          <HomePage/>
-      </div>
-  )
+import HomePage from "@/components/HomePage";
+import PopUp from "@/components/popup";
+export default function Home() {
+  return (
+    <div>
+      <PopUp />
+      <HomePage />
+    </div>
+  );
 }
