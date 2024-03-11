@@ -37,5 +37,6 @@ jobs:
     - run: npm run build --if-present
     - name: Start PM2 instance
       run: |
-        sudo pm2 start npm --name "dnd-charactersheet" -- start
-        sudo pm2 save
+        cd /home/xmaniaxz/actions-runner/dnd-charactersheet/dnd-charactersheet/dnd-charactersheet
+        pm2 start npm --name "dnd-charactersheet" -- start
+        pm2 save
