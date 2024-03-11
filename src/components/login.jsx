@@ -28,7 +28,6 @@ export default function LoginPage() {
   async function handleLogin() {
     try {
       setLoading(true);
-      console.log("Trying to log in with" + email);
       await account.createEmailSession(email, password);
       setPassword("");
       setLoading(false);
@@ -49,7 +48,7 @@ export default function LoginPage() {
         }}
 
         else {
-          setErrorMessage(e.message);
+          setErrorMessage(e);
       }
     }
   }
