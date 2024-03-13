@@ -4,7 +4,7 @@ import { account } from "@/utils/appwrite";
 import { useRouter } from "next/navigation";
 import styles from "@/CSS/loginpage.module.css";
 import { AppwriteException, ID } from "appwrite";
-
+import PopUp from "./popup";
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -77,6 +77,7 @@ export default function LoginPage() {
 
   return (
     <div className="w-screen h-[100vh]">
+      <PopUp/>
       <div className={`${styles.background}`}></div>
       <div className={`${styles.container}`}>
         <div className={`${styles.loginContainer}`}>
