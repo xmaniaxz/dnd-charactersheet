@@ -14,13 +14,18 @@ export default function HomePage() {
   const [alertBoxActivePage,setAlertBoxActivePage] = useState();
   const router = useRouter();
   const handleLogout = async () => {
-    await account.deleteSession("current");
-    router.push("/");
+    try{
+      await account.deleteSession("current");
+    }
+    finally{
+      router.push("/");
+    }
+    
   };
 
   const HandleSendToSheet = (event, values) => {
     event.stopPropagation();
-    document.cookie = `characterInfo=${JSON.stringify(values.SheetID)}; path=/`;
+    document.cookie = `characterInfo=${JSON.stringify(values.SheetID)}; path=/; sameSite=false;`;
     router.push("./characterpage");
   };
 
