@@ -81,7 +81,7 @@ export default function HomePage() {
         )}
       </div>
       <div className="w-full float-left">
-        <Link className={styles.newSheetButton} href={"./characterpage"} onClick={() => document.cookie = 'characterInfo="new character"; path=/;'}>
+        <Link className={styles.newSheetButton} href={"./characterpage"} onClick={() => document.cookie = 'characterInfo=new character; path=/;'}>
           New Sheet
         </Link>
         <button className={styles.logOutButton} onClick={handleLogout}>

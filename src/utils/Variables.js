@@ -72,6 +72,7 @@ let playerSpells = {
 
 export let CharacterInfo = {
   SheetID: null,
+  profilePicture: null,
   playerInfo,
   playerStats,
   playerSpells,

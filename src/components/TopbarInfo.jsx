@@ -1,6 +1,6 @@
 "use client";
 import InputField from "@/components/Inputfields";
-import Image from "next/image";
+import ProfileImage from "./ProfileImage";
 import { useCharacterInfo } from "@/components/characterinfocontext";
 import { useEffect, useState } from "react";
 import UnderInfo from "@/components/UnderProfile";
@@ -39,73 +39,61 @@ export default function TopbarInfo() {
   return (
     <div>
       <div className="topInfoContainer">
-        <InputField
-          key={1 + updatedValue}
-          classname={"topTD"}
-          InputText="Race :"
-          onValueChanged={(value) => HandleValueChanged(value, "Race")}
-          defaultValue={characterInfo.playerInfo.Race}
-        />
-        <InputField
-          key={2 + updatedValue}
-          classname={"topTD"}
-          defaultValue={characterInfo.playerInfo.Class}
-          InputText="Class :"
-          onValueChanged={(value) => HandleValueChanged(value, "Class")}
-        />
-        <InputField
-          key={3 + updatedValue}
-          classname={"topTD"}
-          defaultValue={characterInfo.playerInfo.SubClass}
-          InputText="Sub-class :"
-          onValueChanged={(value) => HandleValueChanged(value, "SubClass")}
-        />
-        <InputField
-          key={4 + updatedValue}
-          classname={"topTD"}
-          defaultValue={characterInfo.playerInfo.Background}
-          InputText="Background :"
-          onValueChanged={(value) => HandleValueChanged(value, "Background")}
-        />
-      </div>
-      <div className="topInfoContainer">
         <div className="imageContainer">
-          <Image
-            src="/ProfilePicture/alexis.png"
-            alt=""
-            width="1500"
-            height="2400"
-            style={{ alignSelf: "start" }}
-          />
+          <ProfileImage />
         </div>
         <div>
-        <UnderInfo/>
+          <UnderInfo />
         </div>
-        
       </div>
       <div className="topInfoContainer">
-        <InputField
-          classname={"topTD"}
-          defaultValue={characterInfo.playerInfo.PlayerName}
-          InputText=": Playername"
-          reversed={true}
-          onValueChanged={(value) => HandleValueChanged(value, "PlayerName")}
-        />
-        <InputField
-          classname={"topTD"}
-          defaultValue={characterInfo.playerInfo.Alignment}
-          InputText=": Alignment"
-          reversed={true}
-          onValueChanged={(value) => HandleValueChanged(value, "Alignment")}
-        />
-        <InputField
-          classname={"topTD"}
-          defaultValue={characterInfo.playerInfo.Experience}
-          InputText=": Exp"
-          reversed={true}
-          onValueChanged={(value) => HandleValueChanged(value, "Experience")}
-        />
+        <div className="profileDetails">
+          <InputField
+            classname={"profileDetailsClass"}
+            InputText="Race :"
+            onValueChanged={(value) => HandleValueChanged(value, "Race")}
+            defaultValue={characterInfo.playerInfo.Race}
+          />
+          <InputField
+            classname={"profileDetailsClass"}
+            defaultValue={characterInfo.playerInfo.Class}
+            InputText="Class :"
+            onValueChanged={(value) => HandleValueChanged(value, "Class")}
+          />
+          <InputField
+            classname={"profileDetailsClass"}
+            defaultValue={characterInfo.playerInfo.SubClass}
+            InputText="Sub-class :"
+            onValueChanged={(value) => HandleValueChanged(value, "SubClass")}
+          />
+          <InputField
+            classname={"profileDetailsClass"}
+            defaultValue={characterInfo.playerInfo.Background}
+            InputText="Background :"
+            onValueChanged={(value) => HandleValueChanged(value, "Background")}
+          />
+          <InputField
+            classname={"profileDetailsClass"}
+            defaultValue={characterInfo.playerInfo.PlayerName}
+            InputText="Playername :"
+            onValueChanged={(value) => HandleValueChanged(value, "PlayerName")}
+          />
+          <InputField
+            classname={"profileDetailsClass"}
+            defaultValue={characterInfo.playerInfo.Alignment}
+            InputText="Alignment :"
+            onValueChanged={(value) => HandleValueChanged(value, "Alignment")}
+          />
+          <InputField
+            classname={"profileDetailsClass"}
+            defaultValue={characterInfo.playerInfo.Experience}
+            InputText="Exp :"
+            onValueChanged={(value) => HandleValueChanged(value, "Experience")}
+          />
+        </div>
       </div>
+
+      <div className="topInfoContainer"></div>
     </div>
   );
 }

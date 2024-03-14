@@ -22,6 +22,14 @@ body {
   font-family: helvetica;
   color: white;
 }
+
+.bigContainer{
+  width: 1500px;
+  height: auto;
+  margin: 20px auto;
+  /* border: solid 1px white; */
+}
+
 .underHPContainer {
   position: relative;
   top: 2vh;
@@ -33,12 +41,9 @@ body {
   align-items: center;
   justify-content: center;
 }
-.underHP {
-  margin: 10px 0;
-}
 .underHP > input {
   margin: 0 4px;
-  width: 200px;
+  width: calc(50% - 8px);
   height: 40px;
   background: inherit;
   float: left;
@@ -54,34 +59,47 @@ body {
 .underHP > label {
   margin: 10px 0;
   white-space: nowrap;
-  width: 120px;
-  height: 3vh;
+  width: 50%;
+  height: 40px;
 }
 
 .topInfoContainer {
   float: left;
   width: 33.33%;
-  height: 45vh;
+  height: 550px;
   /* border: solid 1px white; */
-}
-.topTD {
-  font-size: xx-large;
-  margin: 30px 0;
-  width: 100%;
-  /* border: solid 1px white; */
-  /* background:transparent; */
+  margin-bottom: 4vh;
 }
 
-.topTD > input {
-  width: 50%;
-  padding: 0 20px;
-  font-size: large;
+.profileDetails{
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin: 20px;
+}
+
+.profileDetailsClass {
+  height: 40px;
+  /* border: solid 1px white;; */
+  display: flex;
+  align-items: center; 
+ 
+}
+
+.profileDetailsClass > input {
+  width: calc(50% - 8px);
+  height: 40px;
   background: inherit;
   float: left;
   border: 1px solid white;
+  border-radius: 20px;
+  text-align: center;
 }
-.topTD > label {
-  width: 50%;
+
+.profileDetailsClass > label {
+  width: calc(40% - 8px);
+  float: left;
+  font-size: x-large;
 }
 
 .imageContainer {
@@ -92,6 +110,29 @@ body {
   border: 2px solid black;
   box-sizing: border-box;
   margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align items from the top */
+  position: relative;
+}
+
+.profileImage {
+  width: 100%;
+  height: auto; /* Set height to auto for responsive scaling */
+  object-fit: cover; /* Ensure the image covers the container */
+  opacity: 0.8;
+  transition: opacity 0.3s ease; /* Add transition for smooth effect */
+}
+
+.profileImage:hover {
+  cursor: pointer;
+  opacity: 1; /* Adjust opacity to lighten the image */
+}
+
+
+.profileImage:hover {
+  cursor: pointer;
+  opacity: 1; /* Adjust opacity to lighten the image */
 }
 
 .statsContainer {
@@ -99,7 +140,7 @@ body {
   flex-direction: row;
   justify-content: space-around;
   /* border: solid 1px white; */
-  margin: 3vh auto;
+  margin: 5vh auto;
   width: 100%;
   transition: all 0.5s ease;;
 }
@@ -192,11 +233,11 @@ input[type="number"] {
 }
 
 .bottomContainer {
-  width: 90%;
+  width: 100%;
   height: 40vh;
   margin: 0 auto;
-  border: 2px solid var(--BorderGray);
-  box-shadow: 5px 5px rgba(38, 38, 38, 0.253);
+  /* border: 2px solid var(--BorderGray); */
+  /* box-shadow: 5px 5px rgba(38, 38, 38, 0.253); */
   border-radius: 10px;
 }
 
@@ -206,7 +247,6 @@ input[type="number"] {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   gap: 15px;
   /* border: solid 1px white; */
@@ -294,12 +334,12 @@ input[type="number"] {
   border : solid 3px #575757;
 }
 
-.InventoryContainer {
+.inventoryContainer {
   float: left;
   width: 75%;
-  height: 35vh;
+  height: 39vh;
   overflow-y: auto;
-  /* border: 2px solid rgb(0, 255, 0); */
+  border: 1px solid white
 }
 .MoneyContainer {
   margin: 20px 20px;
@@ -319,7 +359,7 @@ input[type="number"] {
 }
 
 .BackgroundImageTextArea {
-  background-image: url("/OldPaper.png");
+  background-image: url("/OldPaper.png") !important;
   background-size: cover;
   width: 60%;
   height: calc(100% - 20px);
@@ -471,6 +511,13 @@ input[type="number"] {
 }
 /* endregion SpellListContainer */
 
+.characterInfoContainer{
+  border: solid 1px  white;
+  float: left;
+  width: 75%;
+  height: 39vh;
+}
+
 .logo{
   top: -10%;
   position: relative;
@@ -488,12 +535,15 @@ input[type="number"] {
   transition: transform 0.5s ease, opacity 0.5s ease;
   opacity: 0;
   transform: translateY(-100%);
+  border: solid 2px rgb(53, 53, 53);
+  border-radius: 10px;
 }
 /* test */
 .PopUpContainer.visible {
   opacity: 1;
   transform: translateY(0%);
 }
+
 
 
 @media (max-height: 700px)

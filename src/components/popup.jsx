@@ -1,6 +1,6 @@
-"use client";
+"use client"
 import React, { useEffect, useState } from "react";
-import { subscribe,unsubscribe } from "@/utils/events";
+import { subscribe, unsubscribe } from "@/utils/events";
 
 export default function PopUp() {
   const [variables, setVariables] = useState({
@@ -21,7 +21,7 @@ export default function PopUp() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-    setVariables({ ...variables, visibility: false });
+      setVariables({ ...variables, visibility: false });
     }, variables.delay);
 
     return () => clearTimeout(timer);
@@ -30,7 +30,6 @@ export default function PopUp() {
   useEffect(() => {
     const showEvent = (event) => {
       const customData = event.detail;
-      console.log(customData);
       setVariables({ ...variables, ...customData });
     };
 
@@ -38,7 +37,7 @@ export default function PopUp() {
     return () => {
       unsubscribe("ShowPopUp", showEvent); // Unsubscribe when component unmounts
     };
-  }, [variables])
+  }, [variables]);
 
   return (
     <div
@@ -46,7 +45,7 @@ export default function PopUp() {
         position: variables.position,
         width: variables.width,
         height: variables.height,
-        backgroundColor: variables.backgroundColor,
+        background: variables.backgroundColor,
         top: variables.top,
         left: variables.left,
         right: variables.right,

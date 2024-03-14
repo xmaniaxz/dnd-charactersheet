@@ -6,14 +6,14 @@ import { useEffect, useState } from "react";
 import { useCharacterInfo } from "@/components/characterinfocontext";
 import { GetCharacterSheet } from "../utils/Database";
 import PopUp from "@/components/popup";
+import { publish } from "@/utils/events";
 
 export default function CharacterSheet() {
-  const { characterInfo,updateCharacterInfo } = useCharacterInfo();
+  const {updateCharacterInfo } = useCharacterInfo();
   const [pageIsLoading, setPageIsLoading] = useState(true);
 
 
   useEffect(() => {
-    console.log("CharacterSheet.jsx: Hook Firing");
     setPageIsLoading(true);
     const characterInfoCookie = document.cookie.replace(
       /(?:(?:^|.*;\s*)characterInfo\s*\=\s*([^;]*).*$)|^.*$/,
@@ -32,21 +32,33 @@ export default function CharacterSheet() {
           let sheet = await GetCharacterSheet(ID);
           updateCharacterInfo(JSON.parse(sheet[0].JSONFile))
         } catch (error) {
-          console.error("Error fetching character sheet:", error);
+          publish("ShowPopUp",{
+            text: error,
+            visibility: true,
+            backgroundColor: "red",
+            top: "10px",
+            right: "20px",
+          });
         }
       };
 
       fetchSheet();
       setPageIsLoading(false);
     } else {
-      console.error(`CharacterSheet.jsx: Couldn't find characterInfo cookie.`);
+      publish("ShowPopUp",{
+        text: "CharacterSheet.jsx: Couldn't find characterInfo cookie.",
+        visibility: true,
+        backgroundColor: "red",
+        top: "10px",
+        right: "20px",
+      });
     }
   }, []); // Empty dependency array
 
   return (
     <div>
       {pageIsLoading ? <div className="w-screen h-screen">Loading...</div> : 
-          <div>
+          <div className="bigContainer">
           <PopUp/>
           <TopbarInfo />
           <StatsContainer />

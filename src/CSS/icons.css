@@ -54,3 +54,10 @@
 .gg-trash:hover {
   color: red;
 }
+.gg-add{
+  scale: 4;
+  color: rgba(255, 255, 255, 0.638);
+}
+.gg-add:hover{
+  color: white;
+}

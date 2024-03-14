@@ -1,4 +1,4 @@
-import { database } from "@/utils/appwrite";
+import { client, database, storage } from "@/utils/appwrite";
 import { Query } from "appwrite";
 import { ID } from "appwrite";
 import { userId } from "@/utils/appwrite";
@@ -13,7 +13,7 @@ export async function GetServerSpells(IncomingFilters) {
       switch (filter[0]) {
         case "SpellName":
           //console.log(`Database.jsx: Got: SpellName with filters ${filter[0]} | ${filter[1]}}`)
-          queryOptions.push(Query.search(filter[0],`./${filter[1]}/`));
+          queryOptions.push(Query.search(filter[0], `./${filter[1]}/`));
           break;
         case "Class":
           queryOptions.push(Query.search(filter[0], filter[1]));
@@ -51,17 +51,16 @@ export async function SortSpells(spellList) {
 }
 
 export async function GetUserCharacterSheets() {
-    const userID = await userId;
-   const SheetList = await database.listDocuments(
-     process.env.NEXT_PUBLIC_DATABASE_ID,
-     process.env.NEXT_PUBLIC_SHEET_COLLECTION_ID,
-     [Query.equal("UserID", userID)]
-   );
-   return SheetList;
+  const userID = await userId;
+  const SheetList = await database.listDocuments(
+    process.env.NEXT_PUBLIC_DATABASE_ID,
+    process.env.NEXT_PUBLIC_SHEET_COLLECTION_ID,
+    [Query.equal("UserID", userID)]
+  );
+  return SheetList;
 }
 
-export async function GetCharacterSheet(sheetID)
-{
+export async function GetCharacterSheet(sheetID) {
   const SheetList = await database.listDocuments(
     process.env.NEXT_PUBLIC_DATABASE_ID,
     process.env.NEXT_PUBLIC_SHEET_COLLECTION_ID,
@@ -70,16 +69,15 @@ export async function GetCharacterSheet(sheetID)
   return SheetList.documents;
 }
 export async function WriteSheetToDatabase(FileToSend) {
-
   //Make JSON string
   const JsonData = JSON.stringify(FileToSend);
   let SheetID = FileToSend.SheetID;
   const userID = await userId;
   if (!userID) {
-    publish("ShowPopUp",{
+    publish("ShowPopUp", {
       text: "Could not find active Session!",
       visibility: true,
-      backgroundColor: "red",
+      backgroundColor: "rgba(255, 0, 0, 0.8)",
       top: "10px",
       right: "20px",
     });
@@ -111,10 +109,10 @@ export async function WriteSheetToDatabase(FileToSend) {
         fileObject.SheetID,
         fileObject
       );
-      publish("ShowPopUp",{
+      publish("ShowPopUp", {
         text: "Created new character!",
         visibility: true,
-        backgroundColor: "green",
+        backgroundColor: "rgba(0, 128, 0, 0.8)",
         top: "10px",
         right: "20px",
       });
@@ -129,10 +127,10 @@ export async function WriteSheetToDatabase(FileToSend) {
       SheetID,
       fileObject
     );
-    publish("ShowPopUp",{
+    publish("ShowPopUp", {
       text: "saved character sheet",
       visibility: true,
-      backgroundColor: "green",
+      backgroundColor: "rgba(0, 128, 0, 0.8)",
       top: "10px",
       right: "20px",
     });
@@ -145,11 +143,65 @@ export async function DeleteSheetFromDatabase(SheetID) {
     process.env.NEXT_PUBLIC_SHEET_COLLECTION_ID,
     SheetID
   );
-  publish("ShowPopUp",{
+  publish("ShowPopUp", {
     text: "Deleted character",
     visibility: true,
-    backgroundColor: "red",
+    backgroundColor: "rgba(255, 0, 0, 0.8)",
     top: "10px",
     right: "20px",
   });
+}
+
+export async function UploadFile(file) {
+  const fileExists = await CheckIfFileExists(file.name);
+  if (!fileExists) {
+    console.log("returned false, uploading file...");
+    const uploadResponse = await storage.createFile(
+      process.env.NEXT_PUBLIC_BUCKET_ID,
+      ID.unique(),
+      file
+    );
+
+    publish("ShowPopUp", {
+      text: "Image uploaded successfully.",
+      backgroundColor: "rgba(0, 128, 0, 0.8)",
+      top: "10px",
+      right: "20px",
+    });
+    return uploadResponse.$id;
+  } else {
+    publish("ShowPopUp", {
+      text: "Image upload failed",
+      backgroundColor: "rgba(255, 0, 0, 0.8)",
+      top: "10px",
+      right: "20px",
+    });
+    return null;
+  }
+}
+
+export async function GetFile(fileID) {
+  const file = await storage.getFileView(
+    process.env.NEXT_PUBLIC_BUCKET_ID,
+    fileID
+  );
+  return file;
+}
+
+async function CheckIfFileExists(fileName) {
+  try {
+    const files = await storage.listFiles(process.env.NEXT_PUBLIC_BUCKET_ID);
+    if (files.total === 0) {
+      return false;
+    }
+    const existingFile = files.files.find((file) => file.name === fileName);
+    if (existingFile) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.error(error);
+    return true;
+  }
 }

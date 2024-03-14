@@ -24,7 +24,7 @@ export default function Inventory() {
 
   return (
     <div>
-      <div className="InventoryContainer">
+      <div>
         <div className="w-1/2 h-full float-left">
           <div id="Money" className="MoneyContainer">
             <InputField

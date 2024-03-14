@@ -129,7 +129,7 @@ export default function SpellContainer() {
           </button>
           <button
             className="BottomContainerButton"
-            onClick={() => ActiveInfoPage("Info")}
+            onClick={() => ActiveInfoPage("characterInfoContainer")}
           >
             Character info
           </button>
@@ -143,7 +143,7 @@ export default function SpellContainer() {
           </button>
         </div>
         <div
-          id="InventoryContainer"
+          className="inventoryContainer"
           style={{
             display: activePage === "InventoryContainer" ? "block" : "none",
           }}
@@ -157,6 +157,12 @@ export default function SpellContainer() {
           }}
         >
           <SpellList />
+        </div>
+        <div className="characterInfoContainer"
+         style={{
+          display: activePage === "characterInfoContainer" ? "block" : "none",
+        }}>
+
         </div>
       </div>
     </div>
