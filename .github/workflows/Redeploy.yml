@@ -15,6 +15,7 @@ jobs:
       NEXT_PUBLIC_DATABASE_ID: ${{secrets.NEXT_PUBLIC_DATABASE_ID}}
       NEXT_PUBLIC_PROJECT_ID: ${{secrets.NEXT_PUBLIC_PROJECT_ID}}
       NEXT_PUBLIC_SHEET_COLLECTION_ID: ${{secrets.NEXT_PUBLIC_SHEET_COLLECTION_ID}}
+      HOST: ${{secrets.HOST}
 
 
     steps:
@@ -37,7 +38,7 @@ jobs:
         # Use the 'appleboy/ssh-action' action for SSH deployment
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.HOST }} # Your server's IP address
+          host: $Host # Your server's IP address
           username: ${{ secrets.USERNAME }} # Your server's username
           key: ${{ secrets.SSH_PRIVATE_KEY }} # Your server's SSH private key
           script: |
