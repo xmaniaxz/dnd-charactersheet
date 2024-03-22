@@ -33,10 +33,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           name: id_rsa
           known_hosts: ${{ secrets.HOST }}
-          script: |
-            cd /var/www/dnd-charactersheet 
-            git pull
-            npm install
-            npm run build
-            pm2 restart dnd-charactersheet 
+
+      - name: Copy Files
+        run: rsync -avz ./dist/ ${{ secrets.USERNAME }}@${{ secrets.HOST }}:/var/www/dnd-charactersheet
           
