@@ -31,8 +31,8 @@ jobs:
           HOST: ${{secrets.HOST}}
           USERNAME: ${{secrets.USERNAME}}
         run: |
-          echo HOST
-          echo USERNAME
+          echo $HOST
+          echo $USERNAME
       - name: SSH Deploy
         # Use the 'appleboy/ssh-action' action for SSH deployment
         uses: appleboy/ssh-action@master
