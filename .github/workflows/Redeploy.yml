@@ -15,7 +15,7 @@ jobs:
       NEXT_PUBLIC_DATABASE_ID: ${{secrets.NEXT_PUBLIC_DATABASE_ID}}
       NEXT_PUBLIC_PROJECT_ID: ${{secrets.NEXT_PUBLIC_PROJECT_ID}}
       NEXT_PUBLIC_SHEET_COLLECTION_ID: ${{secrets.NEXT_PUBLIC_SHEET_COLLECTION_ID}}
-      HOST: ${{secrets.HOST}
+      HOST: ${{secrets.HOST}}
 
 
     steps:
@@ -27,13 +27,7 @@ jobs:
 
       - name: Build Next.js app
         run: npm run build
-      - name: Show variables
-        env: 
-          HOST: ${{secrets.HOST}}
-          USERNAME: ${{secrets.USERNAME}}
-        run: |
-          echo $HOST
-          echo $USERNAME
+        
       - name: SSH Deploy
         # Use the 'appleboy/ssh-action' action for SSH deployment
         uses: appleboy/ssh-action@master
