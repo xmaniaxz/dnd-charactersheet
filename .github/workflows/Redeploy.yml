@@ -34,7 +34,7 @@ jobs:
         # Use the 'appleboy/ssh-action' action for SSH deployment
         uses: appleboy/ssh-action@master
         with:
-          host: $HOST # Your server's IP address
+          host: 88.99.61.47 # Your server's IP address
           username: $USERNAME # Your server's username
           key: $KEY # Your server's SSH private key
           script: |
