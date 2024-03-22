@@ -35,8 +35,8 @@ jobs:
         uses: appleboy/ssh-action@v0.1.4
         with:
           host: 88.99.61.47 # Your server's IP address
-          username: ${{ secrets.USERNAME }} # Your server's username
-          key: $KEY # Your server's SSH private key
+          username: ${{ secrets.USERNAME }}
+          key: $KEY 
           port: 22
           script: |
             cd /var/www/dnd-charactersheet # Specify the path to your app directory on the server
