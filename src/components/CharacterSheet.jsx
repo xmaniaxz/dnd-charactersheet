@@ -60,7 +60,7 @@ export default function CharacterSheet() {
         WriteSheetToDatabase(characterInfo);
     };
 
-    const interval = setInterval(saveCharacterInfo, 60000);
+    const interval = setInterval(saveCharacterInfo, 300000);
 
 const handleBeforeUnload = async (event) => {
       event.preventDefault();
