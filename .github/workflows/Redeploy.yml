@@ -27,9 +27,12 @@ jobs:
       - name: Build Next.js app
         run: npm run build
       - name: Show variables
+        env: 
+          HOST: ${{secrets.HOST}}
+          USERNAME: ${{secrets.USERNAME}}
         run: |
-          echo ${{secrets.HOST}}
-          echo ${{secrets.USERNAME}}
+          echo HOST
+          echo USERNAME
       - name: SSH Deploy
         # Use the 'appleboy/ssh-action' action for SSH deployment
         uses: appleboy/ssh-action@master
