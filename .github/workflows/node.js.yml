@@ -27,7 +27,7 @@ jobs:
         run: npm run build
       - name: Show Variables
         run: |
-          echo `trying to connect to: ${{ secrets.USERNAME }@88.99.61.47`
+          echo `trying to connect to: ${{ secrets.USERNAME }}@88.99.61.47`
           echo `using key ${{ secrets.SSH_PRIVATE_KEY }}`
         
       - name: SSH Deploy
