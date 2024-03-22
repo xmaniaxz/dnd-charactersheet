@@ -1,99 +1,176 @@
 "use client";
-import InputField from "@/components/Inputfields";
+import style from "@/CSS/TopbarInfo.module.css";
 import ProfileImage from "./ProfileImage";
+import Dropdown from "./Dropdown";
 import { useCharacterInfo } from "@/components/characterinfocontext";
 import { useEffect, useState } from "react";
-import UnderInfo from "@/components/UnderProfile";
-export default function TopbarInfo() {
-  const { characterInfo, updateCharacterInfo } = useCharacterInfo();
-  const [updatedValue, setUpdatedValue] = useState(true);
-  const HandleValueChanged = (value, type) => {
-    switch (type) {
-      case "Race":
-        characterInfo.playerInfo.Race = value;
-        break;
-      case "Class":
-        characterInfo.playerInfo.Class = value;
-        break;
-      case "SubClass":
-        characterInfo.playerInfo.SubClass = value;
-        break;
-      case "Background":
-        characterInfo.playerInfo.Background = value;
-        break;
-      case "PlayerName":
-        characterInfo.playerInfo.PlayerName = value;
-        break;
-      case "Alignment":
-        characterInfo.playerInfo.Alignment = value;
-        break;
-      case "Experience":
-        characterInfo.playerInfo.Experience = value;
-        break;
-    }
-  };
+import Healthbar from "./Healtbar";
+import InputField from "./Inputfield";
 
-  useEffect(() => {
-    setUpdatedValue(false);
-  }, [characterInfo]);
+export default function TopbarInfo() {
+  const { characterInfo } = useCharacterInfo();
+  const [reloadPage, setReloadPage] = useState(false);
+  const options = [
+    "Artificer",
+    "Barbarian",
+    "Bard",
+    "Cleric",
+    "Druid",
+    "Fighter",
+    "Monk",
+    "Paladin",
+    "Ranger",
+    "Rogue",
+    "Sorcerer",
+    "Warlock",
+    "Wizard",
+  ];
   return (
-    <div>
-      <div className="topInfoContainer">
-        <div className="imageContainer">
+    <div className="topContainer">
+      <div className={`${style.profileContainer}`}>
+        <div className={`${style.innerContainer}`}>
+          <div className={`${style.leftSide}`}>
+            <div className={`${style.characterInfo}`}>
+              <input
+                className={`text-2xl`}
+                type="text"
+                placeholder="Character Name"
+                value={characterInfo.playerInfo.CharacterName}
+                onChange={(e) => {
+                  characterInfo.playerInfo.CharacterName = e.target.value;
+                  setReloadPage(!reloadPage);
+                }}
+              />
+              <div className={`${style.characterDetails}`}>
+                <input
+                  id="RaceInput"
+                  type="text"
+                  style={{
+                    width:
+                      characterInfo.playerInfo.Race.length > 3
+                        ? characterInfo.playerInfo.Race.length - 1 + "ch"
+                        : "4ch",
+                    margin: "10px,0px",
+                  }}
+                  value={
+                    characterInfo.playerInfo.Race
+                      ? characterInfo.playerInfo.Race
+                      : ""
+                  }
+                  placeholder="Race"
+                  onChange={(e) => {
+                    characterInfo.playerInfo.Race = e.target.value;
+                    setReloadPage(!reloadPage);
+                  }}
+                />
+                <span>||</span>
+                <Dropdown
+                  id="ClassInput"
+                  Options={options}
+                  placeholder={"Class"}
+                  SelectedOption={characterInfo.playerInfo.Class}
+                  OnSelection={(e) => {
+                    characterInfo.playerInfo.Class = e;
+                  }}
+                />
+                <span>||</span>
+                <input
+                  id="SubClassInput"
+                  type="text"
+                  style={{
+                    width:
+                      characterInfo.playerInfo.SubClass.length > 7
+                        ? characterInfo.playerInfo.SubClass.length - 1 + "ch"
+                        : "8ch",
+                    textAlign: "center",
+                  }}
+                  value={
+                    characterInfo.playerInfo.SubClass
+                      ? characterInfo.playerInfo.SubClass
+                      : ""
+                  }
+                  placeholder="Sub-class"
+                  onChange={(e) => {
+                    characterInfo.playerInfo.SubClass = e.target.value;
+                    setReloadPage(!reloadPage);
+                  }}
+                />
+                <span>||</span>
+                <div id="LevelContainer" className="ml-[4px] text-center">
+                  <span>lvl:</span>
+                  <input
+                    type="text"
+                    style={{
+                      width:
+                        characterInfo.playerInfo.PlayerLevel.toString().length >
+                        3
+                          ? characterInfo.playerInfo.PlayerLevel.toString()
+                              .length +
+                            1 +
+                            "ch"
+                          : "2ch",
+                      textAlign: "center",
+                    }}
+                    value={
+                      characterInfo.playerInfo.PlayerLevel
+                        ? characterInfo.playerInfo.PlayerLevel
+                        : ""
+                    }
+                    placeholder="Lvl"
+                    onChange={(e) => {
+                      characterInfo.playerInfo.PlayerLevel = e.target.value;
+                      setReloadPage(!reloadPage);
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className={`${style.HPBar}`}>
+              <Healthbar />
+            </div>
+            <div className={`${style.characterData1}`}>
+              <InputField
+                labelName={"Background"}
+                onValueChange={(e) => {
+                  characterInfo.playerInfo.Background = e;
+                  setReloadPage(!reloadPage);
+                }}
+                setValue={characterInfo.playerInfo.Background}
+              />
+              <InputField
+                labelName={"Alignment"}
+                onValueChange={(e) => {
+                  characterInfo.playerInfo.Alignment = e;
+                  setReloadPage(!reloadPage);
+                }}
+                setValue={characterInfo.playerInfo.Alignment}
+              />
+              <InputField
+                labelName={"Player name"}
+                onValueChange={(e) => {
+                  characterInfo.playerInfo.PlayerName = e;
+                  setReloadPage(!reloadPage);
+                }}
+                setValue={characterInfo.playerInfo.PlayerName}
+              />
+              <InputField
+                labelName={"Experience"}
+                onValueChange={(e) => {
+                  characterInfo.playerInfo.Experience = e;
+                  setReloadPage(!reloadPage);
+                }}
+                setValue={characterInfo.playerInfo.Experience}
+              />
+            </div>
+          </div>
+          <div className={`${style.rightSide}`}>
+            <div className={`${style.characterData2}`}></div>
+          </div>
+        </div>
+        <div id="backgroundCover" className={`${style.backgroundCircle}`}>
           <ProfileImage />
         </div>
-        <div>
-          <UnderInfo />
-        </div>
       </div>
-      <div className="topInfoContainer">
-        <div className="profileDetails">
-          <InputField
-            classname={"profileDetailsClass"}
-            InputText="Race :"
-            onValueChanged={(value) => HandleValueChanged(value, "Race")}
-            defaultValue={characterInfo.playerInfo.Race}
-          />
-          <InputField
-            classname={"profileDetailsClass"}
-            defaultValue={characterInfo.playerInfo.Class}
-            InputText="Class :"
-            onValueChanged={(value) => HandleValueChanged(value, "Class")}
-          />
-          <InputField
-            classname={"profileDetailsClass"}
-            defaultValue={characterInfo.playerInfo.SubClass}
-            InputText="Sub-class :"
-            onValueChanged={(value) => HandleValueChanged(value, "SubClass")}
-          />
-          <InputField
-            classname={"profileDetailsClass"}
-            defaultValue={characterInfo.playerInfo.Background}
-            InputText="Background :"
-            onValueChanged={(value) => HandleValueChanged(value, "Background")}
-          />
-          <InputField
-            classname={"profileDetailsClass"}
-            defaultValue={characterInfo.playerInfo.PlayerName}
-            InputText="Playername :"
-            onValueChanged={(value) => HandleValueChanged(value, "PlayerName")}
-          />
-          <InputField
-            classname={"profileDetailsClass"}
-            defaultValue={characterInfo.playerInfo.Alignment}
-            InputText="Alignment :"
-            onValueChanged={(value) => HandleValueChanged(value, "Alignment")}
-          />
-          <InputField
-            classname={"profileDetailsClass"}
-            defaultValue={characterInfo.playerInfo.Experience}
-            InputText="Exp :"
-            onValueChanged={(value) => HandleValueChanged(value, "Experience")}
-          />
-        </div>
-      </div>
-
-      <div className="topInfoContainer"></div>
     </div>
   );
 }

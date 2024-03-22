@@ -1,6 +1,5 @@
 "use client";
-import { useState } from "react";
-import { WriteSheetToDatabase } from "../utils/Database";
+import { useState, useEffect } from "react";
 import Inventory from "./InventoryContainer";
 import SpellList from "./SpellList";
 import { useCharacterInfo } from "@/components/characterinfocontext";
@@ -127,20 +126,6 @@ export default function SpellContainer() {
           >
             Inventory
           </button>
-          <button
-            className="BottomContainerButton"
-            onClick={() => ActiveInfoPage("characterInfoContainer")}
-          >
-            Character info
-          </button>
-          <button
-            className="BottomContainerButton"
-            onClick={(e) => {
-              WriteSheetToDatabase(characterInfo);
-            }}
-          >
-            Save Document
-          </button>
         </div>
         <div
           className="inventoryContainer"
@@ -158,12 +143,12 @@ export default function SpellContainer() {
         >
           <SpellList />
         </div>
-        <div className="characterInfoContainer"
-         style={{
-          display: activePage === "characterInfoContainer" ? "block" : "none",
-        }}>
-
-        </div>
+        <div
+          className="characterInfoContainer"
+          style={{
+            display: activePage === "characterInfoContainer" ? "block" : "none",
+          }}
+        ></div>
       </div>
     </div>
   );

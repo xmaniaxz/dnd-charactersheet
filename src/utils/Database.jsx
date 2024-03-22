@@ -164,28 +164,36 @@ export async function UploadFile(file) {
 
     publish("ShowPopUp", {
       text: "Image uploaded successfully.",
+      visibility: true,
       backgroundColor: "rgba(0, 128, 0, 0.8)",
       top: "10px",
       right: "20px",
     });
     return uploadResponse.$id;
   } else {
+    const files = await storage.listFiles(process.env.NEXT_PUBLIC_BUCKET_ID);
+    const existingFile = files.files.find((files) => files.name === file.name);
     publish("ShowPopUp", {
-      text: "Image upload failed",
-      backgroundColor: "rgba(255, 0, 0, 0.8)",
+      text: "Image already exists. Using existing image.",
+      visibility: true,
+      backgroundColor: "rgba(0, 128, 0, 0.8)",
       top: "10px",
       right: "20px",
     });
-    return null;
+    return existingFile.$id;
   }
 }
 
 export async function GetFile(fileID) {
-  const file = await storage.getFileView(
+  const file = storage.getFileView(
     process.env.NEXT_PUBLIC_BUCKET_ID,
     fileID
   );
   return file;
+}
+
+export async function GetFileID(fileName){
+
 }
 
 async function CheckIfFileExists(fileName) {

@@ -4,14 +4,14 @@ import StatsContainer from "@/components/StatsContainer";
 import BottomContainer from "@/components/BottomContainer";
 import { useEffect, useState } from "react";
 import { useCharacterInfo } from "@/components/characterinfocontext";
-import { GetCharacterSheet } from "../utils/Database";
+import { GetCharacterSheet,WriteSheetToDatabase } from "@/utils/Database";
 import PopUp from "@/components/popup";
-import { publish } from "@/utils/events";
+import { publish,subscribe,unsubscribe } from "@/utils/events";
+
 
 export default function CharacterSheet() {
-  const {updateCharacterInfo } = useCharacterInfo();
+  const {characterInfo,updateCharacterInfo } = useCharacterInfo();
   const [pageIsLoading, setPageIsLoading] = useState(true);
-
 
   useEffect(() => {
     setPageIsLoading(true);
@@ -53,7 +53,43 @@ export default function CharacterSheet() {
         right: "20px",
       });
     }
-  }, []); // Empty dependency array
+  }, []);
+
+  useEffect(() => {
+    const saveCharacterInfo = () => {
+        WriteSheetToDatabase(characterInfo);
+    };
+
+    const interval = setInterval(saveCharacterInfo, 60000);
+
+const handleBeforeUnload = async (event) => {
+      event.preventDefault();
+      event.returnValue = '';
+        saveCharacterInfo();
+    };
+
+    const handleVisibilityChange = () => {
+        if (document.visibilityState === 'hidden') {
+            saveCharacterInfo();
+        }
+    };
+
+    const handlePopState = () => {
+        saveCharacterInfo();
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+        clearInterval(interval);
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+        document.removeEventListener("visibilitychange", handleVisibilityChange);
+        window.removeEventListener("popstate", handlePopState);
+    };
+}, [characterInfo]);
+
+
 
   return (
     <div>

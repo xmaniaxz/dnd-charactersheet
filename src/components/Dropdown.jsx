@@ -1,37 +1,47 @@
 "use client";
-import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function Dropdown({ Options }) {
+export default function Dropdown({
+  Options,
+  placeholder,
+  OnSelection,
+  SelectedOption,
+}) {
   const [dropdownOpen, setdropdownOpen] = useState(false);
-  const [damageType, setDamageType] = useState(Options[0]);
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  useEffect(() => {
+    setSelectedOption(SelectedOption);
+  }, [SelectedOption]);
+
   return (
     <div>
       <button
-        className="WeaponType hover:cursor-pointer"
+        className="placeHolder hover:cursor-pointer"
         onClick={() => setdropdownOpen(!dropdownOpen)}
       >
-        {damageType}
-        <Image src="/Arrow.png" alt="" width="15" height="15" />
+        <div className="m-[0px auto]">
+          {selectedOption ? selectedOption : placeholder}
+        </div>
       </button>
-      <div
-        className={`${
-          dropdownOpen ? ` opacity-100 visible` : " invisible opacity-0"
-        } absolute text-center text-black w-1/6 border-light bg-gray-400 shadow-card transition-all`}
-      >
-        <ul>
-          {/*Options go here*/}
+
+      <div className={`${dropdownOpen ? ` visible` : " invisible"} dropdown `}>
+        <ul className="optionsContainer">
           {Options.map((values) => {
             return (
-              <div key={"key-"+values}>
-                <button                
-                style={{backgroundColor: damageType === values ? "blue" : "lightgray" }}
-                onClick={()=> {setDamageType(values),setdropdownOpen(false)}}                  
-                  className={`hover:bg-gray-300 hover:cursor-pointer`}
+              <div key={"key-" + values}>
+                <button
+                  className={`${
+                    selectedOption === values ? "selected" : ""
+                  } options`}
+                  onClick={() => {
+                    OnSelection(values);
+                    setSelectedOption(values);
+                    setdropdownOpen(false);
+                  }}
                 >
                   <li>{values}</li>
                 </button>
-                <hr />
               </div>
             );
           })}

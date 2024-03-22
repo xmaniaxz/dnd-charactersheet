@@ -19,7 +19,7 @@ export default function SkillContainer({ skillName, modifier, isproficient,ident
   }
 
   return (
-    <div className="flex flex-row text-black truncate mb-1">
+    <div className="flex flex-row  truncate mb-1">
       <input
         className="ml-2"
         type="checkbox"

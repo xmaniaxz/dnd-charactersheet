@@ -36,7 +36,7 @@ export default function StatsContainer() {
 
 
   useEffect(() => {
-    setUpdatedValue(false);
+    setUpdatedValue(!updatedValue);
   }, [characterInfo]);
 
   return (

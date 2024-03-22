@@ -43,6 +43,7 @@ export default function WeaponsSys() {
                 "Slashing",
                 "Bludgeoning",
               ]}
+              placeholder="Piercing"
               className="WeaponType"
             />
             <button className="WeaponButton" onClick={() => RemoveWeapon(weapon.id)}>

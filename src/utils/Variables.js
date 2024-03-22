@@ -7,6 +7,7 @@ let playerInfo = {
   Background: "",
   Alignment: "",
   Experience: "",
+  PlayerLevel: 1,
 };
 let playerStats = {
   Health: 0,
