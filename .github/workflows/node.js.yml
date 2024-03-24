@@ -15,6 +15,8 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
+    - name: Change permissions
+      run: echo ${{ secrets.PASSWORD }} | sudo -S chmod -R 777 /home/runner/actions-runner/dndmt/dnd-charactersheet/dnd-charactersheet
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
@@ -37,4 +39,5 @@ jobs:
         echo ${{ secrets.PASSWORD }} | sudo -S npm ci
         echo ${{ secrets.PASSWORD }} | sudo -S npm run build
         echo ${{ secrets.PASSWORD }} | sudo -S pm2 restart dndmt --update-env
+            
 
