@@ -14,13 +14,6 @@ jobs:
         node-version: [20.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-    env:
-      NEXT_PUBLIC_APPWRITE_ENDPOINT: ${{secrets.NEXT_PUBLIC_APPWRITE_ENDPOINT}}
-      NEXT_PUBLIC_COLLECTION_SPELL_ID: ${{secrets.NEXT_PUBLIC_COLLECTION_SPELL_ID}}
-      NEXT_PUBLIC_DATABASE_ID: ${{secrets.NEXT_PUBLIC_DATABASE_ID}}
-      NEXT_PUBLIC_PROJECT_ID: ${{secrets.NEXT_PUBLIC_PROJECT_ID}}
-      NEXT_PUBLIC_SHEET_COLLECTION_ID: ${{secrets.NEXT_PUBLIC_SHEET_COLLECTION_ID}}
-      
     steps:
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
@@ -28,5 +21,27 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm run build
+    - name: Set up environment variables
+      run: |
+        if [ ! -f .env ]; then
+          touch .env
+        fi
+        echo "NEXT_PUBLIC_APPWRITE_ENDPOINT=${{secrets.NEXT_PUBLIC_APPWRITE_ENDPOINT}}" >> .env
+        echo "NEXT_PUBLIC_COLLECTION_SPELL_ID=${{secrets.NEXT_PUBLIC_COLLECTION_SPELL_ID}}" >> .env
+        echo "NEXT_PUBLIC_DATABASE_ID=${{secrets.NEXT_PUBLIC_DATABASE_ID}}" >> .env
+        echo "NEXT_PUBLIC_PROJECT_ID=${{secrets.NEXT_PUBLIC_PROJECT_ID}}" >> .env
+        echo "NEXT_PUBLIC_SHEET_COLLECTION_ID=${{secrets.NEXT_PUBLIC_SHEET_COLLECTION_ID}}" >> .env
+    - name: Run npm commands with sudo
+      run: |
+        if [[ ${{ github.actor }} == "root" ]]; then
+          npm ci
+          npm run build
+          pm2 restart dndmt
+        else
+          sudo npm ci
+          sudo npm run build
+          sudo pm2 restart dndmt
+        fi
+      shell: bash
+      env:
+        RUNNER_ALLOW_RUNASROOT: true
