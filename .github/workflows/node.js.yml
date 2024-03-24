@@ -7,7 +7,7 @@ on:
 jobs:
   build:
 
-    runs-on: [self-hosted,linux,x64]
+    runs-on: [self-hosted]
 
     strategy:
       matrix:
@@ -31,13 +31,11 @@ jobs:
         echo "NEXT_PUBLIC_DATABASE_ID=${{secrets.NEXT_PUBLIC_DATABASE_ID}}" >> .env
         echo "NEXT_PUBLIC_PROJECT_ID=${{secrets.NEXT_PUBLIC_PROJECT_ID}}" >> .env
         echo "NEXT_PUBLIC_SHEET_COLLECTION_ID=${{secrets.NEXT_PUBLIC_SHEET_COLLECTION_ID}}" >> .env
+        echo "NEXT_PUBLIC_BUCKET_ID=${{secrets.NEXT_PUBLIC_BUCKET_ID}}" >> .env
     - name: Run npm commands with sudo
       run: |
-        sudo chown -R ${{ github.actor }}:$USER .
-        sudo chmod -R 777 .
-        npm ci
-        npm run build
-        pm2 restart dndmt
-      shell: bash
-      env:
-        RUNNER_ALLOW_RUNASROOT: true
+        echo ${{ secrets.PASSWORD }} | sudo -S npm ci
+        echo ${{ secrets.PASSWORD }} | sudo -S npm run build
+        echo ${{ secrets.PASSWORD }} | sudo -S pm2 restart dndmt
+        echo ${{ secrets.PASSWORD }} | sudo -S --update-env
+
