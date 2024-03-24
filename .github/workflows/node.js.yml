@@ -33,15 +33,11 @@ jobs:
         echo "NEXT_PUBLIC_SHEET_COLLECTION_ID=${{secrets.NEXT_PUBLIC_SHEET_COLLECTION_ID}}" >> .env
     - name: Run npm commands with sudo
       run: |
-        if [[ ${{ github.actor }} == "root" ]]; then
-          npm ci
-          npm run build
-          pm2 restart dndmt
-        else
-          sudo npm ci
-          sudo npm run build
-          sudo pm2 restart dndmt
-        fi
+        sudo chown -R ${{ github.actor }}:$USER .
+        sudo chmod -R 777 .
+        npm ci
+        npm run build
+        pm2 restart dndmt
       shell: bash
       env:
         RUNNER_ALLOW_RUNASROOT: true
