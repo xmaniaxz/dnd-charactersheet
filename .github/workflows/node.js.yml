@@ -23,7 +23,7 @@ jobs:
         cache: 'npm'
     - name: Set up environment variables
       run: |
-        if [ ! -f .env ]; then
+        if [ ! -f .env ]; the
           touch .env
         fi
         echo "NEXT_PUBLIC_APPWRITE_ENDPOINT=${{secrets.NEXT_PUBLIC_APPWRITE_ENDPOINT}}" >> .env
@@ -36,6 +36,5 @@ jobs:
       run: |
         echo ${{ secrets.PASSWORD }} | sudo -S npm ci
         echo ${{ secrets.PASSWORD }} | sudo -S npm run build
-        echo ${{ secrets.PASSWORD }} | sudo -S pm2 restart dndmt
-        echo ${{ secrets.PASSWORD }} | sudo -S --update-env
+        echo ${{ secrets.PASSWORD }} | sudo -S pm2 restart dndmt --update-env
 
