@@ -63,39 +63,39 @@ export default function SpellList() {
 
   };
   const HandleOnSelection = (spellIndex) => {
-    // setOverlayActive(false);
-    // const _spellIndex = spellData.findIndex(
-    //   (spell) => spell.SpellName === spellIndex
-    // );
-    // if (spellIndex === -1) {
-    //   // Create a copy of spellArray
-    //   const updatedSpellArray = { ...spellArray };
+    setOverlayActive(false);
+    const _spellIndex = spellData.findIndex(
+      (spell) => spell.SpellName === spellIndex
+    );
+    if (spellIndex === -1) {
+      // Create a copy of spellArray
+      const updatedSpellArray = { ...spellArray };
 
-    //   updatedSpellArray[activeLevel].splice(selectedIndex, 1); // Remove the selected spell (if it exists
-    //   console.log(_spellIndex);
-    //   // Filter all empty entries (where spell is null and prepared is false)
-    //   updatedSpellArray[activeLevel] = spellArray[activeLevel].filter(
-    //     (entry) => entry.spell !== null || entry.prepared !== false
-    //   );
-    //   updatedSpellArray[activeLevel].push({ spell: null, prepared: false });
-    //   setSpellArray(updatedSpellArray);
-    //   // setSpellArray(updatedSpellArray); // Uncomment this line if you want to update the state with the modified array
-    // } else {
-    //   const updatedSpellArray = { ...spellArray };
-    //   const selectedSpell = updatedSpellArray[activeLevel][selectedIndex];
-    //   if (selectedSpell.spell === null && selectedSpell.prepared === false) {
-    //     updatedSpellArray[activeLevel].push({ spell: null, prepared: false });
-    //   }
-    //   updatedSpellArray[activeLevel][selectedIndex] = {
-    //     prepared: spellArray[activeLevel][selectedIndex].prepared,
-    //     spell: spellData[_spellIndex],
-    //   };
-    //   setActiveSpell(selectedSpell.spell);
-    //   setSpellArray(updatedSpellArray);
+      updatedSpellArray[activeLevel].splice(selectedIndex, 1); // Remove the selected spell (if it exists
+      console.log(_spellIndex);
+      // Filter all empty entries (where spell is null and prepared is false)
+      updatedSpellArray[activeLevel] = spellArray[activeLevel].filter(
+        (entry) => entry.spell !== null || entry.prepared !== false
+      );
+      updatedSpellArray[activeLevel].push({ spell: null, prepared: false });
+      setSpellArray(updatedSpellArray);
+      // setSpellArray(updatedSpellArray); // Uncomment this line if you want to update the state with the modified array
+    } else {
+      const updatedSpellArray = { ...spellArray };
+      const selectedSpell = updatedSpellArray[activeLevel][selectedIndex];
+      if (selectedSpell.spell === null && selectedSpell.prepared === false) {
+        updatedSpellArray[activeLevel].push({ spell: null, prepared: false });
+      }
+      updatedSpellArray[activeLevel][selectedIndex] = {
+        prepared: spellArray[activeLevel][selectedIndex].prepared,
+        spell: spellData[_spellIndex],
+      };
+      setActiveSpell(selectedSpell.spell);
+      setSpellArray(updatedSpellArray);
   
 
 
-    // }
+    }
   };
 
   const HandleCheckBox = (levels, index) => {
@@ -159,7 +159,7 @@ export default function SpellList() {
           })}
       </div>
       <div className="spellInfoListContainer">
-        {activeSpell ? <SpellInfoData SpellData={activeSpell} /> : null}
+        {activeSpell && <SpellInfoData SpellData={activeSpell} />}
       </div>
     </div>
   );
