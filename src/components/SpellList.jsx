@@ -31,11 +31,12 @@ export default function SpellList() {
     setSpellData(await GetServerSpells());
   };
   useEffect(() => {
-    data();
+    //data();
   }, []);
 
   useEffect(() => {
-    if (characterInfo.playerSpells) setSpellArray(characterInfo.playerSpells);
+    if (characterInfo.playerSpells) 
+    setSpellArray(characterInfo.playerSpells);
   }, [characterInfo]);
   //#endregion
 
