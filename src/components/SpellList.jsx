@@ -158,7 +158,7 @@ export default function SpellList() {
           })}
       </div>
       <div className="spellInfoListContainer">
-        {activeSpell && <SpellInfoData SpellData={activeSpell} />}
+        {/* {activeSpell && <SpellInfoData SpellData={activeSpell} />} */}
       </div>
     </div>
   );
