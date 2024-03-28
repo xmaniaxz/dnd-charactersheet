@@ -144,7 +144,7 @@ export default function SpellList() {
                         />
                         <div
                           className="w-full spellName button"
-                          onClick={() => HandleClick(index, Levels, spell.spell)}
+                          // onClick={() => HandleClick(index, Levels, spell.spell)}
                         >
                           {spell.spell ? spell.spell.SpellName : ""}
                         </div>
@@ -158,7 +158,7 @@ export default function SpellList() {
           })}
       </div>
       <div className="spellInfoListContainer">
-        {/* {activeSpell && <SpellInfoData SpellData={activeSpell} />} */}
+        {activeSpell && <SpellInfoData SpellData={activeSpell} />}
       </div>
     </div>
   );
