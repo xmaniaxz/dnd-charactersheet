@@ -43,7 +43,6 @@ export default function SpellList() {
     if (spell) {
       if (activeSpell !== spell) {
         setActiveSpell(spell);
-        return;
       } else {
         setOverlayActive(!overlayActive);
         setSelectedIndex(index);
@@ -144,7 +143,7 @@ export default function SpellList() {
                         <div
                           className="w-full spellName button"
                           onClick={() => {
-                            //HandleClick(index, Levels, spell.spell);
+                            HandleClick(index, Levels, spell.spell);
                           }}
                         >
                           {spell.spell ? spell.spell.SpellName : ""}
