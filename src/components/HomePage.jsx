@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import AlertBox from "./AlertBox";
+import { revalidatePath } from "next/cache";
 
 export default function HomePage() {
   const [isLoadingSheetData, setLoadingSheetData] = useState(true);
@@ -18,6 +19,7 @@ export default function HomePage() {
       await account.deleteSession("current");
     }
     finally{
+      revalidatePath();
       router.push("/");
     }
     

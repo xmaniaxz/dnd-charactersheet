@@ -9,12 +9,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={`${inter} p-[20px]`}>
+    <div>
+      <div className={`${inter} p-[20px]`}>
         <CharacterInfoProvider>
           {children}
         </CharacterInfoProvider>
-      </body>
-    </html>
+      </div>
+    </div>
   );
 }
