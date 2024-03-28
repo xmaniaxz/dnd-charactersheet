@@ -41,7 +41,7 @@
   --border-dark-gray: rgba(28, 28, 28, 0.9);
   --light-gray: rgba(215, 215, 215);
   --semi-dark-gray: rgba(127, 127, 127, 0.578);
-  --semi-light-gray: rgba(203, 203, 203);
+  --semi-light-gray: rgba(203, 203, 203, 0.262);
   --very-dark-gray: rgba(38, 38, 38, 0.253);
   --semi-black: rgb(73, 73, 73);
   --button-gray: rgba(42, 42, 42, 0.479);
@@ -81,15 +81,16 @@ body {
 
 .topContainer {
   width: 100%;
-  height: 450px;
+  height: 500px;
   display: flex;
   justify-items: center;
   /* border: solid 1px white; */
 }
 
 .imageContainer {
-  width: 400px;
-  height: 400px;
+  width: 350px;
+  height: 350px;
+  aspect-ratio: 1/1;
   overflow: hidden;
   border-radius: 50%;
   border: 3px solid var(--border-white);
@@ -408,19 +409,11 @@ input[type="number"] {
   padding: 0px 30px;
 }
 
-.spellName:hover + .spellInfoContainer {
-  display: block;
-}
 
 .spellName {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-}
-
-.spellName:hover {
-  background: var(--semi-black);
-  cursor: pointer;
 }
 
 .spellInfoContainer {
@@ -430,7 +423,6 @@ input[type="number"] {
   background: var(--semi-dark-gray);
   bottom: 20px;
   right: 20px;
-  display: none;
 }
 
 .spellInfoListContainer {
@@ -536,7 +528,24 @@ input[type="number"] {
 
 .button {
   cursor: pointer;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
+textarea{
+  outline: none;
+  border: transparent;
+}
 
+textarea:focus{
+  outline: none;
+  border: solid 1px var(--border-gray);
+  box-shadow: 0 5px 10px rgba(143, 143, 143, 0.174);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
 
+.activeSpell{
+  background-color: var(--semi-light-gray);
+}

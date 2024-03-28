@@ -93,7 +93,7 @@ const handleBeforeUnload = async (event) => {
 
   return (
     <div>
-      {pageIsLoading ? <div className="w-screen h-screen">Loading...</div> : 
+      {pageIsLoading ? <div className="w-screen h-screen flex items-center justify-center">Loading...</div> : 
           <div className="bigContainer">
           <PopUp/>
           <TopbarInfo />
@@ -101,7 +101,6 @@ const handleBeforeUnload = async (event) => {
           <BottomContainer />
           </div>
       }
-        
     </div>
   );
 }

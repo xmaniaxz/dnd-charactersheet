@@ -9,7 +9,8 @@ export default function SpellAlertBox({
   onReturn,
 }) {
   const [spellData, setSpellData] = useState(spellInfo);
-  const [Filter, setFilter] = useState("Artificer");
+  const [Filter, setFilter] = useState("None");
+  const [activeSpell, setActiveSpell] = useState(null);
   const options = [
     "None",
     "Artificer",
@@ -29,17 +30,26 @@ export default function SpellAlertBox({
 
   useEffect(() => {
     if (spellInfo && activeLevel) {
-        let filteredlist = spellInfo
-            .filter((spell) => spell.SpellLevel === activeLevel.toString())
-            .sort((a, b) => a.SpellName.localeCompare(b.SpellName));
-        if (Filter !== "None") {
-            console.log(Filter);
-            filteredlist = filteredlist.filter((spell) => spell.Class.includes(Filter));
-        }
-        setSpellData(filteredlist);
+      let filteredlist = spellInfo
+        .filter((spell) => spell.SpellLevel === activeLevel.toString())
+        .sort((a, b) => a.SpellName.localeCompare(b.SpellName));
+      if (Filter !== "None") {
+        filteredlist = filteredlist.filter((spell) =>
+          spell.Class.includes(Filter)
+        );
+      }
+      setSpellData(filteredlist);
     }
-}, [spellInfo, activeLevel, Filter]);
+  }, [spellInfo, activeLevel, Filter]);
 
+  const handleClick = (spellname, values) => {
+    if (values === activeSpell) {
+      onSelection(spellname);
+      console.log(spellname);
+    } else {
+      setActiveSpell(values);
+    }
+  };
 
   return (
     <div className={`${styles.alertBGContainer}`}>
@@ -50,14 +60,16 @@ export default function SpellAlertBox({
           <Dropdown
             Options={options}
             filterName={"Class"}
-            OnSelection={(e)=>{setFilter(e)}}
+            OnSelection={(e) => {
+              setFilter(e);
+            }}
             SelectedOption={Filter ? Filter : "Class"}
             placeholder={"Class"}
           />
         </div>
         <div id="SpellList" className="listContainer">
           <div
-            className="gg-remove-r text-[red] mb-[10px] hover:text-white hover:cursor-pointer"
+            className={`gg-remove-r text-[red] mb-[10px]`}
             onClick={() => {
               onSelection(-1);
             }}
@@ -69,19 +81,23 @@ export default function SpellAlertBox({
               //Show list of spellnames
               return (
                 <div
-                  className="w-[30%] hover:cursor-pointer"
+                  className={`w-[30%] button ${activeSpell === values ? "activeSpell" : ""}`}
                   key={index}
                   onClick={() => {
-                    onSelection(values.SpellName);
+                    handleClick(values.SpellName, values);
                   }}
                 >
-                  <div className="spellName">{values.SpellName}</div>
-                  <div className="spellInfoContainer">
-                    <SpellInfoData SpellData={values} />
-                  </div>
+                  <div className="spellName button">{values.SpellName}</div>
                 </div>
               );
             })}
+          {activeSpell && (
+            <div
+              className={`${activeSpell ? "block" : "none"} spellInfoContainer`}
+            >
+              <SpellInfoData SpellData={activeSpell} />
+            </div>
+          )}
         </div>
       </div>
     </div>

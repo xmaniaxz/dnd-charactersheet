@@ -3,7 +3,6 @@ import SpellAlertBox from "./SpellAlertBox";
 import SpellInfoData from "./SpellInfoData";
 import { GetServerSpells } from "../utils/Database";
 import { useCharacterInfo } from "./characterinfocontext";
-import { useFileSystemPublicRoutes } from "../../next.config";
 
 export default function SpellList() {
   const { characterInfo } = useCharacterInfo();
@@ -14,16 +13,16 @@ export default function SpellList() {
   const [activeSpell, setActiveSpell] = useState(null); // The active spell (DO NOT ADJUST THIS STATE)
   const spellArrayKeys = ["cantrip", 1, 2, 3, 4, 5, 6, 7, 8, 9]; // Array of spell levels (DO NOT ADJUST THIS STATE)
   const [spellArray, setSpellArray] = useState({
-    cantrip: Array(10).fill({ prepared: false, spell: null }),
-    1: Array(10).fill({ prepared: false, spell: null }),
-    2: Array(10).fill({ prepared: false, spell: null }),
-    3: Array(10).fill({ prepared: false, spell: null }),
-    4: Array(10).fill({ prepared: false, spell: null }),
-    5: Array(10).fill({ prepared: false, spell: null }),
-    6: Array(10).fill({ prepared: false, spell: null }),
-    7: Array(10).fill({ prepared: false, spell: null }),
-    8: Array(10).fill({ prepared: false, spell: null }),
-    9: Array(10).fill({ prepared: false, spell: null }),
+    cantrip: Array(1).fill({ prepared: false, spell: null }),
+    1: Array(1).fill({ prepared: false, spell: null }),
+    2: Array(1).fill({ prepared: false, spell: null }),
+    3: Array(1).fill({ prepared: false, spell: null }),
+    4: Array(1).fill({ prepared: false, spell: null }),
+    5: Array(1).fill({ prepared: false, spell: null }),
+    6: Array(1).fill({ prepared: false, spell: null }),
+    7: Array(1).fill({ prepared: false, spell: null }),
+    8: Array(1).fill({ prepared: false, spell: null }),
+    9: Array(1).fill({ prepared: false, spell: null }),
   }); // Array of spell objects (DO NOT ADJUST THIS STATE MANUALLY)
 
   //#region GetSpells
@@ -36,50 +35,67 @@ export default function SpellList() {
   }, []);
 
   useEffect(() => {
-    setSpellArray(characterInfo.playerSpells);
+    if (characterInfo.playerSpells) setSpellArray(characterInfo.playerSpells);
   }, [characterInfo]);
   //#endregion
 
-  const HandleClick = (index, level) => {
-    setOverlayActive(!overlayActive);
-    setSelectedIndex(index);
-    setActiveLevel(level);
+  const HandleClick = (index, level, spell) => {
+    if (spell) {
+      if (activeSpell !== spell) {
+        setActiveSpell(spell);
+        return;
+      } else {
+        setOverlayActive(!overlayActive);
+        setSelectedIndex(index);
+        setActiveLevel(level);
+      }
+    } else {
+      setOverlayActive(!overlayActive);
+      setSelectedIndex(index);
+      setActiveLevel(level);
+    }
   };
 
   const HandleOnReturn = () => {
     setOverlayActive(false);
     setActiveLevel(null);
+    setActiveSpell(null);
+
   };
   const HandleOnSelection = (spellIndex) => {
     setOverlayActive(false);
+    const _spellIndex = spellData.findIndex(
+      (spell) => spell.SpellName === spellIndex
+    );
     if (spellIndex === -1) {
-      let newArray = [...spellArray[activeLevel]];
-      newArray.splice(selectedIndex, 1, { prepared: false, spell: null });
-      setSpellArray((prevSpellArray) => ({
-        ...prevSpellArray,
-        [activeLevel]: newArray,
-      }));
-    } else {
-      let newArray = [...spellArray[activeLevel]];
-      const _spellIndex = spellData.findIndex(
-        (spell) => spell.SpellName === spellIndex
+      // Create a copy of spellArray
+      const updatedSpellArray = { ...spellArray };
+
+      updatedSpellArray[activeLevel].splice(selectedIndex, 1); // Remove the selected spell (if it exists
+      console.log(_spellIndex);
+      // Filter all empty entries (where spell is null and prepared is false)
+      updatedSpellArray[activeLevel] = spellArray[activeLevel].filter(
+        (entry) => entry.spell !== null || entry.prepared !== false
       );
-      newArray.splice(selectedIndex, 1, {
+      updatedSpellArray[activeLevel].push({ spell: null, prepared: false });
+      setSpellArray(updatedSpellArray);
+      // setSpellArray(updatedSpellArray); // Uncomment this line if you want to update the state with the modified array
+    } else {
+      const updatedSpellArray = { ...spellArray };
+      const selectedSpell = updatedSpellArray[activeLevel][selectedIndex];
+      if (selectedSpell.spell === null && selectedSpell.prepared === false) {
+        updatedSpellArray[activeLevel].push({ spell: null, prepared: false });
+      }
+      updatedSpellArray[activeLevel][selectedIndex] = {
         prepared: spellArray[activeLevel][selectedIndex].prepared,
         spell: spellData[_spellIndex],
-      });
-      // console.log(spellData);
-      // console.log(_spellIndex);
-      // console.log(spellIndex)
-      setSpellArray((prevSpellArray) => ({
-        ...prevSpellArray,
-        [activeLevel]: newArray,
-      }));
-    }
-  };
+      };
+      setActiveSpell(selectedSpell.spell);
+      setSpellArray(updatedSpellArray);
+  
 
-  const onMouseEnter = (spell) => {
-    setActiveSpell(spell);
+
+    }
   };
 
   const HandleCheckBox = (levels, index) => {
@@ -118,7 +134,7 @@ export default function SpellList() {
                 <span className="levelHeader">{Levels}</span>
                 {spellArray[Levels].map((spell, index) => {
                   return (
-                    <div key={index} className="w-full h-full">
+                    <div key={index} className={`w-full h-full ${activeSpell == spell.spell ? "activeSpell": ""}`}>
                       <div className="spellDetails">
                         <input
                           type="checkbox"
@@ -126,11 +142,10 @@ export default function SpellList() {
                           onChange={() => HandleCheckBox(Levels, index)}
                         />
                         <div
-                          className="w-full spellName"
+                          className="w-full spellName button"
                           onClick={() => {
-                            HandleClick(index, Levels);
+                            HandleClick(index, Levels, spell.spell);
                           }}
-                          onMouseEnter={() => onMouseEnter(spell.spell)}
                         >
                           {spell.spell ? spell.spell.SpellName : ""}
                         </div>

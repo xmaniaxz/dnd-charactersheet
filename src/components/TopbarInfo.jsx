@@ -3,9 +3,10 @@ import style from "@/CSS/TopbarInfo.module.css";
 import ProfileImage from "./ProfileImage";
 import Dropdown from "./Dropdown";
 import { useCharacterInfo } from "@/components/characterinfocontext";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Healthbar from "./Healtbar";
 import InputField from "./Inputfield";
+import NavBar from "./NavBar";
 
 export default function TopbarInfo() {
   const { characterInfo } = useCharacterInfo();
@@ -164,7 +165,9 @@ export default function TopbarInfo() {
             </div>
           </div>
           <div className={`${style.rightSide}`}>
-            <div className={`${style.characterData2}`}></div>
+            <div className={`${style.characterData2}`}>
+              <NavBar/>
+            </div>
           </div>
         </div>
         <div id="backgroundCover" className={`${style.backgroundCircle}`}>

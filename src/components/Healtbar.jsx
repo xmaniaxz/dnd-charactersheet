@@ -38,23 +38,12 @@ export default function Healthbar() {
           style={{
             width: `${CalcHealthPercentage()}%`,
             background: getTransitionColor(CalcHealthPercentage()),
-            transition: "width 0.5s ease, background 0.5s ease",
+            transition: "width 1s ease, background 1s ease",
           }}
-        />             
+        />
       </div>
       <div className={`${style.healthInput}`}>
-        <label htmlFor="MaxH" className="">
-          MaxHP
-        </label>
-        <input
-          className="w-[3ch] m-[3px] text-center"
-          id="maxHP "
-          type="number"
-          value={maxHP}
-          placeholder="0"
-          onChange={(e) => setMaxHP(parseInt(e.target.value))}
-        />
-        /
+        <label htmlFor="HP">HP</label>
         <input
           id="HP"
           className="w-[3ch] text-center m-[3px]"
@@ -63,7 +52,18 @@ export default function Healthbar() {
           placeholder="0"
           onChange={(e) => setCurrentHP(parseInt(e.target.value))}
         />
-        <label htmlFor="HP">HP</label>
+        /
+        <input
+          className="w-[3ch] m-[3px] text-center"
+          id="maxHP "
+          type="number"
+          value={maxHP}
+          placeholder="0"
+          onChange={(e) => setMaxHP(parseInt(e.target.value))}
+        />
+        <label htmlFor="MaxH" className="">
+          MaxHP
+        </label>
       </div>
     </div>
   );
