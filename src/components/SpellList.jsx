@@ -94,17 +94,17 @@ export default function SpellList() {
   //   }
   // };
 
-  // const HandleCheckBox = (levels, index) => {
-  //   setSpellArray((prevSpellArray) => {
-  //     const updatedSpellArray = { ...prevSpellArray }; // Make a shallow copy of the object
-  //     updatedSpellArray[levels] = [...prevSpellArray[levels]]; // Make a shallow copy of the inner array
-  //     updatedSpellArray[levels][index] = {
-  //       ...prevSpellArray[levels][index],
-  //       prepared: !prevSpellArray[levels][index].prepared, // Toggle the prepared value
-  //     };
-  //     return updatedSpellArray;
-  //   });
-  // };
+  const HandleCheckBox = (levels, index) => {
+    setSpellArray((prevSpellArray) => {
+      const updatedSpellArray = { ...prevSpellArray }; // Make a shallow copy of the object
+      updatedSpellArray[levels] = [...prevSpellArray[levels]]; // Make a shallow copy of the inner array
+      updatedSpellArray[levels][index] = {
+        ...prevSpellArray[levels][index],
+        prepared: !prevSpellArray[levels][index].prepared, // Toggle the prepared value
+      };
+      return updatedSpellArray;
+    });
+  };
 
   useEffect(() => {
     characterInfo.playerSpells = spellArray;
