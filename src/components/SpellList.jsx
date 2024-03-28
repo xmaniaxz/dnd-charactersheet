@@ -40,20 +40,20 @@ export default function SpellList() {
   //#endregion
 
   const HandleClick = (index, level, spell) => {
-    // if (spell) {
-    //   if (activeSpell !== spell) {
-    //     setActiveSpell(spell);
-    //     return;
-    //   } else {
-    //     setOverlayActive(!overlayActive);
-    //     setSelectedIndex(index);
-    //     setActiveLevel(level);
-    //   }
-    // } else {
-    //   setOverlayActive(!overlayActive);
-    //   setSelectedIndex(index);
-    //   setActiveLevel(level);
-    // }
+    if (spell) {
+      if (activeSpell !== spell) {
+        setActiveSpell(spell);
+        return;
+      } else {
+        setOverlayActive(!overlayActive);
+        setSelectedIndex(index);
+        setActiveLevel(level);
+      }
+    } else {
+      setOverlayActive(!overlayActive);
+      setSelectedIndex(index);
+      setActiveLevel(level);
+    }
   };
 
   const HandleOnReturn = () => {
@@ -132,7 +132,7 @@ export default function SpellList() {
             return (
               <div className="spellLevelContainer" key={Levels}>
                 <span className="levelHeader">{Levels}</span>
-                {spellArray[Levels].map((spell, index) => {
+                {/* {spellArray[Levels].map((spell, index) => {
                   return (
                     <div key={index} className={`w-full h-full ${activeSpell == spell.spell ? "activeSpell": ""}`}>
                       <div className="spellDetails">
@@ -153,7 +153,7 @@ export default function SpellList() {
                       <hr />
                     </div>
                   );
-                })}
+                })} */}
               </div>
             );
           })}
