@@ -110,56 +110,56 @@ export default function SpellList() {
   //   characterInfo.playerSpells = spellArray;
   // }, [spellArray]);
 
-  // return (
-  //   <div id="outerContainer" className="h-[100%] w-[100%]">
-  //     <div style={{ display: overlayActive ? "block" : "none" }}>
-  //       <SpellAlertBox
-  //         spellInfo={spellData}
-  //         activeLevel={activeLevel}
-  //         onReturn={() => {
-  //           HandleOnReturn();
-  //         }}
-  //         onSelection={(e) => HandleOnSelection(e)}
-  //       />
-  //     </div>
-  //     <div className="spellList">
-  //       {spellArray &&
-  //         spellArrayKeys.map((Levels) => {
-  //           return (
-  //             <div className="spellLevelContainer" key={Levels}>
-  //               <span className="levelHeader">{Levels}</span>
-  //               {spellArray[Levels].map((spell, index) => {
-  //                 return (
-  //                   <div
-  //                     key={index}
-  //                     className={`w-full h-full ${
-  //                       activeSpell == spell.spell ? "activeSpell" : ""
-  //                     }`}
-  //                   >
-  //                     <div className="spellDetails">
-  //                       <input
-  //                         type="checkbox"
-  //                         checked={spellArray[Levels][index].prepared}
-  //                         onChange={() => HandleCheckBox(Levels, index)}
-  //                       />
-  //                       <div
-  //                         className="w-full spellName button"
-  //                         onClick={() => HandleClick(index, Levels, spell.spell)}
-  //                       >
-  //                         {spell.spell ? spell.spell.SpellName : ""}
-  //                       </div>
-  //                     </div>
-  //                     <hr />
-  //                   </div>
-  //                 );
-  //               })}
-  //             </div>
-  //           );
-  //         })}
-  //     </div>
-  //     <div className="spellInfoListContainer">
-  //       {activeSpell && <SpellInfoData SpellData={activeSpell} />}
-  //     </div>
-  //   </div>
-  // );
+  return (
+    <div id="outerContainer" className="h-[100%] w-[100%]">
+      <div style={{ display: overlayActive ? "block" : "none" }}>
+        <SpellAlertBox
+          spellInfo={spellData}
+          activeLevel={activeLevel}
+          onReturn={() => {
+            HandleOnReturn();
+          }}
+          onSelection={(e) => HandleOnSelection(e)}
+        />
+      </div>
+      <div className="spellList">
+        {spellArray &&
+          spellArrayKeys.map((Levels) => {
+            return (
+              <div className="spellLevelContainer" key={Levels}>
+                <span className="levelHeader">{Levels}</span>
+                {spellArray[Levels].map((spell, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className={`w-full h-full ${
+                        activeSpell == spell.spell ? "activeSpell" : ""
+                      }`}
+                    >
+                      <div className="spellDetails">
+                        <input
+                          type="checkbox"
+                          checked={spellArray[Levels][index].prepared}
+                          onChange={() => HandleCheckBox(Levels, index)}
+                        />
+                        <div
+                          className="w-full spellName button"
+                          onClick={() => HandleClick(index, Levels, spell.spell)}
+                        >
+                          {spell.spell ? spell.spell.SpellName : ""}
+                        </div>
+                      </div>
+                      <hr />
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })}
+      </div>
+      <div className="spellInfoListContainer">
+        {activeSpell && <SpellInfoData SpellData={activeSpell} />}
+      </div>
+    </div>
+  );
 }
