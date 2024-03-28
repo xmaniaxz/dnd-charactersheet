@@ -137,17 +137,17 @@ export default function SpellList() {
                       }`}
                     >
                       <div className="spellDetails">
-                        <input
+                        {/* <input
                           type="checkbox"
                           checked={spellArray[Levels][index].prepared}
-                          // onChange={() => HandleCheckBox(Levels, index)}
+                          onChange={() => HandleCheckBox(Levels, index)}
                         />
                         <div
                           className="w-full spellName button"
                           onClick={() => HandleClick(index, Levels, spell.spell)}
                         >
                           {spell.spell ? spell.spell.SpellName : ""}
-                        </div>
+                        </div> */}
                       </div>
                       <hr />
                     </div>
