@@ -40,26 +40,26 @@ export default function SpellList() {
   //#endregion
 
   const HandleClick = (index, level, spell) => {
-    if (spell !== null) {
-      if (activeSpell !== spell) {
-        setActiveSpell(spell);
-      } else {
-        setOverlayActive(!overlayActive);
-        setSelectedIndex(index);
-        setActiveLevel(level);
-      }
-    } else {
-      // setOverlayActive(!overlayActive);
-      // setSelectedIndex(index);
-      // setActiveLevel(level);
-    }
+    // if (spell !== null) {
+    //   if (activeSpell !== spell) {
+    //     setActiveSpell(spell);
+    //   } else {
+    //     setOverlayActive(!overlayActive);
+    //     setSelectedIndex(index);
+    //     setActiveLevel(level);
+    //   }
+    // } 
+    // else {
+    //   setOverlayActive(!overlayActive);
+    //   setSelectedIndex(index);
+    //   setActiveLevel(level);
+    // }
   };
 
   const HandleOnReturn = () => {
     setOverlayActive(false);
     setActiveLevel(null);
     setActiveSpell(null);
-
   };
   const HandleOnSelection = (spellIndex) => {
     setOverlayActive(false);
@@ -91,9 +91,6 @@ export default function SpellList() {
       };
       setActiveSpell(selectedSpell.spell);
       setSpellArray(updatedSpellArray);
-  
-
-
     }
   };
 
@@ -133,7 +130,12 @@ export default function SpellList() {
                 <span className="levelHeader">{Levels}</span>
                 {spellArray[Levels].map((spell, index) => {
                   return (
-                    <div key={index} className={`w-full h-full ${activeSpell == spell.spell ? "activeSpell": ""}`}>
+                    <div
+                      key={index}
+                      className={`w-full h-full ${
+                        activeSpell == spell.spell ? "activeSpell" : ""
+                      }`}
+                    >
                       <div className="spellDetails">
                         <input
                           type="checkbox"
