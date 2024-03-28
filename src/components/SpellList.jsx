@@ -40,9 +40,9 @@ export default function SpellList() {
   //#endregion
 
   const HandleClick = (index, level, spell) => {
-    if (spell) {
+    if (spell !== null) {
       if (activeSpell !== spell) {
-        //setActiveSpell(spell);
+        setActiveSpell(spell);
       } else {
         setOverlayActive(!overlayActive);
         setSelectedIndex(index);
