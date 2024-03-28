@@ -25,19 +25,19 @@ export default function SpellList() {
     9: Array(1).fill({ prepared: false, spell: null }),
   }); // Array of spell objects (DO NOT ADJUST THIS STATE MANUALLY)
 
-  // //#region GetSpells
+  //#region GetSpells
 
-  // const data = async () => {
-  //   setSpellData(await GetServerSpells());
-  // };
-  // useEffect(() => {
-  //   data();
-  // }, []);
+  const data = async () => {
+    setSpellData(await GetServerSpells());
+  };
+  useEffect(() => {
+    data();
+  }, []);
 
-  // useEffect(() => {
-  //   if (characterInfo.playerSpells) setSpellArray(characterInfo.playerSpells);
-  // }, [characterInfo]);
-  // //#endregion
+  useEffect(() => {
+    if (characterInfo.playerSpells) setSpellArray(characterInfo.playerSpells);
+  }, [characterInfo]);
+  //#endregion
 
   // const HandleClick = (index, level, spell) => {
   //   if (spell !== null) {
@@ -61,6 +61,7 @@ export default function SpellList() {
   //   setActiveLevel(null);
   //   setActiveSpell(null);
   // };
+
   const HandleOnSelection = (spellIndex) => {
     setOverlayActive(false);
     const _spellIndex = spellData.findIndex(
