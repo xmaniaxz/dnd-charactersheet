@@ -40,20 +40,20 @@ export default function SpellList() {
   //#endregion
 
   const HandleClick = (index, level, spell) => {
-    // if (spell !== null) {
-    //   if (activeSpell !== spell) {
-    //     setActiveSpell(spell);
-    //   } else {
-    //     setOverlayActive(!overlayActive);
-    //     setSelectedIndex(index);
-    //     setActiveLevel(level);
-    //   }
-    // } 
-    // else {
-    //   setOverlayActive(!overlayActive);
-    //   setSelectedIndex(index);
-    //   setActiveLevel(level);
-    // }
+    if (spell !== null) {
+      if (activeSpell !== spell) {
+        setActiveSpell(spell);
+      } else {
+        setOverlayActive(!overlayActive);
+        setSelectedIndex(index);
+        setActiveLevel(level);
+      }
+    }
+    else {
+      setOverlayActive(!overlayActive);
+      setSelectedIndex(index);
+      setActiveLevel(level);
+    }
   };
 
   const HandleOnReturn = () => {
@@ -144,9 +144,7 @@ export default function SpellList() {
                         />
                         <div
                           className="w-full spellName button"
-                          onClick={() => {
-                            HandleClick(index, Levels, spell.spell);
-                          }}
+                          onClick={() => HandleClick(index, Levels, spell.spell)}
                         >
                           {spell.spell ? spell.spell.SpellName : ""}
                         </div>
