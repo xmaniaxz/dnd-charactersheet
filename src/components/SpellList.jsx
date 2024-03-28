@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import SpellAlertBox from "./SpellAlertBox";
 import SpellInfoData from "./SpellInfoData";
-import { GetServerSpells } from "../utils/Database";
-import { useCharacterInfo } from "./characterinfocontext";
+import { GetServerSpells } from "@/utils/Database";
+import { useCharacterInfo } from "@/components/characterinfocontext";
 
 export default function SpellList() {
-  const { characterInfo } = useCharacterInfo();
+  const {characterInfo} = useCharacterInfo();
   const [overlayActive, setOverlayActive] = useState(false); // boolean to show or hide the overlay (default: false)
   const [spellData, setSpellData] = useState(null); // Sets the spell data from the server (DO NOT ADJUST THIS STATE)
   const [activeLevel, setActiveLevel] = useState(null); // The active spell level (DO NOT ADJUST THIS STATE)
@@ -35,33 +35,35 @@ export default function SpellList() {
   }, []);
 
   useEffect(() => {
-    // if (characterInfo.playerSpells) 
-    // setSpellArray(characterInfo.playerSpells);
+    if (characterInfo.playerSpells) 
+    {
+    setSpellArray(characterInfo.playerSpells);
+    }
   }, [characterInfo]);
   //#endregion
 
-  // const HandleClick = (index, level, spell) => {
-  //   if (spell !== null) {
-  //     if (activeSpell !== spell) {
-  //       setActiveSpell(spell);
-  //     } else {
-  //       setOverlayActive(!overlayActive);
-  //       setSelectedIndex(index);
-  //       setActiveLevel(level);
-  //     }
-  //   }
-  //   else {
-  //     setOverlayActive(!overlayActive);
-  //     setSelectedIndex(index);
-  //     setActiveLevel(level);
-  //   }
-  // };
+  const HandleClick = (index, level, spell) => {
+    if (spell !== null) {
+      if (activeSpell !== spell) {
+        setActiveSpell(spell);
+      } else {
+        setOverlayActive(!overlayActive);
+        setSelectedIndex(index);
+        setActiveLevel(level);
+      }
+    }
+    else {
+      setOverlayActive(!overlayActive);
+      setSelectedIndex(index);
+      setActiveLevel(level);
+    }
+  };
 
-  // const HandleOnReturn = () => {
-  //   setOverlayActive(false);
-  //   setActiveLevel(null);
-  //   setActiveSpell(null);
-  // };
+  const HandleOnReturn = () => {
+    setOverlayActive(false);
+    setActiveLevel(null);
+    setActiveSpell(null);
+  };
 
   const HandleOnSelection = (spellIndex) => {
     setOverlayActive(false);

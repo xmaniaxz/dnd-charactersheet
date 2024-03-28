@@ -59,7 +59,18 @@ let playerInventory = {
   Inventory: "",
 };
 
-let playerSpells = [];
+let playerSpells = {
+  cantrip: Array(1).fill({ prepared: false, spell: null }),
+    1: Array(1).fill({ prepared: false, spell: null }),
+    2: Array(1).fill({ prepared: false, spell: null }),
+    3: Array(1).fill({ prepared: false, spell: null }),
+    4: Array(1).fill({ prepared: false, spell: null }),
+    5: Array(1).fill({ prepared: false, spell: null }),
+    6: Array(1).fill({ prepared: false, spell: null }),
+    7: Array(1).fill({ prepared: false, spell: null }),
+    8: Array(1).fill({ prepared: false, spell: null }),
+    9: Array(1).fill({ prepared: false, spell: null }),
+}
 
 export let CharacterInfo = {
   SheetID: null,
