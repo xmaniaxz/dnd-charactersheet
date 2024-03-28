@@ -40,20 +40,20 @@ export default function SpellList() {
   //#endregion
 
   const HandleClick = (index, level, spell) => {
-    if (spell) {
-      if (activeSpell !== spell) {
-        setActiveSpell(spell);
-        return;
-      } else {
-        setOverlayActive(!overlayActive);
-        setSelectedIndex(index);
-        setActiveLevel(level);
-      }
-    } else {
-      setOverlayActive(!overlayActive);
-      setSelectedIndex(index);
-      setActiveLevel(level);
-    }
+    // if (spell) {
+    //   if (activeSpell !== spell) {
+    //     setActiveSpell(spell);
+    //     return;
+    //   } else {
+    //     setOverlayActive(!overlayActive);
+    //     setSelectedIndex(index);
+    //     setActiveLevel(level);
+    //   }
+    // } else {
+    //   setOverlayActive(!overlayActive);
+    //   setSelectedIndex(index);
+    //   setActiveLevel(level);
+    // }
   };
 
   const HandleOnReturn = () => {
