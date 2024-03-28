@@ -41,13 +41,13 @@ export default function SpellList() {
 
   const HandleClick = (index, level, spell) => {
     if (spell !== null) {
-      if (activeSpell !== spell) {
-        setActiveSpell(spell);
-      } else {
-        setOverlayActive(!overlayActive);
-        setSelectedIndex(index);
-        setActiveLevel(level);
-      }
+      // if (activeSpell !== spell) {
+      //   setActiveSpell(spell);
+      // } else {
+      //   setOverlayActive(!overlayActive);
+      //   setSelectedIndex(index);
+      //   setActiveLevel(level);
+      // }
     } else {
       setOverlayActive(!overlayActive);
       setSelectedIndex(index);
