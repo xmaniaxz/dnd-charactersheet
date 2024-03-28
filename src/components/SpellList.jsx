@@ -106,9 +106,9 @@ export default function SpellList() {
   //   });
   // };
 
-  // useEffect(() => {
-  //   characterInfo.playerSpells = spellArray;
-  // }, [spellArray]);
+  useEffect(() => {
+    characterInfo.playerSpells = spellArray;
+  }, [spellArray]);
 
   return (
     <div id="outerContainer" className="h-[100%] w-[100%]">
