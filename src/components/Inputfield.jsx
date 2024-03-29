@@ -16,11 +16,11 @@ export default function InputField({
         reversed ? "flex-row-reverse" : "flex-row"
       } w-full items-center`}
     >
-      <label htmlFor="InputField" className="w-1/5">
+      <label htmlFor="InputField" className="w-[30%]">
         {labelName}
       </label>
       <input
-        className={`w-4/5 m-[3px] ${centered ? "text-center" : ""} ${reversed && !centered ? "text-right": ""} underline`}
+        className={`w-auto m-[3px] ${centered ? "text-center" : ""} ${reversed && !centered ? "text-right": ""} underline`}
         id="InputField"
         value={setValue}
         placeholder={labelName}

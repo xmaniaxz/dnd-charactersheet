@@ -5,7 +5,7 @@ import { GetServerSpells } from "@/utils/Database";
 import { useCharacterInfo } from "@/components/characterinfocontext";
 
 export default function SpellList() {
-  const {characterInfo} = useCharacterInfo();
+  const { characterInfo } = useCharacterInfo();
   const [overlayActive, setOverlayActive] = useState(false); // boolean to show or hide the overlay (default: false)
   const [spellData, setSpellData] = useState(null); // Sets the spell data from the server (DO NOT ADJUST THIS STATE)
   const [activeLevel, setActiveLevel] = useState(null); // The active spell level (DO NOT ADJUST THIS STATE)
@@ -35,9 +35,8 @@ export default function SpellList() {
   }, []);
 
   useEffect(() => {
-    if (characterInfo.playerSpells) 
-    {
-    setSpellArray(characterInfo.playerSpells);
+    if (characterInfo.playerSpells) {
+      setSpellArray(characterInfo.playerSpells);
     }
   }, [characterInfo]);
   //#endregion
@@ -51,8 +50,7 @@ export default function SpellList() {
         setSelectedIndex(index);
         setActiveLevel(level);
       }
-    }
-    else {
+    } else {
       setOverlayActive(!overlayActive);
       setSelectedIndex(index);
       setActiveLevel(level);
@@ -148,7 +146,9 @@ export default function SpellList() {
                         />
                         <div
                           className="w-full spellName button"
-                          onClick={() => HandleClick(index, Levels, spell.spell)}
+                          onClick={() =>
+                            HandleClick(index, Levels, spell.spell)
+                          }
                         >
                           {spell.spell ? spell.spell.SpellName : ""}
                         </div>

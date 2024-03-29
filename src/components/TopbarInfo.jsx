@@ -5,8 +5,8 @@ import Dropdown from "./Dropdown";
 import { useCharacterInfo } from "@/components/characterinfocontext";
 import { useState } from "react";
 import Healthbar from "./Healtbar";
-import InputField from "./Inputfield";
 import NavBar from "./NavBar";
+import Image from "next/image";
 
 export default function TopbarInfo() {
   const { characterInfo } = useCharacterInfo();
@@ -130,38 +130,7 @@ export default function TopbarInfo() {
               <Healthbar />
             </div>
             <div className={`${style.characterData1}`}>
-              <InputField
-                labelName={"Background"}
-                onValueChange={(e) => {
-                  characterInfo.playerInfo.Background = e;
-                  setReloadPage(!reloadPage);
-                }}
-                setValue={characterInfo.playerInfo.Background}
-              />
-              <InputField
-                labelName={"Alignment"}
-                onValueChange={(e) => {
-                  characterInfo.playerInfo.Alignment = e;
-                  setReloadPage(!reloadPage);
-                }}
-                setValue={characterInfo.playerInfo.Alignment}
-              />
-              <InputField
-                labelName={"Player name"}
-                onValueChange={(e) => {
-                  characterInfo.playerInfo.PlayerName = e;
-                  setReloadPage(!reloadPage);
-                }}
-                setValue={characterInfo.playerInfo.PlayerName}
-              />
-              <InputField
-                labelName={"Experience"}
-                onValueChange={(e) => {
-                  characterInfo.playerInfo.Experience = e;
-                  setReloadPage(!reloadPage);
-                }}
-                setValue={characterInfo.playerInfo.Experience}
-              />
+             
             </div>
           </div>
           <div className={`${style.rightSide}`}>

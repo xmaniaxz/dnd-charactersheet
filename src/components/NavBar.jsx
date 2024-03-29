@@ -2,11 +2,13 @@ import { useState, useEffect } from "react";
 import style from "@/CSS/TopbarInfo.module.css";
 import { useCharacterInfo } from "./characterinfocontext";
 import Link from "next/link";
+import InputField from "./Inputfield";
 
 export default function NavBar() {
   const [activeTab, setActiveTab] = useState(0);
   const [feats, SetFeats] = useState([]);
   const { characterInfo } = useCharacterInfo();
+  const [updateValue, setUpdateValue] = useState(false);
 
   const handleTransition = (identifier) => {
     setActiveTab(identifier);
@@ -25,14 +27,11 @@ export default function NavBar() {
       case 3:
         selector.style.left = "75%";
         break;
-      default:
-        selector.style.left = "0%";
-        break;
     }
   };
 
   useEffect(() => {
-    SetFeats(characterInfo.playerInfo.PlayerFeats);
+    SetFeats(characterInfo.playerStats.PlayerFeats);
   }, [characterInfo]);
 
   const addFeat = () => {
@@ -51,31 +50,31 @@ export default function NavBar() {
       <div id="header" className={`${style.navBar}`}>
         <div
           id="option1"
-          className={`button`}
+          className={`button ${style.navBarOption}`}
           onClick={() => handleTransition(0)}
         >
           Feats
         </div>
         <div
           id="option2"
-          className={`button`}
+          className={`button ${style.navBarOption}`}
           onClick={() => handleTransition(1)}
         >
           Languages
         </div>
         <div
-          id="option3"
-          className={`button`}
+          id="option4"
+          className={`button ${style.navBarOption}`}
           onClick={() => handleTransition(2)}
         >
-          Side Info
+          Notes
         </div>
         <div
           id="option4"
-          className={`button`}
+          className={`button ${style.navBarOption}`}
           onClick={() => handleTransition(3)}
         >
-          Notes
+          Character Info
         </div>
         <div id="Selector" className={`${style.selector}`}>
           <div id="bar" className={`${style.underline}`} />
@@ -111,18 +110,17 @@ export default function NavBar() {
                           onChange={(e) => {
                             feat.name = e.target.value;
                             SetFeats([...feats]);
-                            characterInfo.playerInfo.PlayerFeats = feats;
+                            characterInfo.playerStats.PlayerFeats = feats;
                           }}
                         />
                         <textarea
-                          className="h-[200px] bg-transparent"
-                          type="text"
+                          className="h-[100px] p-[5px]"
                           placeholder="Feat Description"
                           value={feat.description}
                           onChange={(e) => {
                             feat.description = e.target.value;
                             SetFeats([...feats]);
-                            characterInfo.playerInfo.PlayerFeats = feats;
+                            characterInfo.playerStats.PlayerFeats = feats;
                           }}
                         />
                       </div>
@@ -135,25 +133,72 @@ export default function NavBar() {
           {activeTab === 1 && (
             <div>
               <h3>Languages</h3>
-              <p>Languages go here</p>
+              <div className={`${style.dataContainer}`}>
+                <div className={`${style.data}`}>
+                  <textarea
+                    name="Languages"
+                    className="h-[200px] p-[5px] w-full"
+                    placeholder="languages"
+                    value={characterInfo.playerStats.Languages}
+                    onChange={(e) => {
+                      characterInfo.playerStats.Languages = e.target.value;
+                      setUpdateValue(!updateValue);
+                    }}
+                  />
+                </div>
+              </div>
             </div>
           )}
           {activeTab === 2 && (
             <div>
-              <h3>Side Info</h3>
-              <p>Side Info goes here</p>
+              <h3>Notes</h3>
+              <textarea
+                name="Notes"
+                className="h-[200px] p-[5px] w-full"
+                placeholder="Notes"
+                value={characterInfo.playerInfo.Notes}
+                onChange={(e) => {
+                  characterInfo.playerInfo.Notes = e.target.value;
+                  setUpdateValue(!updateValue);
+                }}
+              />
             </div>
           )}
           {activeTab === 3 && (
             <div>
-              <h3>Notes</h3>
-              <p>Notes go here</p>
-            </div>
-          )}
-          {activeTab > 3 && (
-            <div>
-              <h3>Feats</h3>
-              <p>Feats go here</p>
+              <h3>Character info</h3>
+              <InputField
+                labelName={"Background"}
+                onValueChange={(e) => {
+                  characterInfo.playerInfo.Background = e;
+                  setReloadPage(!reloadPage);
+                }}
+                setValue={characterInfo.playerInfo.Background}
+              />
+              <InputField
+                labelName={"Alignment"}
+                onValueChange={(e) => {
+                  characterInfo.playerInfo.Alignment = e;
+                  setReloadPage(!reloadPage);
+                }}
+                setValue={characterInfo.playerInfo.Alignment}
+              />
+              <InputField
+                labelName={"Player name"}
+                onValueChange={(e) => {
+                  characterInfo.playerInfo.PlayerName = e;
+                  setReloadPage(!reloadPage);
+                }}
+                setValue={characterInfo.playerInfo.PlayerName}
+              />
+              <InputField
+                labelName={"Experience"}
+                onValueChange={(e) => {
+                  characterInfo.playerInfo.Experience = e;
+                  setReloadPage(!reloadPage);
+                }}
+                setValue={characterInfo.playerInfo.Experience}
+              />
             </div>
           )}
         </div>

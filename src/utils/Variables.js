@@ -8,7 +8,7 @@ let playerInfo = {
   Alignment: "",
   Experience: "",
   PlayerLevel: 1,
-  PlayerFeats: [],
+  Notes: "",
 };
 let playerStats = {
   Health: 0,
@@ -45,7 +45,10 @@ let playerStats = {
     CharismaIntimidation: false,  
     CharismaPerformance: false,  
     CharismaPersuasion: false,  
-  }
+  },
+  PlayerFeats: [],
+  Languages:"",
+  ArmorClass:"",
 };
 
 let playerInventory = {

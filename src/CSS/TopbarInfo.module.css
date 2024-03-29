@@ -128,6 +128,7 @@
   width: 100%;
   height: 40px;
   text-align: center;
+  /* border: solid 1px white; */
  }
 
  .selector{
@@ -137,6 +138,8 @@
   background: rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
   left: 0;
+  /* border:  solid 1px var(--border-white); */
+  
  }
 
 .underline{
@@ -169,4 +172,8 @@
   border-radius: 10px;
   overflow-y: auto;
   padding: 5px;
+}
+
+.navBarOption{
+  width: 25%;
 }
