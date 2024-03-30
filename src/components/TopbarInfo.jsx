@@ -6,7 +6,7 @@ import { useCharacterInfo } from "@/components/characterinfocontext";
 import { useState } from "react";
 import Healthbar from "./Healtbar";
 import NavBar from "./NavBar";
-import Image from "next/image";
+import { publish } from "@/utils/events";
 
 export default function TopbarInfo() {
   const { characterInfo } = useCharacterInfo();
@@ -26,6 +26,17 @@ export default function TopbarInfo() {
     "Warlock",
     "Wizard",
   ];
+
+  const convertVisualNumber = (number) => {
+    if(number)
+    {
+    number = number.toString().replace(/[+]/g, '')
+    if (number > 0) {
+      return ("+" + number);
+    } else return number.toString();
+  }
+  };
+
   return (
     <div className="topContainer">
       <div className={`${style.profileContainer}`}>
@@ -130,12 +141,44 @@ export default function TopbarInfo() {
               <Healthbar />
             </div>
             <div className={`${style.characterData1}`}>
-             
+              <div
+                id="IconContainer"
+                className="h-full w-full flex items-center flex-row"
+              >
+                <i className="Icon shieldIcon">
+                  shield
+                  <label className={style.armorClassLabel}>Armor Class</label>
+                  <input
+                    className={`${style.armorClassInput}`}
+                    type="text"
+                    value={convertVisualNumber(characterInfo.playerStats.ArmorClass)}
+                    placeholder="AC"
+                    onChange={(e) => {
+                      characterInfo.playerStats.ArmorClass = e.target.value;
+                      setReloadPage(!reloadPage);
+                    }}
+                  />
+                </i>
+                <div className="proficiencyContainer">
+                  <input
+                    id="proficiency"
+                    type="text"
+                    className="w-full h-full text-center text-[40px]"
+                    value={convertVisualNumber(characterInfo.playerStats.Proficiency)}
+                    onChange={(e) => {
+                      characterInfo.playerStats.Proficiency = e.target.value;
+                      setReloadPage(!reloadPage);
+                      publish("UpdateProficiency");
+                    }}
+                  />
+                  <label htmlFor="proficiency">Proficiency</label>
+                </div>
+              </div>
             </div>
           </div>
           <div className={`${style.rightSide}`}>
             <div className={`${style.characterData2}`}>
-              <NavBar/>
+              <NavBar />
             </div>
           </div>
         </div>

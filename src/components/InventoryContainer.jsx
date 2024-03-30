@@ -12,7 +12,6 @@ export default function Inventory() {
   const HandleInputChange = (input) =>{
     setInventoryData(input.target.value);
     characterInfo.playerInventory.Inventory = input.target.value
-    console.log(characterInfo.playerInventory.Inventory);
   }
   const HandleMoneyChange = (e,Cointype) =>{
     if (!isNaN(parseInt(e))) e = parseInt(e);

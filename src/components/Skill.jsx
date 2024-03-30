@@ -1,7 +1,7 @@
 "use client";
 import { useState,useEffect} from "react";
 import { useCharacterInfo } from "./characterinfocontext";
-import { useFileSystemPublicRoutes } from "../../next.config";
+import { subscribe } from "@/utils/events";
 
 export default function SkillContainer({ skillName, modifier, isproficient,identifier}) {
   const [isProficient, setProficiency] = useState(false);
@@ -18,6 +18,8 @@ export default function SkillContainer({ skillName, modifier, isproficient,ident
     isproficient(isProficient)
   }
 
+  subscribe("UpdateProficiency",function(){setUpdatedValue(!updatedValue)});
+
   return (
     <div className="flex flex-row  truncate mb-1">
       <input
@@ -29,7 +31,7 @@ export default function SkillContainer({ skillName, modifier, isproficient,ident
       />
       <input
         className="w-6 text-center"
-        value={isProficient ? modifier + characterInfo.playerStats.Proficiency : modifier}
+        value={isProficient && !isNaN(characterInfo.playerStats.Proficiency) ? parseInt(modifier) + parseInt(characterInfo.playerStats.Proficiency) : parseInt(modifier)}
         readOnly
         type="number"
       />

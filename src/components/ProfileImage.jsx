@@ -41,7 +41,6 @@ export default function ProfileImage() {
 
   useEffect(() => {
     async function getProfilePictureFromServer() {
-      console.log(characterInfo.profilePicture);
       const file = await GetFile(characterInfo.profilePicture);
       setSelectedImage(file.href);
     }

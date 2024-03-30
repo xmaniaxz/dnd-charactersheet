@@ -9,7 +9,7 @@ export const CharacterInfoProvider = ({ children }) => {
 
   const updateCharacterInfo = (newCharacterInfo) => {
     setCharacterInfo(newCharacterInfo);
-    console.log("Updated characterInfo:", newCharacterInfo);
+    // console.log("Updated characterInfo:", newCharacterInfo);
   };
 
   return (

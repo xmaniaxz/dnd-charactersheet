@@ -46,6 +46,12 @@
   --semi-black: rgb(73, 73, 73);
   --button-gray: rgba(42, 42, 42, 0.479);
   --transparent-gray:rgba(40, 40, 40, 0.2);
+  --white-fade: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 0)
+  );
 }
 
 html {
@@ -127,12 +133,23 @@ body {
 
 
 
-.statContainer,.SkillContainer{
-  background: rgba(255, 255, 255, 0.2);
+.statContainer,.SkillContainer,.proficiencyContainer{
+  background: var(--transparent-gray);
   backdrop-filter: blur(5px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.488);
   color: white;
   border: solid 2px rgba(255, 255, 255, 0.2);
+}
+
+.proficiencyContainer{
+  user-select: none;
+  width: 130px;
+  height: 140px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 15px;
 }
 
 .statContainer {
@@ -202,7 +219,8 @@ body {
 button {
   width: 80%;
   height: 4vh;
-  background: var(--light-gray);
+  background: var(--button-gray);
+  border: solid 2px var(--BorderGray);
   color: rgb(255, 255, 255);
   border-radius: 5px;
 }

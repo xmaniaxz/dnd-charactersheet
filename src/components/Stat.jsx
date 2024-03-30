@@ -7,7 +7,6 @@ export default function StatBox({
   Skills,
   onValueChanged,
   defaultValue,
-  forceUpdate,
 }) {
   const [inputValue, setInputValue] = useState(defaultValue);
   const [modifier, setModifier] = useState(0);

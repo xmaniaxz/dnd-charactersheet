@@ -11,7 +11,7 @@ let count = 0;
 Object.values(api).map((values) => {
   count += values.length;
 });
-console.log(`Amount of spells in api: ${count}`);
+// console.log(`Amount of spells in api: ${count}`);
 //////////////////////EVERYTHING HERE IS TO ADD TO DATABASE AND SHOULD NOT BE USED IN PRODUCTION//////////////////////////
 
 export async function AddToDataBase() {
