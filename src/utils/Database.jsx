@@ -109,6 +109,8 @@ export async function WriteSheetToDatabase(FileToSend) {
         fileObject.SheetID,
         fileObject
       );
+      //Set cookie correctly: 
+      document.cookie = `characterInfo=${JSON.stringify(fileObject.SheetID)}; path=/; sameSite=false;`;
       publish("ShowPopUp", {
         text: "Created new character!",
         visibility: true,

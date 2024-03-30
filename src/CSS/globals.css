@@ -355,7 +355,7 @@ input[type="number"] {
 }
 
 .BackgroundImageTextArea {
-  background-image: url("/OldPaper.png");
+  background-image: url("/OldPaper.png") !important;
   background-size: cover;
   width: 60%;
   height: calc(100% - 20px);
@@ -501,7 +501,7 @@ input[type="number"] {
 .logo {
   top: -10%;
   position: relative;
-  background-image: url("/Logo.png");
+  background-image: url("/Logo.png") !important;
   background-size: cover;
   width: 400px;
   height: 400px;
