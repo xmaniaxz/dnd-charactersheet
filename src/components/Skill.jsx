@@ -1,9 +1,9 @@
 "use client";
 import { useState,useEffect} from "react";
 import { useCharacterInfo } from "./characterinfocontext";
-import { subscribe } from "@/utils/events";
+import { publish, subscribe } from "@/utils/events";
 
-export default function SkillContainer({ skillName, modifier, isproficient,identifier}) {
+export default function SkillContainer({ skillName, modifier, isproficient,identifier,isPerception}) {
   const [isProficient, setProficiency] = useState(false);
   const [updatedValue, setUpdatedValue] = useState(true);
   const { characterInfo } = useCharacterInfo();
@@ -11,12 +11,22 @@ export default function SkillContainer({ skillName, modifier, isproficient,ident
   useEffect(() => {
     setUpdatedValue(false);
     setProficiency(characterInfo.playerStats.Proficiencies[identifier])
+    publish("UpdatePassivePerception", { value: calcModifier() });
   }, [characterInfo]);
 
   const handleCheckBoxChange = () =>{
     setProficiency((prevProficiency) => !prevProficiency);
     isproficient(isProficient)
+    // publish("UpdatePassivePerception")
   }
+
+  const calcModifier = () => {
+    const number = isProficient && !isNaN(characterInfo.playerStats.Proficiency) ? parseInt(modifier) + parseInt(characterInfo.playerStats.Proficiency) : parseInt(modifier)
+    if(isPerception){
+      publish("UpdatePassivePerception", { value: number });
+    }
+    return number;
+  };
 
   subscribe("UpdateProficiency",function(){setUpdatedValue(!updatedValue)});
 
@@ -31,7 +41,8 @@ export default function SkillContainer({ skillName, modifier, isproficient,ident
       />
       <input
         className="w-6 text-center"
-        value={isProficient && !isNaN(characterInfo.playerStats.Proficiency) ? parseInt(modifier) + parseInt(characterInfo.playerStats.Proficiency) : parseInt(modifier)}
+        id={skillName}
+        value={calcModifier()}
         readOnly
         type="number"
       />

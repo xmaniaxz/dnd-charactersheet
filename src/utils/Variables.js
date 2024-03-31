@@ -49,6 +49,7 @@ let playerStats = {
   PlayerFeats: [],
   Languages:"",
   ArmorClass:"",
+  PassivePerception:""
 };
 
 let playerInventory = {

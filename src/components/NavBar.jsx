@@ -87,7 +87,7 @@ export default function NavBar() {
               <div className="flex flex-row w-full items-center gap-[20px]">
                 <h3>Feats</h3>
                 <button
-                  className="gg-add scale-[0.25] bg-[gray]"
+                  className="gg-add"
                   onClick={() => addFeat()}
                 />
                 <Link

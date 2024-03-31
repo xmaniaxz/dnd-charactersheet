@@ -60,7 +60,7 @@ export default function ProfileImage() {
             />
           ) : (
             <i
-              className="gg-add absolute mt-[47.5%] ml-[-2.5%]"
+              className="gg-add Image absolute mt-[47.5%] ml-[-2.5%]"
               onClick={handleImageClick}
             ></i>
           )}

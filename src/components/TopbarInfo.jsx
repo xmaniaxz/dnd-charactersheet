@@ -3,13 +3,14 @@ import style from "@/CSS/TopbarInfo.module.css";
 import ProfileImage from "./ProfileImage";
 import Dropdown from "./Dropdown";
 import { useCharacterInfo } from "@/components/characterinfocontext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Healthbar from "./Healtbar";
 import NavBar from "./NavBar";
-import { publish } from "@/utils/events";
+import { subscribe, unsubscribe } from "@/utils/events";
 
 export default function TopbarInfo() {
   const { characterInfo } = useCharacterInfo();
+  const [passivePerception, setPassivePerception] = useState(0);
   const [reloadPage, setReloadPage] = useState(false);
   const options = [
     "Artificer",
@@ -28,14 +29,26 @@ export default function TopbarInfo() {
   ];
 
   const convertVisualNumber = (number) => {
-    if(number)
-    {
-    number = number.toString().replace(/[+]/g, '')
-    if (number > 0) {
-      return ("+" + number);
-    } else return number.toString();
-  }
+    if (number) {
+      number = number.toString().replace(/[+]/g, "");
+      if (number > 0) {
+        return "+" + number;
+      } else return number.toString();
+    }
   };
+
+  const CalculatePassivePerception = (value) => {
+    let perception = 10 + value;
+    setPassivePerception(convertVisualNumber(perception));
+  };
+  
+  useEffect(() => {
+    subscribe("UpdatePassivePerception", (event) => CalculatePassivePerception(event.detail.value));
+    
+    return () => {
+      unsubscribe("UpdatePassivePerception", (event) => CalculatePassivePerception(event.detail.value));
+    };
+  }, []);
 
   return (
     <div className="topContainer">
@@ -143,7 +156,7 @@ export default function TopbarInfo() {
             <div className={`${style.characterData1}`}>
               <div
                 id="IconContainer"
-                className="h-full w-full flex items-center flex-row"
+                className="h-full w-full flex items-center flex-row gap-[20px]"
               >
                 <i className="Icon shieldIcon">
                   shield
@@ -151,7 +164,9 @@ export default function TopbarInfo() {
                   <input
                     className={`${style.armorClassInput}`}
                     type="text"
-                    value={convertVisualNumber(characterInfo.playerStats.ArmorClass)}
+                    value={convertVisualNumber(
+                      characterInfo.playerStats.ArmorClass
+                    )}
                     placeholder="AC"
                     onChange={(e) => {
                       characterInfo.playerStats.ArmorClass = e.target.value;
@@ -164,14 +179,30 @@ export default function TopbarInfo() {
                     id="proficiency"
                     type="text"
                     className="w-full h-full text-center text-[40px]"
-                    value={convertVisualNumber(characterInfo.playerStats.Proficiency)}
+                    value={convertVisualNumber(
+                      characterInfo.playerStats.Proficiency
+                    )}
                     onChange={(e) => {
                       characterInfo.playerStats.Proficiency = e.target.value;
                       setReloadPage(!reloadPage);
                       publish("UpdateProficiency");
                     }}
                   />
-                  <label htmlFor="proficiency">Proficiency</label>
+                  <label htmlFor="proficiency" className="text-[15px]">Proficiency</label>
+                </div>
+                <div id="Passive perception" className="proficiencyContainer">
+                  <span
+                    id="PassiveP"
+                    type="text"
+                    className="w-full h-full text-center text-[40px]"
+                    readOnly
+                  >
+                    {passivePerception}
+                  </span>
+
+                  <label htmlFor="PassiveP" className="text-[15px] text-center">
+                    Passive perception
+                  </label>
                 </div>
               </div>
             </div>

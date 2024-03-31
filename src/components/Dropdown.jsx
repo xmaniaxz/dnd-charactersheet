@@ -6,6 +6,7 @@ export default function Dropdown({
   placeholder,
   OnSelection,
   SelectedOption,
+  CustomClass
 }) {
   const [dropdownOpen, setdropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -17,7 +18,7 @@ export default function Dropdown({
   return (
     <div>
       <button
-        className="placeHolder hover:cursor-pointer"
+        className={`${CustomClass ? CustomClass : "placeHolder"}  hover:cursor-pointer`}
         onClick={() => setdropdownOpen(!dropdownOpen)}
       >
         <div className="m-[0px auto]">

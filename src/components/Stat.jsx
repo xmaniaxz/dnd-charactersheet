@@ -95,6 +95,7 @@ export default function StatBox({
                   modifier={modifier}
                   isproficient={(e)=>handleProficiency(statName+values,e)}
                   identifier={statName+values}
+                  isPerception={values === "Perception" ? true : false}
                 />
               );
             })}

@@ -30,7 +30,6 @@
 @tailwind components;
 
 @tailwind utilities;
-
 :root {
   --background: #343434;
   --background-secondary: rgb(73, 73, 73);
@@ -45,7 +44,7 @@
   --very-dark-gray: rgba(38, 38, 38, 0.253);
   --semi-black: rgb(73, 73, 73);
   --button-gray: rgba(42, 42, 42, 0.479);
-  --transparent-gray:rgba(40, 40, 40, 0.2);
+  --transparent-gray: rgba(40, 40, 40, 0.2);
   --white-fade: linear-gradient(
     to right,
     rgba(255, 255, 255, 0),
@@ -131,9 +130,9 @@ body {
   transition: all 0.5s ease;
 }
 
-
-
-.statContainer,.SkillContainer,.proficiencyContainer{
+.statContainer,
+.SkillContainer,
+.proficiencyContainer {
   background: var(--transparent-gray);
   backdrop-filter: blur(5px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.488);
@@ -141,15 +140,17 @@ body {
   border: solid 2px rgba(255, 255, 255, 0.2);
 }
 
-.proficiencyContainer{
+.proficiencyContainer {
   user-select: none;
-  width: 130px;
-  height: 140px;
+  width: 100px;
+  height: 115px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   border-radius: 15px;
+  left: -10%;
+  position: relative;
 }
 
 .statContainer {
@@ -187,7 +188,6 @@ body {
   transform: translateY(-15px);
 }
 
-
 .statsButton {
   border: solid 1px var(--BorderGray);
   transition: all ease-in-out 0.2s;
@@ -213,7 +213,6 @@ body {
   margin: auto;
   height: 10%;
   border-radius: 10px;
-
 }
 
 button {
@@ -337,19 +336,21 @@ input[type="number"] {
 }
 
 .MoneyContainer {
-  margin: 20px 20px;
+  padding: 10px;
   float: left;
   width: 50%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }
 
-.InventoryMoneyInputFields > input {
+.MoneyContainer > input {
   text-align: center;
   width: 5em;
   height: 40px;
   border: solid 1px var(--border-gray);
 }
 
-.InventoryMoneyInputFields > label {
+.MoneyContainer > label {
   width: 7.5em;
   margin: 10px 10px;
 }
@@ -427,7 +428,6 @@ input[type="number"] {
   margin-top: 4vh;
   padding: 0px 30px;
 }
-
 
 .spellName {
   overflow: hidden;
@@ -552,14 +552,14 @@ input[type="number"] {
   user-select: none;
 }
 
-textarea{
+textarea {
   outline: none;
   border: solid 1px var(--semi-light-gray);
   background-color: var(--transparent-gray);
   box-shadow: 0 5px 10px rgba(143, 143, 143, 0.174);
 }
 
-textarea:focus{
+textarea:focus {
   outline: none;
   border: solid 1px var(--border-gray);
   box-shadow: 0 5px 10px rgba(143, 143, 143, 0.174);
@@ -567,6 +567,53 @@ textarea:focus{
   transition: all 0.3s ease;
 }
 
-.activeSpell{
+.activeSpell {
   background-color: var(--semi-light-gray);
+}
+
+/* ColorPicker.module.css */
+
+.colorPickerContainer{
+  position: relative;
+  width: 50px;
+  height: auto;
+  transform: translate(-250px,-2px);
+}
+
+.colorPicker {
+  width: 100px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  overflow: hidden;
+  position: absolute;
+  top: -45px;
+  left: -40px;
+}
+
+.colorPickerInner {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  cursor: pointer;
+  background: 
+    radial-gradient(circle at center, white 2%, transparent 20%), 
+    conic-gradient(
+      hsl(0, 100%, 50%), 
+      hsl(60, 100%, 50%), 
+      hsl(120, 100%, 50%), 
+      hsl(180, 100%, 50%), 
+      hsl(240, 100%, 50%), 
+      hsl(300, 100%, 50%), 
+      hsl(360, 100%, 50%));
+  border-radius: 50%;
+}
+
+
+.marker {
+  width: 20px;
+  height: 20px;
+  border: solid 3px white;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  cursor: none;
 }

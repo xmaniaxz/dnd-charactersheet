@@ -54,12 +54,18 @@
 .gg-trash:hover {
   color: red;
 }
-.gg-add {
-  scale: 4;
-  color: rgba(255, 255, 255, 0.638);
+.gg-add:hover{
+  color: lime;
 }
-.gg-add:hover {
+.gg-add{
   color: white;
+  transition: all ease 0.2s;
+}
+.gg-add.Image {
+  scale: 4;
+}
+.gg-add.Image:hover {
+  color: rgb(217, 255, 174);
 }
 
 .arrow-left {
@@ -121,9 +127,39 @@
 
 .shieldIcon{
   aspect-ratio: 1/1;
-  width: 204px;
-  height: 204px;
-  font-size: 200px;
+  width: 150px;
+  height: 150px;
+  font-size: 150px;
   font-weight: 100;
+  top: 45%;
+  left: 10%;
+  transform: translate(-50%, -50%);
   position: relative;
+}
+
+.addWeapon{
+  left: 20px;
+  scale: 2;
+}
+
+.addWeapon, .removeWeapon{
+  aspect-ratio: 1/1;
+}
+
+.removeWeapon{
+  scale: 1.25;
+  left: 10px;
+}
+
+.ClosePicker{
+  position: absolute;
+transform: translate(30px, -30px);
+  z-index: 4;
+  color: red;
+  scale: 1.5;
+  transition: all 0.2s ease;
+}
+
+.ClosePicker:hover{
+  color: white;
 }
