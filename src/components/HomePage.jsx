@@ -86,7 +86,7 @@ export default function HomePage() {
         <Link className={styles.newSheetButton} href={"./characterpage"} onClick={() => document.cookie = 'characterInfo=new character; path=/;'}>
           New Sheet
         </Link>
-        <button className={styles.logOutButton} onClick={handleLogout}>
+        <button className={styles.logOutButton} onClick={()=>handleLogout}>
           Log out
         </button>
       </div>
