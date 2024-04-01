@@ -87,7 +87,7 @@ export default function StatBox({
         <div className="mt-5">
           {Skills &&
             Skills.map((values) => {
-              // {console.log(`${statName} ${values}`)}
+
               return (
                 <SkillContainer
                   key={`${statName} ${values}-${modifier}`}
