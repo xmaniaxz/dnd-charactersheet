@@ -12,7 +12,7 @@ export default function StatBox({
   const [modifier, setModifier] = useState(0);
   const [isSkillContainerVisible, setSkillContainerVisible] = useState(false);
   const [skillsContainerHeight, setSkillsContainerHeight] = useState("auto");
-  const {characterInfo} = useCharacterInfo();
+  const { characterInfo } = useCharacterInfo();
   const skillsContainerRef = useRef(null);
 
   const calcModifier = (input) => {
@@ -21,21 +21,20 @@ export default function StatBox({
   };
 
   const handleInputChange = (event) => {
-    setInputValue(event.target.value);
-    onValueChanged(event.target.value, statName);
+    let newValue = parseInt(event.target.value.replace(/[^-+0-9]/g, ""));
+    setInputValue(newValue);
+    onValueChanged(newValue, statName);
   };
 
-  const handleProficiency = (type,isProficient) =>{
-    type = type.replace(" ","")
+  const handleProficiency = (type, isProficient) => {
+    type = type.replace(" ", "");
     //For some reason isProficient is being sent as an inversed variable
-    try{
-      characterInfo.playerStats.Proficiencies[type] = !isProficient
-    }
-    catch(e)
-    {
+    try {
+      characterInfo.playerStats.Proficiencies[type] = !isProficient;
+    } catch (e) {
       console.error(`Stat.jsx: ` + e);
     }
-  }
+  };
 
   useEffect(() => {
     setModifier(calcModifier(inputValue));
@@ -55,24 +54,18 @@ export default function StatBox({
     <div>
       <div className="statContainer">
         <input
-          type="number"
+          type="text"
           value={inputValue}
           onChange={handleInputChange}
           className="text-7xl"
           name="MainStat"
         />
-        <input
-          type="number"
-          value={modifier}
-          readOnly
-          className="text-3xl"
-          name="Modifier"
-        />
+        <div className="text-3xl">{modifier}</div>
         <label className="text-2xl" htmlFor="MainStat">
           {statName}
         </label>
         <button
-          className="statsButton" 
+          className="statsButton"
           onClick={() => setSkillContainerVisible(!isSkillContainerVisible)}
         >
           Show Stats
@@ -87,14 +80,13 @@ export default function StatBox({
         <div className="mt-5">
           {Skills &&
             Skills.map((values) => {
-
               return (
                 <SkillContainer
                   key={`${statName} ${values}-${modifier}`}
                   skillName={values}
                   modifier={modifier}
-                  isproficient={(e)=>handleProficiency(statName+values,e)}
-                  identifier={statName+values}
+                  isproficient={(e) => handleProficiency(statName + values, e)}
+                  identifier={statName + values}
                   isPerception={values === "Perception" ? true : false}
                 />
               );

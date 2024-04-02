@@ -6,7 +6,7 @@ import { useCharacterInfo } from "@/components/characterinfocontext";
 import { useState, useEffect } from "react";
 import Healthbar from "./Healtbar";
 import NavBar from "./NavBar";
-import { subscribe, unsubscribe } from "@/utils/events";
+import { subscribe, unsubscribe,publish } from "@/utils/events";
 
 export default function TopbarInfo() {
   const { characterInfo } = useCharacterInfo();
@@ -143,7 +143,8 @@ export default function TopbarInfo() {
                     }
                     placeholder="Lvl"
                     onChange={(e) => {
-                      characterInfo.playerInfo.PlayerLevel = e.target.value;
+                      let newValue = e.target.value.replace(/[^-+0-9]/g, '');
+                      characterInfo.playerInfo.PlayerLevel = newValue;
                       setReloadPage(!reloadPage);
                     }}
                   />
@@ -169,7 +170,8 @@ export default function TopbarInfo() {
                     )}
                     placeholder="AC"
                     onChange={(e) => {
-                      characterInfo.playerStats.ArmorClass = e.target.value;
+                      let newValue = e.target.value.replace(/[^-+0-9]/g, '');
+                      characterInfo.playerStats.ArmorClass = newValue;
                       setReloadPage(!reloadPage);
                     }}
                   />
@@ -178,6 +180,7 @@ export default function TopbarInfo() {
                   <input
                     id="proficiency"
                     type="text"
+                    pattern="[-+0-9]*"
                     className="w-full h-full text-center text-[40px]"
                     value={convertVisualNumber(
                       characterInfo.playerStats.Proficiency

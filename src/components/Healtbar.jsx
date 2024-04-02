@@ -47,19 +47,24 @@ export default function Healthbar() {
         <input
           id="HP"
           className="w-[3ch] text-center m-[3px]"
-          type="number"
+          type="text"
           value={currentHP}
           placeholder="0"
-          onChange={(e) => setCurrentHP(parseInt(e.target.value))}
+          onChange={(e) => {
+            let newValue = e.target.value.replace(/[^-+0-9]/g, '');
+            setCurrentHP(parseInt(newValue))}}
         />
         /
         <input
           className="w-[3ch] m-[3px] text-center"
           id="maxHP "
-          type="number"
+          inputMode="numeric"
+          type="text"
           value={maxHP}
           placeholder="0"
-          onChange={(e) => setMaxHP(parseInt(e.target.value))}
+          onChange={(e) => {
+            let newValue = e.target.value.replace(/[^-+0-9]/g, '');
+            setMaxHP(parseInt(newValue))}}
         />
         <label htmlFor="MaxH" className="">
           MaxHP

@@ -11,13 +11,12 @@ export default function SkillContainer({ skillName, modifier, isproficient,ident
   useEffect(() => {
     setUpdatedValue(false);
     setProficiency(characterInfo.playerStats.Proficiencies[identifier])
-    publish("UpdatePassivePerception", { value: calcModifier() });
+    calcModifier();
   }, [characterInfo]);
 
   const handleCheckBoxChange = () =>{
     setProficiency((prevProficiency) => !prevProficiency);
     isproficient(isProficient)
-    // publish("UpdatePassivePerception")
   }
 
   const calcModifier = () => {
@@ -39,13 +38,11 @@ export default function SkillContainer({ skillName, modifier, isproficient,ident
         checked={characterInfo.playerStats.Proficiencies[identifier]}
         onChange={() => handleCheckBoxChange()}
       />
-      <input
+      <div
         className="w-6 text-center"
         id={skillName}
-        value={calcModifier()}
-        readOnly
-        type="number"
-      />
+      >{calcModifier()}</div>
+      
       <p>{skillName}</p>
     </div>
   );
