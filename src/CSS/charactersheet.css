@@ -1,0 +1,525 @@
+
+
+
+.bigContainer {
+  width: 1200px;
+  height: auto;
+  margin: auto;
+  background-color: var(--background-secondary);
+}
+
+.topContainer {
+  width: 100%;
+  height: 500px;
+  display: flex;
+  justify-items: center;
+  /* border: solid 1px white; */
+}
+
+.imageContainer {
+  width: 350px;
+  height: 350px;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 3px solid var(--border-white);
+  box-sizing: border-box;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+}
+
+.profileImage {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.profileImage:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.statsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 5vh auto;
+  width: 100%;
+  transition: all 0.5s ease;
+}
+
+.statContainer,
+.SkillContainer,
+.proficiencyContainer {
+  background: var(--transparent-gray);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.488);
+  color: white;
+  border: solid 2px rgba(255, 255, 255, 0.2);
+}
+
+.proficiencyContainer {
+  user-select: none;
+  width: 100px;
+  height: 115px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 15px;
+  left: -10%;
+  position: relative;
+}
+
+.statContainer {
+  position: relative;
+  z-index: 1;
+  border-radius: 15px;
+  width: 175px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.SkillContainer {
+  position: relative;
+  z-index: 0;
+  width: 175px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  opacity: 0;
+  visibility: visible;
+  transform: translateY(-40px);
+  transform-origin: top center;
+}
+
+.SkillContainer.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-15px);
+}
+
+.statsButton {
+  border: solid 1px var(--BorderGray);
+  transition: all ease-in-out 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.statsButton:hover {
+  background: var(--light-gray);
+}
+
+.statContainer > input {
+  margin: auto;
+  width: 80%;
+  text-align: center;
+}
+
+.statContainer > button {
+  margin: auto;
+  height: 10%;
+  border-radius: 10px;
+}
+
+.bottomContainer {
+  width: 100%;
+  height: 40vh;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
+.BottomInfoContainerButtons {
+  float: left;
+  width: 25%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.BottomContainerButton {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--border-white);
+  background-color: rgba(212, 212, 212, 0.246);
+  border: solid var(--border-gray) 2px;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.BottomContainerButton:hover {
+  background-color: #555555;
+}
+
+.BottomInfoContainer {
+  float: left;
+  height: 100%;
+  width: 40%;
+  border: solid 1px var(--BorderGray);
+  box-sizing: border-box;
+}
+
+.BottomInfoContainerHeader {
+  float: left;
+  width: 100%;
+  height: 3vh;
+  border: solid 2px var(--BorderGray);
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.BottomInfoSpellsContainer {
+  float: left;
+  overflow-y: auto;
+  height: 37vh;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.SpellsOffsetContainer {
+  width: 90%;
+  height: 95%;
+  margin: 1% auto;
+  overflow-y: auto;
+}
+
+.SpellInfoContainer {
+  width: 35%;
+  float: left;
+  height: 35vh;
+}
+
+.SpellInfoOffset {
+  overflow-y: auto;
+  width: 90%;
+  height: calc(100% - 10px);
+  margin: 5px auto;
+}
+
+.spellButton {
+  width: 100%;
+  transition: ease-in-out 0.3s all;
+  border: solid 1px gray;
+}
+
+.spellButton:hover {
+  background: rgba(128, 128, 128, 0.279);
+  border: solid 3px #575757;
+}
+
+.inventoryContainer {
+  float: left;
+  width: 75%;
+  height: 39vh;
+  overflow-y: auto;
+  border: 1px solid var(--border-white);
+}
+
+.MoneyContainer {
+  padding: 10px;
+  float: left;
+  width: 50%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.MoneyContainer > input {
+  text-align: center;
+  width: 5em;
+  height: 40px;
+  border: solid 1px var(--border-gray);
+}
+
+.MoneyContainer > label {
+  width: 7.5em;
+  margin: 10px 10px;
+}
+
+.BackgroundImageTextArea {
+  background-image: url("/OldPaper.png") !important;
+  background-size: cover;
+  width: 60%;
+  height: calc(100% - 20px);
+  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-position: center center;
+}
+
+.InventoryAreaHeader {
+  width: 90%;
+  font-family: cursive;
+  font-size: x-large;
+  text-align: center;
+  margin-top: 5%;
+  color: black;
+}
+
+.InventoryArea {
+  flex: 1;
+  width: 90%;
+  height: 75%;
+  resize: none;
+  color: black;
+  font-size: x-large;
+  font-family: cursive;
+  overflow-y: auto;
+  background-color: transparent;
+  margin-bottom: 5%;
+}
+
+.SearchBarContainer {
+  border-radius: 5px;
+  border: solid 1px var(--border-white);
+  width: 100%;
+  height: 80%;
+  margin-top: 4px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.SearchBar {
+  background: transparent;
+  color: white;
+  width: 75%;
+}
+
+.SearchBar:focus {
+  border-radius: 5px;
+  border: solid 1px var(--border-white);
+  outline: none;
+}
+
+.spellAlertBox {
+  position: relative;
+  width: 40%;
+  height: 75vh;
+  background: var(--dark-gray);
+  border: solid 1px var(--border-gray);
+  border-radius: 20px;
+}
+
+.listContainer {
+  overflow-y: auto;
+  height: calc(100% - 10vh);
+  margin-top: 4vh;
+  padding: 0px 30px;
+}
+
+.spellName {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.spellInfoContainer {
+  position: absolute;
+  width: 60%;
+  height: 90%;
+  background: var(--semi-dark-gray);
+  bottom: 20px;
+  right: 20px;
+}
+
+.spellInfoListContainer {
+  float: right;
+  width: 50%;
+  height: inherit;
+}
+
+.spellListContainer {
+  float: left;
+  width: 75%;
+  height: 39vh;
+  border: solid 1px var(--border-white);
+}
+
+.spellList {
+  float: left;
+  margin: 12px;
+  height: 95%;
+  width: 45%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  flex-direction: row;
+  overflow-y: auto;
+}
+
+.spellLevelContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 90%;
+  height: 100%;
+}
+
+.spellDetails {
+  width: 100%;
+  height: 25px;
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+}
+
+.levelHeader {
+  text-align: center;
+  font-size: x-large;
+  text-decoration: underline;
+}
+
+.characterInfoContainer {
+  border: solid 1px var(--border-white);
+  float: left;
+  width: 75%;
+  height: 39vh;
+}
+
+.logo {
+  top: -10%;
+  position: relative;
+  background-image: url("/Logo.png") !important;
+  background-size: cover;
+  width: 400px;
+  height: 400px;
+}
+
+.PopUpContainer {
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  opacity: 0;
+  transform: translateY(-100%);
+  border: solid 2px var(--dark-gray);
+  border-radius: 10px;
+}
+
+.PopUpContainer.visible {
+  opacity: 1;
+  transform: translateY(0%);
+}
+
+.optionTab {
+  padding: 5px;
+  width: 170px;
+  height: 550px;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.option {
+  width: inherit; /* initial width */
+  height: 50px;
+  position: relative;
+  align-items: center;
+  display: flex;
+  padding: 2px;
+  border-radius: 10px;
+  border: 4px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.button {
+  cursor: pointer;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+textarea {
+  outline: none;
+  border: solid 1px var(--semi-light-gray);
+  background-color: var(--transparent-gray);
+  box-shadow: 0 5px 10px rgba(143, 143, 143, 0.174);
+}
+
+textarea:focus {
+  outline: none;
+  border: solid 1px var(--border-gray);
+  box-shadow: 0 5px 10px rgba(143, 143, 143, 0.174);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.activeSpell {
+  background-color: var(--semi-light-gray);
+}
+
+/* ColorPicker.module.css */
+
+.colorPickerContainer{
+  position: relative;
+  width: 50px;
+  height: auto;
+  transform: translate(-250px,-2px);
+}
+
+.colorPicker {
+  width: 100px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  overflow: hidden;
+  position: absolute;
+  top: -45px;
+  left: -40px;
+}
+
+.colorPickerInner {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  cursor: pointer;
+  background: 
+    radial-gradient(circle at center, white 2%, transparent 20%), 
+    conic-gradient(
+      hsl(0, 100%, 50%), 
+      hsl(60, 100%, 50%), 
+      hsl(120, 100%, 50%), 
+      hsl(180, 100%, 50%), 
+      hsl(240, 100%, 50%), 
+      hsl(300, 100%, 50%), 
+      hsl(360, 100%, 50%));
+  border-radius: 50%;
+}
+
+
+.marker {
+  width: 20px;
+  height: 20px;
+  border: solid 3px white;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  cursor: none;
+}
+
+

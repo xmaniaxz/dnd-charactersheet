@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import Inventory from "./InventoryContainer";
 import SpellList from "./SpellList";
-import { useCharacterInfo } from "@/components/characterinfocontext";
+import { useCharacterInfo } from "@/components/dndSheet/characterinfocontext";
 
 export default function SpellContainer() {
   const [activeFilters, setActiveFilters] = useState([]);

@@ -25,7 +25,7 @@ export default function HomePage() {
     try {
       await account.deleteSession("current");
     } finally {
-      router.push("/");
+      router.push("/D&D");
     }
   };
 

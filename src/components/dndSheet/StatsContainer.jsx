@@ -1,8 +1,8 @@
 "use client";
-import StatBox from "@/components/Stat";
+import StatBox from "@/components/dndSheet/Stat";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useCharacterInfo } from "@/components/characterinfocontext";
+import { useCharacterInfo } from "@/components/dndSheet/characterinfocontext";
 
 export default function StatsContainer() {
   const router = useRouter();

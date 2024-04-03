@@ -1,7 +1,7 @@
-import Dropdown from "@/components/Dropdown";
+import Dropdown from "@/components/dndSheet/Dropdown";
 import { useEffect, useState } from "react";
-import { useCharacterInfo } from "@/components/characterinfocontext";
-import RadialColorWheel from "@/components/RadialWheel";
+import { useCharacterInfo } from "@/components/dndSheet/characterinfocontext";
+import RadialColorWheel from "@/components/dndSheet/RadialWheel";
 
 export default function WeaponsSys() {
   const [weapons, setWeapons] = useState([]);

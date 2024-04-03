@@ -1,11 +1,11 @@
 "use client"
-import TopbarInfo from "@/components/TopbarInfo";
-import StatsContainer from "@/components/StatsContainer";
-import BottomContainer from "@/components/BottomContainer";
+import TopbarInfo from "@/components/dndSheet/TopbarInfo";
+import StatsContainer from "@/components/dndSheet/StatsContainer";
+import BottomContainer from "@/components/dndSheet/BottomContainer";
 import { useEffect, useState } from "react";
-import { useCharacterInfo } from "@/components/characterinfocontext";
+import { useCharacterInfo } from "@/components/dndSheet/characterinfocontext";
 import { GetCharacterSheet,WriteSheetToDatabase } from "@/utils/Database";
-import PopUp from "@/components/popup";
+import PopUp from "@/components/dndSheet/popup";
 import { publish,subscribe,unsubscribe } from "@/utils/events";
 
 

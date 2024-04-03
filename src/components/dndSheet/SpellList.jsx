@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import SpellAlertBox from "./SpellAlertBox";
 import SpellInfoData from "./SpellInfoData";
 import { GetServerSpells } from "@/utils/Database";
-import { useCharacterInfo } from "@/components/characterinfocontext";
+import { useCharacterInfo } from "@/components/dndSheet/characterinfocontext";
 
 export default function SpellList() {
   const { characterInfo } = useCharacterInfo();

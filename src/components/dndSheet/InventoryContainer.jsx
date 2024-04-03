@@ -1,4 +1,4 @@
-import WeaponsSys from "@/components/Weapons";
+import WeaponsSys from "@/components/dndSheet/Weapons";
 import { useCharacterInfo } from "./characterinfocontext";
 import { useState, useEffect } from "react";
 export default function Inventory() {

@@ -1,14 +1,47 @@
-import LoginPage from "@/components/login";
+"use client";
 
-export const metadata = {
-    title: 'D&DCMT | Login',
-    description: 'D&D Character Management Tool Login page'
-  }
+export default function Home() {
+  return (
+    <div>
+      <header className="header">
+        <ul className="navbar">
+          <li className="navbarOption">
+            <button
+              className="navbarButton"
+              onClick={() => {
+                window.location.href = "/minecraft";
+              }}
+            >
+              Minecraft
+            </button>
+          </li>
+          <li className="navbarOption">
+            <button
+              className="navbarButton"
+              onClick={() => {
+                window.location.href = "/D&D";
+              }}
+            >
+              D&D character tool
 
-export default function Home(){
-    return(
-        <div>
-            <LoginPage/>
-        </div>
-    )
+            </button>
+          </li>
+          <li className="navbarOption">
+            <button
+              className="navbarButton"
+              onClick={() => {
+                window.location.href = "/portfolio";
+              }}
+            >
+              Portfolio
+            </button>
+          </li>
+        </ul>
+      </header>
+      <main></main>
+      <footer>
+        <p>©2024 LostCausenetwork</p>
+      </footer>
+    </div>
+  );
 }

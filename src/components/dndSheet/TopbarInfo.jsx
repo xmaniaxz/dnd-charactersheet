@@ -2,7 +2,7 @@
 import style from "@/CSS/TopbarInfo.module.css";
 import ProfileImage from "./ProfileImage";
 import Dropdown from "./Dropdown";
-import { useCharacterInfo } from "@/components/characterinfocontext";
+import { useCharacterInfo } from "@/components/dndSheet/characterinfocontext";
 import { useState, useEffect } from "react";
 import Healthbar from "./Healtbar";
 import NavBar from "./NavBar";

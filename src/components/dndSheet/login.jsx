@@ -17,7 +17,7 @@ export default function LoginPage() {
     try {
       var res = await account.get();
       if (res) {
-        redirectTo("./homepage");
+        redirectTo("D&D/homepage");
       }
     } catch (e) {
     } finally {

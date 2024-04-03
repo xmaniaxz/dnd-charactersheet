@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import SkillContainer from "@/components/Skill";
+import SkillContainer from "@/components/dndSheet/Skill";
 import { useCharacterInfo } from "./characterinfocontext";
 export default function StatBox({
   statName,
