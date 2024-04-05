@@ -31,7 +31,7 @@ export default function Home() {
             <button
               className="navbarButton"
               onClick={() => {
-                window.location.href = "/portfodivo";
+                window.location.href = "/portfolio";
               }}
             >
               Portfolio
@@ -50,7 +50,8 @@ export default function Home() {
       </main>
       <div className="fadeLine" />
       <footer className="footer">
-        <p>©2024 LostCausenetwork</p>
+        <h6>©2024 - LostCausenetwork - @Made by Wesley Bosman</h6>
+        
       </footer>
     </div>
   );
