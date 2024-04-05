@@ -51,6 +51,14 @@
     rgba(255, 255, 255, 1),
     rgba(255, 255, 255, 0)
   );
+  --white-fade-thick: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 1) 10%,
+    rgba(255, 255, 255, 1) 90%,
+    rgba(255, 255, 255, 0) 100%
+);
+  --transition-small: all 0.3s ease-in-out;
 }
 
 html {
@@ -78,6 +86,28 @@ input {
     background: rgba(255, 255, 255, 0.182);
   }
 
+  .flexCenterAll {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .flexCenterHorizontal {
+    display: flex;
+    justify-content: center;
+  }
+  .flexCenterVertical {
+    display: flex;
+    align-items: center;
+  }
+
+  
+.button {
+  cursor: pointer;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
   button {
     width: 80%;
     height: 4vh;
@@ -98,3 +128,10 @@ input {
   }
 
   
+.noDrag{
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}

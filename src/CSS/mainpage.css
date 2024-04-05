@@ -1,34 +1,95 @@
-.navbar{
-    list-style-type: none;
-    padding: 20px;
+.navbar {
+  list-style-type: none;
+  height: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  width: 30%;
+  flex-direction: row;
 }
 
-.navbarOption{
-    display: inline;
-    float: left;
-    width: 200px;
+.navbarOption {
+  display: inline;
+  float: left;
+  width: 150px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  transition: var(--transition-small);
 }
 
-.header{
+.header,
+.footer {
+  display: flex;
+  height: 70px;
+  align-items: center;
+  width: 100%;
+}
+
+.header {
+  background-color: rgb(19, 19, 19);
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  padding: 20px;
+}
+
+.content{
     width: 100%;
-    height: 70px;
-    background-color: rgb(19, 19, 19);  
-    display: flex;
-    align-items: center;
+    height: calc(100vh - 70px - 70px);
 }
 
-.navbarButton{
-    border: none;
-    border-radius: 0px;
-    background: none;
+.navbarButton {
+  border: none;
+  border-radius: 0px;
+  background: none;
+  width: 100%;
 }
 
-.selector:hover {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+.selector {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  width: 100%;
+  background: var(--white-fade);
+  opacity: 0;
+  transition: var(--transition-small);
+}
+
+.navbarOption:hover .selector {
+  opacity: 1;
+}
+
+.navbarOption:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+
+
+.fadeLine {
     height: 1px;
     width: 100%;
-    background: var(--white-fade)
+    background: var(--white-fade-thick);
   }
+  .backgroundImage {
+    position: absolute;
+    width: 100%;
+    height: 87.8%;
+    z-index: -1;
+    filter: blur(15px) brightness(50%);
+    object-fit: contain;
+    object-position: center;
+    background-color: black;
+  }
+
+  .backgroundImage > img {
+    background-size: auto;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+  }
+

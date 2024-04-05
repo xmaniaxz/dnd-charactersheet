@@ -4,8 +4,8 @@ export default function Home() {
   return (
     <div>
       <header className="header">
-        <ul className="navbar">
-          <li className="navbarOption">
+        <div className="navbar">
+          <div className="navbarOption">
             <button
               className="navbarButton"
               onClick={() => {
@@ -14,8 +14,9 @@ export default function Home() {
             >
               Minecraft
             </button>
-          </li>
-          <li className="navbarOption">
+            <div className="selector" />
+          </div>
+          <div className="navbarOption">
             <button
               className="navbarButton"
               onClick={() => {
@@ -23,23 +24,32 @@ export default function Home() {
               }}
             >
               D&D character tool
-
             </button>
-          </li>
-          <li className="navbarOption">
+            <div className="selector" />
+          </div>
+          <div className="navbarOption">
             <button
               className="navbarButton"
               onClick={() => {
-                window.location.href = "/portfolio";
+                window.location.href = "/portfodivo";
               }}
             >
               Portfolio
             </button>
-          </li>
-        </ul>
+            <div className="selector" />
+          </div>
+        </div>
       </header>
-      <main></main>
-      <footer>
+      <div className="fadeLine" />
+      <main className="content flexCenterAll">
+        <div className="backgroundImage">
+          <img src="/AIImage.jpg" alt="" />
+        </div>
+        <h1 className="title">LostCauseNetwork</h1>
+
+      </main>
+      <div className="fadeLine" />
+      <footer className="footer">
         <p>©2024 LostCausenetwork</p>
       </footer>
     </div>

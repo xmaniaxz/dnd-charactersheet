@@ -449,12 +449,6 @@
   transition: all 0.3s ease;
 }
 
-.button {
-  cursor: pointer;
-  -ms-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
-}
 
 textarea {
   outline: none;

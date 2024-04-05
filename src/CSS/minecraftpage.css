@@ -1,0 +1,70 @@
+.serversContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10%;
+  height: 350px;
+  width: 100%;
+  gap: 40px;
+}
+
+.serverDetails {
+  position: relative;
+  width: 50%;
+  padding: 20px;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.039);
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border: solid 1px rgba(139, 188, 229, 0.232);
+  transition: var(--transition-small);
+}
+.serverDetails:hover {
+  background-color: rgba(255, 255, 255, 0.104);
+}
+
+.bluemapContainer {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  width: 30%;
+  height: 60px;
+  background-color: rgb(45, 109, 205);
+  border: solid 1px rgb(139, 189, 229);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.bluemapContainer:hover {
+  background-color: rgb(69, 131, 224);
+}
+
+.bluemapContainer > a {
+  width: 100%;
+  height: 100%;
+}
+
+.serverImage{
+    user-select: none;
+    -webkit-user-drag: none;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    width: 180px;
+    aspect-ratio: 1/1;
+    transition: filter 0.3s ease;
+}
+
+
+.serverImageLink:hover{
+    filter: brightness(1.2);
+}
+
+.noDrag{
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
