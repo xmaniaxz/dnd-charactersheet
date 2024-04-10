@@ -77,6 +77,7 @@ export default function LoginPage() {
 
   return (
     <div className="w-screen h-[100vh]">
+      <h3 className="homeButton button shadow" onClick={()=>{router.replace("/")}}>LCN</h3>
       <PopUp/>
       <div className={`${styles.background}`}></div>
       <div className={`${styles.container}`}>

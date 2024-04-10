@@ -1,15 +1,18 @@
 "use client";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
   return (
     <div>
       <header className="header">
+        <h3 className="homeButton button">LCN</h3>
         <div className="navbar">
           <div className="navbarOption">
             <button
               className="navbarButton"
               onClick={() => {
-                window.location.href = "/minecraft";
+                router.push("/minecraft")
               }}
             >
               Minecraft
@@ -20,7 +23,7 @@ export default function Home() {
             <button
               className="navbarButton"
               onClick={() => {
-                window.location.href = "/D&D";
+                router.push("/D&D")
               }}
             >
               D&D character tool
@@ -31,7 +34,7 @@ export default function Home() {
             <button
               className="navbarButton"
               onClick={() => {
-                window.location.href = "/portfolio";
+                router.push("/portfolio")
               }}
             >
               Portfolio

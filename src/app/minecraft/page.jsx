@@ -1,9 +1,12 @@
 "use client";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
   return (
     <div>
-      <header className="header flexCenterAll">
+      <h3 className="homeButton button" onClick={()=>{router.replace("/")}}>LCN</h3>
+      <header className="header flexCenterAll">  
         <h1>Welcome to the server page</h1>
       </header>
       <div className="fadeLine" />
@@ -23,13 +26,12 @@ export default function Home() {
                 season.
               </p>
               <div className="bluemapContainer flexCenterAll">
-                <a
-                  className="flexCenterAll"
-                  href={"https://map2.lostcausenetwork.com"}
-                  target={"_blank"}
+                <div
+                  className="flexCenterAll button"
+                  onClick={() => {router.push("https://map2.lostcausenetwork.com", "_blank")}}
                 >
                   Map
-                </a>
+                </div>
               </div>
               <img
                 className="serverImage noDrag"
@@ -46,22 +48,18 @@ export default function Home() {
                 The Vaulthunters 3 server is a modded server based on the
                 Iskall85's modpack.
               </p>
-              <div className="bluemapContainer">
-                <a
-                  className="flexCenterAll"
-                  href={"https://map1.lostcausenetwork.com"}
-                  target={"_blank"}
+              <div className="bluemapContainer flexCenterAll button">
+                <div
+                  onClick={() => {router.push("https://map1.lostcausenetwork.com", "_blank")}}
                 >
                   Map
-                </a>
+                </div>
               </div>
               <img
                 className="serverImage serverImageLink button noDrag"
                 src="/VH3.jpg"
                 alt=""
-                onClick={() => {
-                  window.open("https://vaulthunters.gg/", "_blank");
-                }}
+                onClick={() => {router.push("https://vaulthunters.gg/", "_blank")}}
               />
             </div>
           </div>

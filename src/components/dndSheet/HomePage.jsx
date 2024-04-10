@@ -74,6 +74,7 @@ export default function HomePage() {
 
     // Call GetSpellData only if sheetData is empty
     if (sheetData.length === 0) {
+      console.log(sheetData)
       // Introduce a delay of 2 seconds before calling GetSpellData
       const timeoutId = setTimeout(() => {
         GetSpellData();

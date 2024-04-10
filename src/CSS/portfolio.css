@@ -1,0 +1,63 @@
+.background {
+  background-color: black;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.ProfilePic {
+  width: calc(75%);
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  border: 5px solid rgb(93, 93, 93);
+  margin: 20px auto;
+  object-fit: cover;
+}
+.profileContainer {
+  float: right;
+  width: 20%;
+  height: 80vh;
+  max-height: 890px;
+  background-color: rgba(68, 68, 68, 0.325);
+  overflow: auto;
+}
+
+.works {
+  float: left;
+  width: calc(80% - 160px);
+  margin: 80px;
+  border: solid 1px rgba(255, 255, 255, 0.2);
+  min-height: 65vh;
+}
+
+.workContainer {
+  padding: 22px;
+  margin: 20px;
+  border-radius: 20px;
+  height: auto;
+  display: flex;
+
+  flex-direction: column;
+  border: solid 1px rgba(255, 255, 255, 0.2);
+  max-height: 2000px; /* Adjust this value */
+  overflow: hidden;
+  transition: max-height 0.3s ease-in; /* Use max-height for smooth transition */
+}
+
+.workContainer.collapsed {
+  max-height: 76px; /* Adjust this value */
+  transition: max-height 0.3s ease-in;
+
+}
+
+.worksGoToButton {
+  width: 20%;
+  height: 4vh;
+  font-size: calc(1vw);
+  background: var(--button-alternative);
+  border: solid 2px var(--BorderGray);
+  color: rgb(255, 255, 255);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+

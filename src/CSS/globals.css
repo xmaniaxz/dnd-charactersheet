@@ -45,6 +45,7 @@
   --semi-black: rgb(73, 73, 73);
   --button-gray: rgba(42, 42, 42, 0.479);
   --transparent-gray: rgba(40, 40, 40, 0.2);
+  --button-alternative: rgb(111, 0, 255);
   --white-fade: linear-gradient(
     to right,
     rgba(255, 255, 255, 0),
@@ -57,7 +58,7 @@
     rgba(255, 255, 255, 1) 10%,
     rgba(255, 255, 255, 1) 90%,
     rgba(255, 255, 255, 0) 100%
-);
+  );
   --transition-small: all 0.3s ease-in-out;
 }
 
@@ -77,30 +78,29 @@ body {
 }
 
 input {
-    background: none;
-    transition: background 0.3s ease;
-  }
-  
-  input:focus {
-    outline: none;
-    background: rgba(255, 255, 255, 0.182);
-  }
+  background: none;
+  transition: background 0.3s ease;
+}
 
-  .flexCenterAll {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .flexCenterHorizontal {
-    display: flex;
-    justify-content: center;
-  }
-  .flexCenterVertical {
-    display: flex;
-    align-items: center;
-  }
+input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.182);
+}
 
-  
+.flexCenterAll {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flexCenterHorizontal {
+  display: flex;
+  justify-content: center;
+}
+.flexCenterVertical {
+  display: flex;
+  align-items: center;
+}
+
 .button {
   cursor: pointer;
   -ms-user-select: none;
@@ -108,30 +108,49 @@ input {
   user-select: none;
 }
 
-  button {
-    width: 80%;
-    height: 4vh;
-    background: var(--button-gray);
-    border: solid 2px var(--BorderGray);
-    color: rgb(255, 255, 255);
-    border-radius: 5px;
-  }
-  
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-  }
-  
-  input[type="number"] {
-    appearance: textfield;
-    -moz-appearance: textfield;
-  }
+button {
+  width: 80%;
+  height: 4vh;
+  background: var(--button-gray);
+  border: solid 2px var(--BorderGray);
+  color: rgb(255, 255, 255);
+  border-radius: 5px;
+}
 
-  
-.noDrag{
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.shadow {
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.459);
+  transition: var(--transition-small);
+}
+.shadow:hover {
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.8);
+}
+
+.noDrag {
   -webkit-user-drag: none;
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
+}
+
+.transition {
+  transition: all 0.3s ease;
+}
+
+.hoverImage{
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+.hoverImage:hover{
+  opacity: 0.8;
 }

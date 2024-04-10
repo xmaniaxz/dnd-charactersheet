@@ -27,7 +27,7 @@ export async function AddToDataBase() {
         Duration: spells.duration,
         Components: spells.components,
         Description: spells.description,
-        HigherLevel: spells.higherLevel,
+        HigherLevel: Array.isArray(spells.higherLevel) ? "" : spells.higherLevel,
         Class: await ConvertClassToString(spells),
         SpellLevel: Level,
       };
@@ -60,6 +60,7 @@ export async function EmptyDB() {
       values.$id
     );
   });
+  console.log("trying to empty DB")
 }
 
 function ConvertClassToString(spell) {
