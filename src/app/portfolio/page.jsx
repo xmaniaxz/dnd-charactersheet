@@ -24,7 +24,7 @@ export default function Home() {
     ["ObjectOrientedProgramming.svg", "OOP (Object Oriented Programming)"],
     ["Unity.svg", "Unity"],
     ["C-sharp.svg", "C#"],
-    ["PHP.svg", "PHP"],
+    ["Php.svg", "PHP"],
     ["Github.svg", "GitHub"],
     ["Python.svg", "Python"],
   ];
