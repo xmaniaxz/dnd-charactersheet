@@ -198,9 +198,9 @@ export default function Home() {
             <h3 className="text-center">Proficiencies</h3>
             <br />
             <div className="insetContainer">
-              {icons.map((icons) => {
+              {icons.map((icons,index) => {
                 return (
-                  <div className="iconContainer">
+                  <div key={index} className="iconContainer">
                     <div id="popup" className="logoPopup">
                       <span className="popuptext shadow noDrag">
                         {icons[1]}
