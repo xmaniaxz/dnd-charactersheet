@@ -1,6 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Image from "next/image";
 
 export default function Home() {
   const router = useRouter();
@@ -102,7 +103,7 @@ export default function Home() {
               first time.
             </h6>
             <br />
-            <img
+            <Image
               src="/icons/github.svg"
               alt="github logo"
               width={50}
@@ -149,7 +150,7 @@ export default function Home() {
                 regularly.
                 <br />
                 <br />
-                <img
+                <Image
                   src="/icons/github.svg"
                   alt="github logo"
                   width={50}
@@ -167,7 +168,7 @@ export default function Home() {
         </div>
         <div className="rightInfoContainer">
           <div className="profileContainer">
-            <img className="ProfilePic" src="/Foto.jpg" alt="" />
+            <Image className="ProfilePic" src="/Foto.jpg" alt="" />
             <div className="p-[15px]">
               <h3>About me:</h3>
               <br />
@@ -205,7 +206,7 @@ export default function Home() {
                         {icons[1]}
                       </span>
                     </div>
-                    <img
+                    <Image
                       src={`/icons/${icons[0]}`}
                       alt={icons}
                       className="svgIcon invertColor noDrag"
