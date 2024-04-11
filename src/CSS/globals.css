@@ -34,7 +34,7 @@
   --background: #343434;
   --background-secondary: rgb(73, 73, 73);
   --border-white: white;
-  --dark-gray: rgb(14, 14, 14);
+  --dark-gray: rgb(29, 29, 29);
   --semi-gray: #616060;
   --border-gray: rgb(143, 143, 143);
   --border-dark-gray: rgba(28, 28, 28, 0.9);
@@ -45,7 +45,7 @@
   --semi-black: rgb(73, 73, 73);
   --button-gray: rgba(42, 42, 42, 0.479);
   --transparent-gray: rgba(40, 40, 40, 0.2);
-  --button-alternative: rgb(111, 0, 255);
+  --button-alternative: rgba(105, 88, 131, 0.619);
   --white-fade: linear-gradient(
     to right,
     rgba(255, 255, 255, 0),

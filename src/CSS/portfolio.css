@@ -1,7 +1,15 @@
 .background {
-  background-color: black;
+  overflow-y: auto;
+  position: absolute;
+  background-color: var(--dark-gray);
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
+}
+
+.rightInfoContainer {
+  height: auto;
+  float: right;
+  width: 20%;
 }
 
 .ProfilePic {
@@ -13,12 +21,29 @@
   object-fit: cover;
 }
 .profileContainer {
-  float: right;
-  width: 20%;
   height: 80vh;
   max-height: 890px;
+}
+
+.profileContainer,
+.logoContainer {
+  width: 100%;
   background-color: rgba(68, 68, 68, 0.325);
-  overflow: auto;
+  border-radius: 5px;
+  border: solid 1px rgba(255, 255, 255, 0.2);
+  margin-left: -20px;
+}
+
+.logoContainer {
+  margin-top: 10px;
+  height: auto;
+  padding: 10px 40px;
+}
+.insetContainer{
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(3, 1fr); /* This will create 3 columns */
+  gap: 20px;
 }
 
 .works {
@@ -46,7 +71,6 @@
 .workContainer.collapsed {
   max-height: 76px; /* Adjust this value */
   transition: max-height 0.3s ease-in;
-
 }
 
 .worksGoToButton {
@@ -54,10 +78,38 @@
   height: 4vh;
   font-size: calc(1vw);
   background: var(--button-alternative);
-  border: solid 2px var(--BorderGray);
-  color: rgb(255, 255, 255);
+  border: solid 1px var(--button-gray);
   border-radius: 5px;
-  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.3s ease, box-shadow 0.3s ease-in;
 }
 
+.worksGoToButton:hover {
+  opacity: 1;
+  box-shadow: 0px 0px 10px 0px var(--light-gray);
+}
 
+.logoPopup {
+  position: absolute;
+  text-wrap: nowrap;
+  transform: translateY(0px);
+  background-color: rgb(23, 23, 23);
+  padding: 0px 20px;
+  border: solid 1px rgb(145, 145, 145);
+  border-radius: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in, transform 0.2s ease-in;
+}
+
+.iconContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.iconContainer:hover .logoPopup {
+  display: block;
+  opacity: 1;
+  transform: translateY(-30px);
+}

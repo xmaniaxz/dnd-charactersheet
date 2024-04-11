@@ -9,9 +9,25 @@ export default function Home() {
   const HandleClick = (name) => {
     setActive((prevActive) => ({
       ...prevActive,
-      [name]: !prevActive[name]
+      [name]: !prevActive[name],
     }));
   };
+
+  const icons = [
+    ["Html5.svg", "Html5"],
+    ["Css3.svg", "Css3"],
+    ["Javascript.svg", "JavaScript"],
+    ["React.svg", "React"],
+    ["NextJS.svg", "Next.js"],
+    ["Blender.svg", "Blender"],
+    ["ObjectOrientedProgramming.svg", "OOP (Object Oriented Programming)"],
+    ["Unity.svg", "Unity"],
+    ["C-sharp.svg", "C#"],
+    ["PHP.svg", "PHP"],
+    ["Github.svg", "GitHub"],
+    ["Python.svg", "Python"],
+  ];
+
   return (
     <div className="background h-full">
       <h3
@@ -48,7 +64,7 @@ export default function Home() {
             </div>
             <br />
             <p>
-              I created a virtual museum for VodafoneZiggo, Intern, where
+              I created a virtual museum for VodafoneZiggo, internally, where
               colleagues could retrieve information or listen to radio or
               podcasts.
               <br />
@@ -82,21 +98,19 @@ export default function Home() {
             <br />
             <br />
             <h6 className="text-[red]">
-              warning: this is a big project and might take a while to load the first time.
+              warning: this is a big project and might take a while to load the
+              first time.
             </h6>
             <br />
             <img
-                  src="/github-white.svg"
-                  alt="github logo"
-                  width={50}
-                  className="shadow noDrag hoverImage button"
-                  onClick={() => {
-                    window.open(
-                      "https://github.com/xmaniaxz/Project404",
-                      "_blank"
-                    );
-                  }}
-                />
+              src="/icons/github.svg"
+              alt="github logo"
+              width={50}
+              className="noDrag hoverImage button invertColor"
+              onClick={() => {
+                window.open("https://github.com/xmaniaxz/Project404", "_blank");
+              }}
+            />
           </div>
           <div
             className={`workContainer ${
@@ -127,7 +141,7 @@ export default function Home() {
                 The pages that are currently available are the home page, the
                 portfolio page,
                 <br />
-                the Dungeons and dragons character management tool and a
+                The Dungeons and dragons character management tool and a
                 minecraft page that is used for my minecraft servers.
                 <br />
                 <br />
@@ -136,10 +150,10 @@ export default function Home() {
                 <br />
                 <br />
                 <img
-                  src="/github-white.svg"
+                  src="/icons/github.svg"
                   alt="github logo"
                   width={50}
-                  className="shadow noDrag hoverImage button"
+                  className="noDrag hoverImage button invertColor"
                   onClick={() => {
                     window.open(
                       "https://github.com/xmaniaxz/dnd-charactersheet",
@@ -151,30 +165,55 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="profileContainer">
-          <img className="ProfilePic" src="/Foto.jpg" alt="" />
-          <div className="p-[15px]">
-            <h3>About me:</h3>
+        <div className="rightInfoContainer">
+          <div className="profileContainer">
+            <img className="ProfilePic" src="/Foto.jpg" alt="" />
+            <div className="p-[15px]">
+              <h3>About me:</h3>
+              <br />
+              <p>
+                Wesley (22) is a broad-minded man who is always busy providing
+                the right solution for your problems. He is a great lover of
+                music.
+                <br />
+                <br />
+                He also speaks Dutch and English fluently and has interesting
+                hobbies such as bowling, coding, and gaming. He has experience
+                in Game development, Software development, and Backoffice &
+                customer service. For example, he created a virtual museum for
+                VodafoneZiggo, Intern, where colleagues could retrieve
+                information or listen to radio or podcasts. Currently, Wesley is
+                looking for a fun challenge in the IT world. A position as a
+                developer (front-end, back-end & full-stack) appeals to him a
+                lot. In addition, he is also open to other challenges.
+                <br />
+                <br />
+                Wesley absorbs knowledge that he lacks like a sponge. Are you
+                interested? Lets get in touch
+              </p>
+            </div>
+          </div>
+          <div className="logoContainer">
+            <h3 className="text-center">Proficiencies</h3>
             <br />
-            <p>
-              Wesley (22) is a broad-minded man who is always busy providing the
-              right solution for your problems. He is a great lover of music.
-              <br />
-              <br />
-              He also speaks Dutch and English fluently and has interesting
-              hobbies such as bowling, coding, and gaming. He has experience in
-              Game development, Software development, and Backoffice & customer
-              service. For example, he created a virtual museum for
-              VodafoneZiggo, Intern, where colleagues could retrieve information
-              or listen to radio or podcasts. Currently, Wesley is looking for a
-              fun challenge in the IT world. A position as a developer
-              (front-end, back-end & full-stack) appeals to him a lot. In
-              addition, he is also open to other challenges.
-              <br />
-              <br />
-              Wesley absorbs knowledge that he lacks like a sponge. Are you
-              interested? Lets get in touch
-            </p>
+            <div className="insetContainer">
+              {icons.map((icons) => {
+                return (
+                  <div className="iconContainer">
+                    <div id="popup" className="logoPopup">
+                      <span className="popuptext shadow noDrag">
+                        {icons[1]}
+                      </span>
+                    </div>
+                    <img
+                      src={`/icons/${icons[0]}`}
+                      alt={icons}
+                      className="svgIcon invertColor noDrag"
+                    />
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
