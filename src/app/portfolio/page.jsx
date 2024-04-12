@@ -2,10 +2,11 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
-
+import LanguagePopup from "@/components/languagePopup";
 export default function Home() {
   const router = useRouter();
   const [active, setActive] = useState([{}]);
+  const logoHeight = 40;
 
   const HandleClick = (name) => {
     setActive((prevActive) => ({
@@ -62,8 +63,16 @@ export default function Home() {
               >
                 expand_more
               </span>
+              <div className="w-[40%] overflow-hidden flex no-wrap gap-[20px] items-center">
+                <LanguagePopup icon={icons[7][0]} iconName={icons[7][1]} />
+                <LanguagePopup icon={icons[8][0]} iconName={icons[8][1]} />
+                <LanguagePopup icon={icons[5][0]} iconName={icons[5][1]} />
+                <LanguagePopup icon={icons[6][0]} iconName={icons[6][1]} />
+              </div>
             </div>
+
             <br />
+            <div>
             <p>
               I created a virtual museum for VodafoneZiggo, internally, where
               colleagues could retrieve information or listen to radio or
@@ -106,13 +115,18 @@ export default function Home() {
             <Image
               src="/icons/github.svg"
               alt="github logo"
-              width={50}
+              height={logoHeight}
+              width={logoHeight}
               className="noDrag hoverImage button invertColor"
               onClick={() => {
                 window.open("https://github.com/xmaniaxz/Project404", "_blank");
               }}
             />
+            </div>
           </div>
+
+          {/* LOSTCAUSENETWORK */}
+
           <div
             className={`workContainer ${
               active.LostCauseNetwork ? "" : "collapsed"
@@ -130,6 +144,13 @@ export default function Home() {
               >
                 expand_more
               </span>
+              <div className="w-[50%] flex no-wrap gap-[20px] items-center">
+                <LanguagePopup icon={icons[0][0]} iconName={icons[0][1]} />
+                <LanguagePopup icon={icons[1][0]} iconName={icons[1][1]} />
+                <LanguagePopup icon={icons[2][0]} iconName={icons[2][1]} />
+                <LanguagePopup icon={icons[3][0]} iconName={icons[3][1]} />
+                <LanguagePopup icon={icons[4][0]} iconName={icons[4][1]} />
+              </div>
             </div>
             <br />
             <div>
@@ -153,7 +174,81 @@ export default function Home() {
                 <Image
                   src="/icons/github.svg"
                   alt="github logo"
-                  width={50}
+                  height={logoHeight}
+                  width={logoHeight}
+                  className="noDrag hoverImage button invertColor"
+                  onClick={() => {
+                    window.open(
+                      "https://github.com/xmaniaxz/dnd-charactersheet",
+                      "_blank"
+                    );
+                  }}
+                />
+              </p>
+            </div>
+          </div>
+
+          {/* DND */}
+          <div className={`workContainer ${active.DNDMT ? "" : "collapsed"}`}>
+            <div
+              className="flex flex-row button"
+              onClick={() => HandleClick("DNDMT")}
+            >
+              <h2>D&D character tool</h2>
+              <span
+                className={`Icon transition ${active.DNDMT ? "rotated" : ""}`}
+              >
+                expand_more
+              </span>
+              <div className="w-[50%] flex no-wrap gap-[20px] items-center">
+                <LanguagePopup icon={icons[0][0]} iconName={icons[0][1]} />
+                <LanguagePopup icon={icons[1][0]} iconName={icons[1][1]} />
+                <LanguagePopup icon={icons[2][0]} iconName={icons[2][1]} />
+                <LanguagePopup icon={icons[3][0]} iconName={icons[3][1]} />
+                <LanguagePopup icon={icons[4][0]} iconName={icons[4][1]} />
+                <LanguagePopup icon={icons[6][0]} iconName={icons[6][1]} />
+                <LanguagePopup icon={icons[11][0]} iconName={icons[11][1]} />
+              </div>
+            </div>
+            <br />
+            <div>
+              <p>
+                This project is made within the same workspace as the LCN
+                project. The reason why i am mentioning this project is because
+                it is a project that took a lot of time and effort. Reason for
+                this is because it is a project that makes use of a lot of
+                different systems and techniques.
+                <br />
+                <br />
+                Currently the tool consists of these features:
+              </p>
+              <ul className="list-circle">
+                <li>User authentication</li>
+                <li>Character management</li>
+                <li>Character creation</li>
+                <li>API for all 580 spells</li>
+                <li>SaveSystem for charactersheet</li>
+                <li>Automatic skill calculation</li>
+                <li>A modern looking character sheet</li>
+                <li>Responsive design</li>
+                <li>Ability for users to upload their own character logo's</li>
+              </ul>
+              <br />
+              <p>
+                The tool itself was made over the course of 8 months on and off
+                where the last 5 months i have spent almost full-time on this
+                project, while also learning how to use Next.js and Appwrite
+                <br />
+                <br />
+                The characterpage has all basic features but there are plans to add more to it in the future.
+                There are also plans to make a Dungeon Master Portal where players and DM can join a team and share information about the game.
+                <br />
+                <br />
+                <Image
+                  src="/icons/github.svg"
+                  alt="github logo"
+                  height={logoHeight}
+                  width={logoHeight}
                   className="noDrag hoverImage button invertColor"
                   onClick={() => {
                     window.open(
@@ -168,7 +263,13 @@ export default function Home() {
         </div>
         <div className="rightInfoContainer">
           <div className="profileContainer">
-            <Image className="ProfilePic" src="/Foto.jpg" alt="" />
+            <Image
+              className="ProfilePic"
+              src="/Foto.jpg"
+              height={logoHeight}
+              width={logoHeight}
+              alt=""
+            />
             <div className="p-[15px]">
               <h3>About me:</h3>
               <br />
@@ -198,20 +299,13 @@ export default function Home() {
             <h3 className="text-center">Proficiencies</h3>
             <br />
             <div className="insetContainer">
-              {icons.map((icons,index) => {
+              {icons.map((icons, index) => {
                 return (
-                  <div key={index} className="iconContainer">
-                    <div id="popup" className="logoPopup">
-                      <span className="popuptext shadow noDrag">
-                        {icons[1]}
-                      </span>
-                    </div>
-                    <Image
-                      src={`/icons/${icons[0]}`}
-                      alt={icons}
-                      className="svgIcon invertColor noDrag"
-                    />
-                  </div>
+                  <LanguagePopup
+                    icon={icons[0]}
+                    iconName={icons[1]}
+                    key={index}
+                  />
                 );
               })}
             </div>

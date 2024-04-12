@@ -23,6 +23,7 @@
 .profileContainer {
   height: 80vh;
   max-height: 890px;
+  overflow-y: auto;
 }
 
 .profileContainer,
@@ -39,7 +40,7 @@
   height: auto;
   padding: 10px 40px;
 }
-.insetContainer{
+.insetContainer {
   display: grid;
   align-items: center;
   grid-template-columns: repeat(3, 1fr); /* This will create 3 columns */
@@ -97,6 +98,7 @@
   padding: 0px 20px;
   border: solid 1px rgb(145, 145, 145);
   border-radius: 20px;
+  z-index: 2;
   opacity: 0;
   transition: opacity 0.3s ease-in, transform 0.2s ease-in;
 }

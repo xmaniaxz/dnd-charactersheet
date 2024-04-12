@@ -154,3 +154,7 @@ input[type="number"] {
 .hoverImage:hover{
   opacity: 0.8;
 }
+.list-circle{
+  list-style-type: circle;
+  margin-left: 1.5ch;
+}
