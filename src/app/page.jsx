@@ -53,7 +53,7 @@ export default function Home() {
       </main>
       <div className="fadeLine" />
       <footer className="footer">
-        <h6>©2024 - LostCausenetwork - @Made by Wesley Bosman</h6>
+        <h6>©2024 - Lost Cause Network - @Made by Wesley Bosman</h6>
         
       </footer>
     </div>
