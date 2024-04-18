@@ -1,4 +1,4 @@
-import { client, database, storage } from "@/utils/appwrite";
+import { account, client, database, storage,teams } from "@/utils/appwrite";
 import { Query } from "appwrite";
 import { ID } from "appwrite";
 import { userId } from "@/utils/appwrite";
@@ -214,4 +214,32 @@ async function CheckIfFileExists(fileName) {
     console.error(error);
     return true;
   }
+}
+
+
+export async function GetUserTeams(){
+  const listPromise = await teams.list();
+  const customTeams = await Promise.all(listPromise.teams.map(async (team) => ({
+    name: team.name,
+    id: team.$id,
+    teamMembers: await GetTeamMembers(team.$id),
+  })));
+
+
+  return customTeams;
+
+}
+
+async function GetTeamMembers(teamID){
+  const members = await teams.listMemberships(teamID);
+  const memberData =  
+  members.memberships.map(member => ({
+    name: member.userName,
+    id: member.$id,
+    role: member.roles,
+  }));
+  return memberData;
+}
+
+export async function CreateTeam(teamName){
 }

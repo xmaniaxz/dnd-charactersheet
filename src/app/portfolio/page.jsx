@@ -266,8 +266,8 @@ export default function Home() {
             <Image
               className="ProfilePic"
               src="/Foto.jpg"
-              height={logoHeight}
-              width={logoHeight}
+              height={500}
+              width={500}
               alt=""
             />
             <div className="p-[15px]">

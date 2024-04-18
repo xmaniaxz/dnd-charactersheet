@@ -1,8 +1,9 @@
-import {Client, Account, Databases,Storage} from "appwrite"
+import {Client, Account, Databases,Storage,Teams} from "appwrite"
 
 export const client = new Client();
 export const storage = new Storage(client);
 export const database = new Databases(client);
+export const teams = new Teams(client);
 
 client
     .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT)

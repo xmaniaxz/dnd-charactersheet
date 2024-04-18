@@ -31,6 +31,11 @@
 
 @tailwind utilities;
 :root {
+  /* HomePage */
+  --navbarColor: #212121;
+  --userLogoBackground: #4e4e4e;
+
+/* Rest */
   --background: #343434;
   --background-secondary: rgb(73, 73, 73);
   --border-white: white;
@@ -157,4 +162,14 @@ input[type="number"] {
 .list-circle{
   list-style-type: circle;
   margin-left: 1.5ch;
+}
+.hazyOverLay{
+  position: absolute;
+  width: 100%;
+  min-height: 100vh;
+  backdrop-filter: blur(2px);
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

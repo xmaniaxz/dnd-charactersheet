@@ -92,6 +92,7 @@
 
 .logoPopup {
   position: absolute;
+  pointer-events: none;
   text-wrap: nowrap;
   transform: translateY(0px);
   background-color: rgb(23, 23, 23);
