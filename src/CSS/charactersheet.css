@@ -449,20 +449,7 @@
 }
 
 
-textarea {
-  outline: none;
-  border: solid 1px var(--semi-light-gray);
-  background-color: var(--transparent-gray);
-  box-shadow: 0 5px 10px rgba(143, 143, 143, 0.174);
-}
 
-textarea:focus {
-  outline: none;
-  border: solid 1px var(--border-gray);
-  box-shadow: 0 5px 10px rgba(143, 143, 143, 0.174);
-  border-radius: 10px;
-  transition: all 0.3s ease;
-}
 
 .activeSpell {
   background-color: var(--semi-light-gray);

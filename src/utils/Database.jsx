@@ -1,8 +1,9 @@
-import { account, client, database, storage,teams } from "@/utils/appwrite";
+import { account, client, database, storage, teams } from "@/utils/appwrite";
 import { Query } from "appwrite";
 import { ID } from "appwrite";
 import { userId } from "@/utils/appwrite";
 import { publish } from "./events";
+import {NodeCreateTeam,NodeAddtoTeam} from "@/utils/node-appwrite";
 
 export async function GetServerSpells(IncomingFilters) {
   const activeFilters = IncomingFilters || [];
@@ -109,8 +110,10 @@ export async function WriteSheetToDatabase(FileToSend) {
         fileObject.SheetID,
         fileObject
       );
-      //Set cookie correctly: 
-      document.cookie = `characterInfo=${JSON.stringify(fileObject.SheetID)}; path=/; sameSite=false;`;
+      //Set cookie correctly:
+      document.cookie = `characterInfo=${JSON.stringify(
+        fileObject.SheetID
+      )}; path=/; sameSite=false;`;
       publish("ShowPopUp", {
         text: "Created new character!",
         visibility: true,
@@ -187,16 +190,11 @@ export async function UploadFile(file) {
 }
 
 export async function GetFile(fileID) {
-  const file = storage.getFileView(
-    process.env.NEXT_PUBLIC_BUCKET_ID,
-    fileID
-  );
+  const file = storage.getFileView(process.env.NEXT_PUBLIC_BUCKET_ID, fileID);
   return file;
 }
 
-export async function GetFileID(fileName){
-
-}
+export async function GetFileID(fileName) {}
 
 async function CheckIfFileExists(fileName) {
   try {
@@ -216,24 +214,22 @@ async function CheckIfFileExists(fileName) {
   }
 }
 
-
-export async function GetUserTeams(){
+export async function GetUserTeams() {
   const listPromise = await teams.list();
-  const customTeams = await Promise.all(listPromise.teams.map(async (team) => ({
-    name: team.name,
-    id: team.$id,
-    teamMembers: await GetTeamMembers(team.$id),
-  })));
-
+  const customTeams = await Promise.all(
+    listPromise.teams.map(async (team) => ({
+      name: team.name,
+      id: team.$id,
+      teamMembers: await GetTeamMembers(team.$id),
+    }))
+  );
 
   return customTeams;
-
 }
 
-async function GetTeamMembers(teamID){
+async function GetTeamMembers(teamID) {
   const members = await teams.listMemberships(teamID);
-  const memberData =  
-  members.memberships.map(member => ({
+  const memberData = members.memberships.map((member) => ({
     name: member.userName,
     id: member.$id,
     role: member.roles,
@@ -241,5 +237,42 @@ async function GetTeamMembers(teamID){
   return memberData;
 }
 
-export async function CreateTeam(teamName){
+export async function CreateTeam(teamName) {
+  NodeCreateTeam(CreateUniqueID(),teamName, await account.get("current").$id);
+  
+  publish("ShowPopUp", {
+    text: "Team created!",
+    visibility: true,
+    backgroundColor: "rgba(0, 128, 0, 0.8)",
+    top: "10px",
+    right: "20px",
+  });
+}
+
+export async function JoinTeam(teamID){
+  try{
+   
+  await NodeAddtoTeam(teamID,["Player"],await account.get("current").$id);
+  publish("ShowPopUp", {
+    text: "Joined Team!",
+    visibility: true,
+    backgroundColor: "rgba(0, 128, 0, 0.8)",
+    top: "10px",
+    right: "20px",
+  });
+  }
+  catch (e){
+    publish("ShowPopUp", {
+      text: "Could not join team!",
+      visibility: true,
+      backgroundColor: "rgba(255, 0, 0, 0.8)",
+      top: "10px",
+      right: "20px",
+    });
+    console.log(e);
+  }
+}
+
+function CreateUniqueID(){
+  return parseInt((Date.now().toString().slice(-4)) + (Math.floor(Math.random() * 10000).toString().padStart(4, '0')));
 }

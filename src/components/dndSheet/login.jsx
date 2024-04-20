@@ -6,11 +6,13 @@ import styles from "@/CSS/loginpage.module.css";
 import { AppwriteException, ID } from "appwrite";
 import PopUp from "./popup";
 export default function LoginPage() {
+  const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
+  const [isTryingToRegister, setIsTryingToRegister] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const IsLoggedIn = async () => {
@@ -45,18 +47,22 @@ export default function LoginPage() {
           default:
             setErrorMessage("Something went wrong, Try again");
             break;
-        }}
-
-        else {
-          setErrorMessage(e);
+        }
+      } else {
+        setErrorMessage(e);
       }
     }
   }
 
   async function handleRegister() {
+    if(!isTryingToRegister)
+    {
+      setIsTryingToRegister(true);
+      return;
+    }
     try {
       setLoading(true);
-      await account.create(ID.unique(), email, password);
+      await account.create(ID.unique(), email, password, userName);
       setPassword("");
       setLoading(false);
       IsLoggedIn();
@@ -77,12 +83,32 @@ export default function LoginPage() {
 
   return (
     <div className="w-screen h-[100vh]">
-      <h3 className="homeButton button shadow" onClick={()=>{router.replace("/")}}>LCN</h3>
-      <PopUp/>
+      <h3
+        className="homeButton button shadow"
+        onClick={() => {
+          router.replace("/");
+        }}
+      >
+        LCN
+      </h3>
+      <PopUp />
       <div className={`${styles.background}`}></div>
       <div className={`${styles.container}`}>
         <div className={`${styles.loginContainer}`}>
-        <div className="logo"/>
+          <div className="logo" />
+          {isTryingToRegister && (
+            <input
+              className={`${styles.inputField} mb-[5px]`}
+              placeholder="Username"
+              type="text"
+              value={userName}
+              onChange={(e) => {
+                if (e.target.value.length <= 30) {
+                  setUserName(e.target.value);
+                }
+              }}
+            />
+          )}
           <div className={`${styles.inputContainer}`}>
             <input
               className={`${styles.inputField}`}
