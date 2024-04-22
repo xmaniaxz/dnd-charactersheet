@@ -1,30 +1,19 @@
-"use client"
-import { Databases, Client, ID, Query,Teams } from "node-appwrite";
+import { Databases, Client, ID, Query } from "node-appwrite";
 import api from "../JSON/api.json";
 const client = new Client();
-const teams = new Teams(client);
 const database = new Databases(client);
 
 client
   .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT)
   .setProject(process.env.NEXT_PUBLIC_PROJECT_ID)
-  .setKey(process.env.NEXT_PUBLIC_API_KEY)
-  .setSession('current');
-
-
-  export async function NodeCreateTeam(teamID,teamName){
-    await teams.create(teamID,teamName,[]);
-  }
-
-  export async function NodeAddtoTeam(InviteCode,userID){
-    await teams.createMembership(InviteCode,["player"],userID);
-  }
-
-//////////////////////EVERYTHING HERE IS TO ADD TO DATABASE AND SHOULD NOT BE USED IN PRODUCTION//////////////////////////
+  .setKey(process.env.NEXT_PUBLIC_API_KEY);
 let count = 0;
 Object.values(api).map((values) => {
   count += values.length;
 });
+// console.log(`Amount of spells in api: ${count}`);
+//////////////////////EVERYTHING HERE IS TO ADD TO DATABASE AND SHOULD NOT BE USED IN PRODUCTION//////////////////////////
+
 export async function AddToDataBase() {
   const SpellLevel = Object.keys(api);
   SpellLevel.forEach((Level) => {
@@ -38,9 +27,7 @@ export async function AddToDataBase() {
         Duration: spells.duration,
         Components: spells.components,
         Description: spells.description,
-        HigherLevel: Array.isArray(spells.higherLevel)
-          ? ""
-          : spells.higherLevel,
+        HigherLevel: Array.isArray(spells.higherLevel) ? "" : spells.higherLevel,
         Class: await ConvertClassToString(spells),
         SpellLevel: Level,
       };
@@ -54,11 +41,7 @@ export async function AddToDataBase() {
           spell
         );
       } catch (e) {
-        console.log(
-          `error on ${
-            spells.spellName
-          } = ${e} . Value given: ${await ConvertClassToString(spells)} `
-        );
+        console.log(`error on ${spells.spellName} = ${e} . Value given: ${await ConvertClassToString(spells)} `);
       }
     });
   });
@@ -77,7 +60,7 @@ export async function EmptyDB() {
       values.$id
     );
   });
-  console.log("trying to empty DB");
+  console.log("trying to empty DB")
 }
 
 function ConvertClassToString(spell) {
