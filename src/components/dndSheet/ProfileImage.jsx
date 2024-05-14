@@ -1,7 +1,8 @@
 import { publish } from "@/utils/events";
 import React, { useEffect, useState } from "react";
 import { useCharacterInfo } from "./characterinfocontext";
-import { UploadFile, GetFile } from "@/utils/Database";
+import { UploadFile } from "@/utils/node-appwrite";
+import Image from "next/image";
 
 export default function ProfileImage() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -27,8 +28,10 @@ export default function ProfileImage() {
       });
       return;
     } else {
+      const formData = new FormData();
+      formData.append("file", event.target.files[0]);
       const file = event.target.files[0];
-      const fileID = await UploadFile(file);
+      const fileID = await UploadFile(formData);
       characterInfo.profilePicture = fileID;
       setSelectedImage(URL.createObjectURL(event.target.files[0]));
     }
@@ -39,22 +42,27 @@ export default function ProfileImage() {
     document.getElementById("file-upload").click();
   };
 
-  useEffect(() => {
-    async function getProfilePictureFromServer() {
-      const file = await GetFile(characterInfo.profilePicture);
-      setSelectedImage(file.href);
+  const GetImage = () =>{
+    if(characterInfo.profilePicture){
+      const image = `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${process.env.NEXT_PUBLIC_BUCKET_ID}/files/${characterInfo.profilePicture}/view?project=${process.env.NEXT_PUBLIC_PROJECT_ID}`;
+      setSelectedImage(image);
     }
-    if (characterInfo.profilePicture) getProfilePictureFromServer();
-  }, [characterInfo.profilePicture]);
+   
+  }
+  useEffect(() => {
+    GetImage();
+  },[characterInfo.profilePicture])
 
   return (
     <div>
       <div className="imageContainer">
         <label htmlFor="file-upload">
           {selectedImage ? (
-            <img
+            <Image
               src={selectedImage}
               alt="Selected"
+              width={800}
+              height={800}
               onClick={handleImageClick}
               className="profileImage"
             />

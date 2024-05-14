@@ -259,24 +259,23 @@
 }
 
 .BackgroundImageTextArea {
-  background-image: url("/OldPaper.png") !important;
-  background-size: cover;
-  width: 60%;
-  height: calc(100% - 20px);
-  margin: 10px auto;
+  border: solid 2px var(--border-gray);
+  background: var(--transparent-gray);
+  border-radius: 15px;
+  height: 95%;
+  width: 80%;
+  gap: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-position: center center;
 }
 
 .InventoryAreaHeader {
   width: 90%;
-  font-family: cursive;
+  font-weight: bold;
   font-size: x-large;
   text-align: center;
   margin-top: 5%;
-  color: black;
 }
 
 .InventoryArea {
@@ -284,11 +283,10 @@
   width: 90%;
   height: 75%;
   resize: none;
-  color: black;
-  font-size: x-large;
-  font-family: cursive;
+  font-size: large;
   overflow-y: auto;
   background-color: transparent;
+  padding: 10px;
   margin-bottom: 5%;
 }
 
@@ -402,7 +400,7 @@
 }
 
 .logo {
-  top: -10%;
+  top: -10vh;
   position: relative;
   background-image: url("/Logo.png") !important;
   background-size: cover;
@@ -515,4 +513,61 @@ textarea:focus {
   cursor: none;
 }
 
+.clipBoardContainer{
+  position: absolute;
+  right: 10px;
+  top: 15px;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.3s ease;
+}
 
+.clipBoardContainer:hover{
+  color: rgba(255, 255, 255, 1);
+}
+
+
+.logoPopup {
+  position: absolute;
+  pointer-events: none;
+  text-wrap: nowrap;
+  background-color: rgb(23, 23, 23);
+  padding: 0px 20px;
+  border: solid 1px rgb(145, 145, 145);
+  border-radius: 20px;
+  z-index: 2;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.logoPopup.down {
+  transform: translateY(30px);
+}
+.logoPopup.up {
+  transform: translateY(-0px);
+}
+
+.iconContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.iconContainer:hover .logoPopup.up {
+  display: block;
+  opacity: 1;
+  transform: translateY(-30px);
+}
+.iconContainer:hover .logoPopup.down {
+  display: block;
+  opacity: 1;
+  transform: translateY(60px);
+}
+
+.overlay{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}

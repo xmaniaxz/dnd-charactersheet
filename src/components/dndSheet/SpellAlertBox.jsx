@@ -1,7 +1,7 @@
 import styles from "@/CSS/homepage.module.css";
 import SpellInfoData from "./SpellInfoData";
 import { useEffect, useState } from "react";
-import Dropdown from "./Dropdown";
+import Dropdown from "@/components/dndSheet/Dropdown";
 export default function SpellAlertBox({
   spellInfo,
   activeLevel,
@@ -52,7 +52,7 @@ export default function SpellAlertBox({
   };
 
   return (
-    <div className={`${styles.alertBGContainer}`}>
+    <div className={`hazyOverLay`}>
       <div className="spellAlertBox">
         <span onClick={() => onReturn()} className="closeButton"></span>
         <div className="mt-[10px] text-2xl text-center">{activeLevel}</div>

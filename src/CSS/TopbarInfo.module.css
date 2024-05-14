@@ -72,7 +72,7 @@
   justify-content: space-evenly;
 }
 .characterData2 {
-  height: 100%;
+  margin: 20px;
   background-color: var(--background);
 }
 
@@ -112,10 +112,11 @@
 .navbarContainer {
   float: right;
   width: 85%;
-  height: inherit;
+  height: 100%;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  background: inherit;
 }
 
 .navBar {
@@ -206,3 +207,11 @@
   height: 30px;
   width: 65%;
 }
+
+.characterOverFlow{
+  width: 380px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+

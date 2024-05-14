@@ -3,10 +3,8 @@ import { useCharacterInfo } from "@/components/dndSheet/characterinfocontext";
 import style from "@/CSS/TopbarInfo.module.css";
 export default function Healthbar() {
   const { characterInfo } = useCharacterInfo();
-  const [currentHP, setCurrentHP] = useState(
-    characterInfo.playerInfo.currentHP
-  );
-  const [maxHP, setMaxHP] = useState(characterInfo.playerInfo.maxHP);
+  const [currentHP, setCurrentHP] = useState("");
+  const [maxHP, setMaxHP] = useState("");
 
   const CalcHealthPercentage = () => {
     if ((currentHP / maxHP) * 100 + 1 > 100) {
@@ -16,14 +14,16 @@ export default function Healthbar() {
   };
 
   useEffect(() => {
-    characterInfo.playerStats.Health = currentHP;
-    characterInfo.playerStats.MaxHealth = maxHP;
-  }, [currentHP, maxHP]);
+    if (currentHP && maxHP) {
+      characterInfo.playerStats.Health = parseInt(currentHP);
+      characterInfo.playerStats.MaxHealth = parseInt(maxHP);
+    }
+  }, [characterInfo.playerStats, currentHP, maxHP]);
 
   useEffect(() => {
     setMaxHP(characterInfo.playerStats.MaxHealth);
     setCurrentHP(characterInfo.playerStats.Health);
-  }, [characterInfo]);
+  }, [characterInfo.playerStats]);
 
   const getTransitionColor = (percentage) => {
     const hue = (percentage / 100) * 120;
@@ -51,8 +51,9 @@ export default function Healthbar() {
           value={currentHP}
           placeholder="0"
           onChange={(e) => {
-            let newValue = e.target.value.replace(/[^-+0-9]/g, '');
-            setCurrentHP(parseInt(newValue))}}
+            let newValue = e.target.value.replace(/[^-+0-9]/g, "");
+            setCurrentHP(parseInt(newValue));
+          }}
         />
         /
         <input
@@ -63,8 +64,9 @@ export default function Healthbar() {
           value={maxHP}
           placeholder="0"
           onChange={(e) => {
-            let newValue = e.target.value.replace(/[^-+0-9]/g, '');
-            setMaxHP(parseInt(newValue))}}
+            let newValue = e.target.value.replace(/[^-+0-9]/g, "");
+            setMaxHP(parseInt(newValue));
+          }}
         />
         <label htmlFor="MaxH" className="">
           MaxHP

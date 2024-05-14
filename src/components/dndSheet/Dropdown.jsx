@@ -6,7 +6,8 @@ export default function Dropdown({
   placeholder,
   OnSelection,
   SelectedOption,
-  CustomClass
+  CustomButtonClass,
+  CustomOptionsClass,
 }) {
   const [dropdownOpen, setdropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -16,12 +17,12 @@ export default function Dropdown({
   }, [SelectedOption]);
 
   return (
-    <div>
+    <div className="">
       <button
-        className={`${CustomClass ? CustomClass : "placeHolder"}  hover:cursor-pointer`}
+        className={`${CustomButtonClass ? CustomButtonClass : "placeHolder"}  hover:cursor-pointer`}
         onClick={() => setdropdownOpen(!dropdownOpen)}
       >
-        <div className="m-[0px auto]">
+        <div className="m-[0px auto] text-left">
           {selectedOption ? selectedOption : placeholder}
         </div>
       </button>
@@ -34,10 +35,9 @@ export default function Dropdown({
                 <button
                   className={`${
                     selectedOption === values ? "selected" : ""
-                  } options`}
+                  } ${CustomOptionsClass ? CustomOptionsClass : "options"}`}
                   onClick={() => {
                     OnSelection(values);
-                    setSelectedOption(values);
                     setdropdownOpen(false);
                   }}
                 >

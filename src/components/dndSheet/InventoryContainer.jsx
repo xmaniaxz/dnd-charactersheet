@@ -21,8 +21,8 @@ export default function Inventory() {
   };
 
   return (
-    <div>
-      <div>
+    <>
+      <>
         <div className="w-1/2 h-full float-left">
           <div id="Money" className="MoneyContainer">
             <label htmlFor="Copper">Copper</label>
@@ -59,7 +59,7 @@ export default function Inventory() {
             <WeaponsSys />
           </div>
         </div>
-        <div id="Inventory" className="h-full float-left w-1/2">
+        <div id="Inventory" className="h-[100%] float-left w-1/2 flex items-center justify-center">
           <div className="BackgroundImageTextArea">
             <div className="InventoryAreaHeader">Inventory</div>
             <textarea
@@ -73,7 +73,7 @@ export default function Inventory() {
             />
           </div>
         </div>
-      </div>
-    </div>
+      </>
+    </>
   );
 }

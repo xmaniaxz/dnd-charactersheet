@@ -1,38 +1,36 @@
-"use client"
+"use client";
 import TopbarInfo from "@/components/dndSheet/TopbarInfo";
 import StatsContainer from "@/components/dndSheet/StatsContainer";
 import BottomContainer from "@/components/dndSheet/BottomContainer";
 import { useEffect, useState } from "react";
 import { useCharacterInfo } from "@/components/dndSheet/characterinfocontext";
-import { GetCharacterSheet,WriteSheetToDatabase } from "@/utils/Database";
+import { GetCharacterSheet, WriteSheetToDatabase } from "@/utils/node-appwrite";
 import PopUp from "@/components/dndSheet/popup";
-import { publish,subscribe,unsubscribe } from "@/utils/events";
-
+import { publish } from "@/utils/events";
 
 export default function CharacterSheet() {
-  const {characterInfo,updateCharacterInfo } = useCharacterInfo();
+  const { characterInfo, updateCharacterInfo } = useCharacterInfo();
   const [pageIsLoading, setPageIsLoading] = useState(true);
 
-  useEffect(() => {
-    setPageIsLoading(true);
+  const GetCharacter = () => {
     const characterInfoCookie = document.cookie.replace(
       /(?:(?:^|.*;\s*)characterInfo\s*\=\s*([^;]*).*$)|^.*$/,
       "$1"
     );
     if (characterInfoCookie) {
-      if(characterInfoCookie === "new character"){
+      if (characterInfoCookie === "new character") {
         console.log("CharacterSheet.jsx: New Character Detected");
         setPageIsLoading(false);
         return;
       }
-      const ID = JSON.parse(characterInfoCookie); //This is the SheetID String
+      const ID = characterInfoCookie;
 
       const fetchSheet = async () => {
         try {
           let sheet = await GetCharacterSheet(ID);
-          updateCharacterInfo(JSON.parse(sheet[0].JSONFile))
+          updateCharacterInfo(JSON.parse(sheet[0].JSONFile));
         } catch (error) {
-          publish("ShowPopUp",{
+          publish("ShowPopUp", {
             text: error,
             visibility: true,
             backgroundColor: "red",
@@ -41,11 +39,10 @@ export default function CharacterSheet() {
           });
         }
       };
-
       fetchSheet();
       setPageIsLoading(false);
     } else {
-      publish("ShowPopUp",{
+      publish("ShowPopUp", {
         text: "CharacterSheet.jsx: Couldn't find characterInfo cookie.",
         visibility: true,
         backgroundColor: "red",
@@ -53,54 +50,64 @@ export default function CharacterSheet() {
         right: "20px",
       });
     }
+  };
+
+  useEffect(() => {
+    setPageIsLoading(true);
+
+    GetCharacter();
   }, []);
 
   useEffect(() => {
     const saveCharacterInfo = () => {
-        WriteSheetToDatabase(characterInfo);
+      console.log("trying to save sheet");
+      WriteSheetToDatabase(characterInfo);
+      GetCharacter();
     };
 
     const interval = setInterval(saveCharacterInfo, 300000);
 
-const handleBeforeUnload = async (event) => {
-      event.preventDefault();
-      event.returnValue = '';
-        saveCharacterInfo();
-    };
+    // const handleBeforeUnload = async (event) => {
+    //   event.preventDefault();
+    //   saveCharacterInfo();
+    // };
 
     const handleVisibilityChange = () => {
-        if (document.visibilityState === 'hidden') {
-            saveCharacterInfo();
-        }
+      if (document.visibilityState === "hidden") {
+        saveCharacterInfo();
+      }
     };
 
-    const handlePopState = () => {
-        saveCharacterInfo();
+    const handlePopState = async (event) => {
+      event.preventDefault();
+      saveCharacterInfo();
     };
-    window.addEventListener("beforeunload", handleBeforeUnload);
+    //window.addEventListener("beforeunload", handleBeforeUnload);
     document.addEventListener("visibilitychange", handleVisibilityChange);
     window.addEventListener("popstate", handlePopState);
 
     return () => {
-        clearInterval(interval);
-        window.removeEventListener("beforeunload", handleBeforeUnload);
-        document.removeEventListener("visibilitychange", handleVisibilityChange);
-        window.removeEventListener("popstate", handlePopState);
+      clearInterval(interval);
+      //window.removeEventListener("beforeunload", handleBeforeUnload);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("popstate", handlePopState);
     };
-}, [characterInfo]);
-
-
+  }, [characterInfo]);
 
   return (
     <div>
-      {pageIsLoading ? <div className="w-screen h-screen flex items-center justify-center">Loading...</div> : 
-          <div className="bigContainer">
-          <PopUp/>
+      {pageIsLoading ? (
+        <div className="w-screen h-screen flex items-center justify-center">
+          Loading...
+        </div>
+      ) : (
+        <div className="bigContainer">
+          <PopUp />
           <TopbarInfo />
           <StatsContainer />
           <BottomContainer />
-          </div>
-      }
+        </div>
+      )}
     </div>
   );
 }

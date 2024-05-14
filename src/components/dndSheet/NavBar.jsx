@@ -4,8 +4,8 @@ import { useCharacterInfo } from "./characterinfocontext";
 import Link from "next/link";
 import InputField from "./Inputfield";
 
-export default function NavBar() {
-  const [activeTab, setActiveTab] = useState(0);
+export default function NavBar({onHeightChange}) {
+  const [activeTab, setActiveTab] = useState(1);
   const [feats, SetFeats] = useState([]);
   const { characterInfo } = useCharacterInfo();
   const [updateValue, setUpdateValue] = useState(false);
@@ -13,22 +13,29 @@ export default function NavBar() {
   const handleTransition = (identifier) => {
     setActiveTab(identifier);
     const selector = document.getElementById("Selector");
-
+    const defaultHeight = "90%";
+    const AdjustedHeight = "150%"
     switch (identifier) {
       case 0:
         selector.style.left = "0%";
+        onHeightChange(AdjustedHeight);
         break;
       case 1:
         selector.style.left = "25%";
+        onHeightChange(defaultHeight);
         break;
       case 2:
         selector.style.left = "50%";
+        onHeightChange(AdjustedHeight);
         break;
       case 3:
         selector.style.left = "75%";
+        onHeightChange(defaultHeight);
         break;
     }
   };
+
+  useEffect(() => {handleTransition(1)}, []);
 
   useEffect(() => {
     SetFeats(characterInfo.playerStats.PlayerFeats);

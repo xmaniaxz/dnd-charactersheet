@@ -1,47 +1,46 @@
 import { useState, useEffect } from "react";
 import SpellAlertBox from "./SpellAlertBox";
 import SpellInfoData from "./SpellInfoData";
-import { GetServerSpells } from "@/utils/Database";
+import { GetServerSpells } from "@/utils/node-appwrite";
 import { useCharacterInfo } from "@/components/dndSheet/characterinfocontext";
 
 export default function SpellList() {
   const { characterInfo } = useCharacterInfo();
-  const [overlayActive, setOverlayActive] = useState(false); // boolean to show or hide the overlay (default: false)
-  const [spellData, setSpellData] = useState(null); // Sets the spell data from the server (DO NOT ADJUST THIS STATE)
-  const [activeLevel, setActiveLevel] = useState(null); // The active spell level (DO NOT ADJUST THIS STATE)
-  const [selectedIndex, setSelectedIndex] = useState(null); // Index of the selected spell (DO NOT ADJUST THIS STATE)
-  const [activeSpell, setActiveSpell] = useState(null); // The active spell (DO NOT ADJUST THIS STATE)
-  const spellArrayKeys = ["cantrip", 1, 2, 3, 4, 5, 6, 7, 8, 9]; // Array of spell levels (DO NOT ADJUST THIS STATE)
-  const [spellArray, setSpellArray] = useState({
-    cantrip: Array(1).fill({ prepared: false, spell: null }),
-    1: Array(1).fill({ prepared: false, spell: null }),
-    2: Array(1).fill({ prepared: false, spell: null }),
-    3: Array(1).fill({ prepared: false, spell: null }),
-    4: Array(1).fill({ prepared: false, spell: null }),
-    5: Array(1).fill({ prepared: false, spell: null }),
-    6: Array(1).fill({ prepared: false, spell: null }),
-    7: Array(1).fill({ prepared: false, spell: null }),
-    8: Array(1).fill({ prepared: false, spell: null }),
-    9: Array(1).fill({ prepared: false, spell: null }),
-  }); // Array of spell objects (DO NOT ADJUST THIS STATE MANUALLY)
+  const [overlayActive, setOverlayActive] = useState(false);
+  const [spellData, setSpellData] = useState(null);
+  const [activeLevel, setActiveLevel] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(null);
+  const [activeSpell, setActiveSpell] = useState(null);
+  const [forceUpdate, setForceUpdate] = useState(false);
+  const spellArrayKeys = ["cantrip", 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const [spellArray, setSpellArray] = useState(null);
 
-  //#region GetSpells
-
-  const data = async () => {
+  const fetchData = async () => {
     setSpellData(await GetServerSpells());
   };
+
   useEffect(() => {
-    data();
+    fetchData();
   }, []);
 
   useEffect(() => {
+    console.log(characterInfo)
     if (characterInfo.playerSpells) {
       setSpellArray(characterInfo.playerSpells);
+    } else {
+      setSpellArray(generateEmptySpellArray());
     }
-  }, [characterInfo]);
-  //#endregion
+  }, [characterInfo.playerSpells]);
 
-  const HandleClick = (index, level, spell) => {
+  const generateEmptySpellArray = () => {
+    const emptyArray = {};
+    spellArrayKeys.forEach((key) => {
+      emptyArray[key] = Array(1).fill({ prepared: false, spell: null });
+    });
+    return emptyArray;
+  };
+
+  const handleClick = (index, level, spell) => {
     if (spell !== null) {
       if (activeSpell !== spell) {
         setActiveSpell(spell);
@@ -56,110 +55,110 @@ export default function SpellList() {
       setActiveLevel(level);
     }
   };
+  
 
-  const HandleOnReturn = () => {
+  const handleOnReturn = () => {
     setOverlayActive(false);
     setActiveLevel(null);
     setActiveSpell(null);
   };
 
-  const HandleOnSelection = (spellIndex) => {
+  const handleOnSelection = (spellIndex) => {
     setOverlayActive(false);
+    const updatedSpellArray = { ...spellArray };
     const _spellIndex = spellData.findIndex(
       (spell) => spell.SpellName === spellIndex
     );
-    if (spellIndex === -1) {
-      // Create a copy of spellArray
-      const updatedSpellArray = { ...spellArray };
 
-      updatedSpellArray[activeLevel].splice(selectedIndex, 1); // Remove the selected spell (if it exists
-      console.log(_spellIndex);
+    if (_spellIndex === -1) {
+      // Spell not found, remove selected spell if it exists
+      updatedSpellArray[activeLevel].splice(selectedIndex, 1);
       // Filter all empty entries (where spell is null and prepared is false)
-      updatedSpellArray[activeLevel] = spellArray[activeLevel].filter(
+      updatedSpellArray[activeLevel] = updatedSpellArray[activeLevel].filter(
         (entry) => entry.spell !== null || entry.prepared !== false
       );
+      // Push a new empty entry
       updatedSpellArray[activeLevel].push({ spell: null, prepared: false });
-      setSpellArray(updatedSpellArray);
-      // setSpellArray(updatedSpellArray); // Uncomment this line if you want to update the state with the modified array
     } else {
-      const updatedSpellArray = { ...spellArray };
-      const selectedSpell = updatedSpellArray[activeLevel][selectedIndex];
-      if (selectedSpell.spell === null && selectedSpell.prepared === false) {
-        updatedSpellArray[activeLevel].push({ spell: null, prepared: false });
-      }
+      // Update the selected spell with the found spell data
       updatedSpellArray[activeLevel][selectedIndex] = {
         prepared: spellArray[activeLevel][selectedIndex].prepared,
         spell: spellData[_spellIndex],
       };
-      setActiveSpell(selectedSpell.spell);
-      setSpellArray(updatedSpellArray);
+      setActiveSpell(updatedSpellArray[activeLevel][selectedIndex].spell);
+
+      // Check if a new empty field should be added
+      const lastIndex = updatedSpellArray[activeLevel].length - 1;
+      if (
+        updatedSpellArray[activeLevel][lastIndex].spell !== null ||
+        updatedSpellArray[activeLevel][lastIndex].prepared !== false
+      ) {
+        // Push a new empty entry if the last entry is not empty
+        updatedSpellArray[activeLevel].push({ spell: null, prepared: false });
+      }
     }
+
+    setSpellArray(updatedSpellArray);
+    setForceUpdate(!forceUpdate);
   };
 
-  const HandleCheckBox = (levels, index) => {
+  const handleCheckBox = (levels, index) => {
     setSpellArray((prevSpellArray) => {
-      const updatedSpellArray = { ...prevSpellArray }; // Make a shallow copy of the object
-      updatedSpellArray[levels] = [...prevSpellArray[levels]]; // Make a shallow copy of the inner array
+      const updatedSpellArray = { ...prevSpellArray };
+      updatedSpellArray[levels] = [...prevSpellArray[levels]];
       updatedSpellArray[levels][index] = {
         ...prevSpellArray[levels][index],
-        prepared: !prevSpellArray[levels][index].prepared, // Toggle the prepared value
+        prepared: !prevSpellArray[levels][index].prepared,
       };
       return updatedSpellArray;
     });
   };
 
   useEffect(() => {
+    if(spellArray)
     characterInfo.playerSpells = spellArray;
-  }, [spellArray]);
+  }, [forceUpdate]);
 
   return (
     <div id="outerContainer" className="h-[100%] w-[100%]">
-      <div style={{ display: overlayActive ? "block" : "none" }}>
+      {overlayActive && (
         <SpellAlertBox
           spellInfo={spellData}
           activeLevel={activeLevel}
-          onReturn={() => {
-            HandleOnReturn();
-          }}
-          onSelection={(e) => HandleOnSelection(e)}
+          onReturn={handleOnReturn}
+          onSelection={handleOnSelection}
         />
-      </div>
+      )}
       <div className="spellList">
         {spellArray &&
-          spellArrayKeys.map((Levels) => {
-            return (
-              <div className="spellLevelContainer" key={Levels}>
-                <span className="levelHeader">{Levels}</span>
-                {spellArray[Levels].map((spell, index) => {
-                  return (
+          spellArrayKeys.map((level) => (
+            <div className="spellLevelContainer" key={level}>
+              <span className="levelHeader">{level}</span>
+              {spellArray[level].map((spell, index) => (
+                <div
+                  key={index}
+                  className={`w-full h-full ${
+                    spell.spell && activeSpell === spell.spell ? "activeSpell" : ""
+                  }`}
+                >
+                  <div className="spellDetails">
+                    <input
+                      type="checkbox"
+                      checked={spell.prepared}
+                      onChange={() => handleCheckBox(level, index)}
+                    />
                     <div
-                      key={index}
-                      className={`w-full h-full ${
-                        activeSpell == spell.spell ? "activeSpell" : ""
-                      }`}
+                      className="w-full spellName button"
+                      onClick={() => handleClick(index, level, spell.spell)}
                     >
-                      <div className="spellDetails">
-                        <input
-                          type="checkbox"
-                          checked={spellArray[Levels][index].prepared}
-                          onChange={() => HandleCheckBox(Levels, index)}
-                        />
-                        <div
-                          className="w-full spellName button"
-                          onClick={() =>
-                            HandleClick(index, Levels, spell.spell)
-                          }
-                        >
-                          {spell.spell ? spell.spell.SpellName : ""}
-                        </div>
-                      </div>
-                      <hr />
+                      {spell.spell ? spell.spell.SpellName : ""}
                     </div>
-                  );
-                })}
-              </div>
-            );
-          })}
+                  </div>
+                  <hr />
+                </div>
+              ))}
+            </div>
+          ))}
       </div>
       <div className="spellInfoListContainer">
         {activeSpell && <SpellInfoData SpellData={activeSpell} />}

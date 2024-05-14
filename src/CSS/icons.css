@@ -46,14 +46,6 @@
 .closeButton:after {
   transform: rotate(-45deg);
 }
-
-.gg-trash {
-  color: white;
-  transition: all ease 0.2s;
-}
-.gg-trash:hover {
-  color: red;
-}
 .gg-add:hover {
   color: lime;
 }
@@ -174,4 +166,69 @@
 
 .invertColor {
   filter: invert(1);
+}
+
+.HomePageCloseButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transition: all 0.3s ease;
+}
+.HomePageCloseButton:hover {
+  color: red;
+}
+
+.teamMenuButtons {
+  color: white;
+  width: 30px;
+  height: 48px;
+  scale: 0.5;
+  transition: all 0.3s ease;
+}
+
+.teamMenuButtons:hover {
+  width: 35px;
+  height: 48px;
+  scale: 0.8;
+  transition: all 0.3s ease;
+}
+
+.button.red:hover {
+  color: red;
+}
+button.bg.red:hover {
+  background-color: red;
+  color: white;
+}
+
+button.bg.green:hover {
+  background-color: rgb(0, 187, 0);
+  color: white;
+}
+.button.green:hover {
+  color: rgb(0, 222, 0);
+}
+
+.linkButton,
+.deleteButton {
+  position: absolute;
+  z-index: 10;
+  scale: 0.6;
+  color: white;
+  object-fit: fill;
+  opacity: 0.5;
+  top: 0px;
+}
+
+.deleteButton {
+  right: 0px;
+}
+.linkButton {
+  right: 28px;
+}
+
+.deleteButton:hover,
+.linkButton:hover {
+  scale: 0.7;
+  opacity: 1;
 }

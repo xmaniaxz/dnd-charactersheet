@@ -1,6 +1,4 @@
 import styles from "@/CSS/homepage.module.css";
-import { useState,useEffect } from "react";
-
 export default function AlertBox({ onCallback }) {
 
     const HandleButtonClick = (value) =>{
