@@ -89,18 +89,18 @@ export async function LoginUser(email, password) {
 
     if (!session || !session.secret) {
       throw new Error("Session creation failed or secret is missing.");
+    } else {
+      // Set the cookie
+      cookies().set(userCookie, session.secret, {
+        path: "/",
+        httpOnly: true, // Ensure the cookie is not accessible via JavaScript
+        sameSite: "strict", // 'lax' or 'none' based on your requirements
+        secure: process.env.NODE_ENV === "production", // Ensure secure flag is set in production
+        expires: SetExpiryDate(7), // Cookie expiry date
+      });
+      throw new Error(JSON.parse(JSON.stringify(session)));
+      // return session;
     }
-
-    // Set the cookie
-    cookies().set(userCookie, session.secret, {
-      path: "/",
-      httpOnly: true, // Ensure the cookie is not accessible via JavaScript
-      sameSite: "strict", // 'lax' or 'none' based on your requirements
-      secure: process.env.NODE_ENV === "production", // Ensure secure flag is set in production
-      expires: SetExpiryDate(7), // Cookie expiry date
-    });
-
-    return session;
   } catch (e) {
     return {
       function: "LoginUser",
