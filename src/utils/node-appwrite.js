@@ -83,7 +83,7 @@ export async function LoginUser(email, password) {
     const session = await account.createEmailPasswordSession(email, password);
     cookies().set(userCookie, session.secret, {
       path: "/",
-      httpOnly: true,
+      httpOnly: false,
       sameSite: "strict",
       secure: true,
       expires: SetExpiryDate(7),
@@ -92,7 +92,7 @@ export async function LoginUser(email, password) {
     return session;
   } catch (e) {
     return {
-      function: LoginUser.name,
+      function: "LoginUser",
       error: JSON.parse(JSON.stringify(e.message)),
     };
   }

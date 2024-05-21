@@ -25,10 +25,8 @@ export default function HomePage() {
   const [optionalData, setOptionalData] = useState("");
   const IsLoggedIn = async () => {
     const user = await Server.GetLoggedInUser();
-    console.log(user)
     if (user && user.error) {
       router.push("/D&D");
-      console.log(user.error)
     } else {
       setUser(user);
       console.log("IsLoggedIn: User is logged in.");
@@ -118,7 +116,6 @@ export default function HomePage() {
         await GetSheetData();
         break;
       case 5:
-        console.log(data);
         await Server.UnLinkSheetToTeam(
           data.SheetID,
           data.LinkedTeam
@@ -168,7 +165,6 @@ export default function HomePage() {
       <div className={`${styles.navbar}`}>
         <div className={`${styles.teamsContainer}`}>
           <div className={styles.teamSelect}>
-            {    console.log(userTeams)}
             <Dropdown
               Options={["none", ...userTeams.map((team) => team.name)]}
               placeholder={"Select team"}

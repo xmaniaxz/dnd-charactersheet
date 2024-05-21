@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "@/CSS/loginpage.module.css";
-import { AppwriteException } from "node-appwrite";
 import {
   LoginUser,
   Registeruser,
@@ -24,7 +23,6 @@ export default function LoginPage() {
   const IsLoggedIn = async () => {
     try {
       const res = await ErrorHandler(await GetLoggedInUser());
-      console.log(res);
       if (res) {
         redirectTo("D&D/homepage");
       }
@@ -40,7 +38,6 @@ export default function LoginPage() {
   async function handleLogin() {
     setLoading(true);
     const req = await ErrorHandler(await LoginUser(email, password));
-    console.log(req)
     if(req && req.error){
       setErrorMessage(req.error);
       setLoading(false);
@@ -59,10 +56,8 @@ export default function LoginPage() {
       }
       setLoading(true);
       const req = await ErrorHandler(await Registeruser(email, password, username));
-      console.log(req)
       if(req && req.error){
         setErrorMessage(req.error);
-        console.log(errorMessage);
         setLoading(false);
         return;
       }

@@ -2,8 +2,6 @@
 import { publish } from "@/utils/events";
 
 export async function ErrorHandler(request) {
-  console.log(request);
-
   if (request.error) {
     if (request.function === "LoginUser" || request.function === "Registeruser") {
       return request;
