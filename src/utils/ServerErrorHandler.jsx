@@ -13,7 +13,7 @@ export async function ErrorHandler(request) {
               top: "10px",
               right: "20px",
             });
-    return null;
+    return;
   } else {
     return request;
   }

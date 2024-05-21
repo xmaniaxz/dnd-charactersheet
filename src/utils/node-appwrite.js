@@ -81,12 +81,11 @@ export async function LoginUser(email, password) {
   try {
     const account = await createAdminSession();
     const session = await account.createEmailPasswordSession(email, password);
-    let secure = process.env.NODE_ENV === "production";
     cookies().set(userCookie, session.secret, {
       path: "/",
-      httpOnly: true,
-      sameSite: secure ? "None" : "Lax", // 'None' will allow cross-site delivery, but requires secure flag
-      secure: secure, // secure should be true if you are in a HTTPS environment
+      httpOnly: false,
+      sameSite: "strict", // 'None' will allow cross-site delivery, but requires secure flag
+      secure: false, // secure should be true if you are in a HTTPS environment
       expires: SetExpiryDate(7),
     });
 
@@ -118,12 +117,11 @@ export async function Registeruser(email, password, name) {
   const { account } = await createAdminSession();
   await account.create(ID.unique(), email, password, name);
   const session = await account.createEmailPasswordSession(email, password);
-  let secure = process.env.NODE_ENV === "production";
   cookies().set(userCookie, session.secret, {
     path: "/",
-    httpOnly: true,
-    sameSite: secure ? "None" : "Lax", // 'None' will allow cross-site delivery, but requires secure flag
-    secure: secure, // secure should be true if you are in a HTTPS environment
+    httpOnly: false,
+    sameSite: "strict", // 'None' will allow cross-site delivery, but requires secure flag
+    secure: false, // secure should be true if you are in a HTTPS environment
     expires: SetExpiryDate(7),
   });
 }
@@ -131,12 +129,11 @@ export async function LogoutUser() {
   try {
     const { account } = await createUserSession();
     await account.deleteSession("current");
-    let secure = process.env.NODE_ENV === "production";
     cookies().set(userCookie, "", {
       path: "/",
-      httpOnly: true,
-      sameSite: secure ? "None" : "Lax", // 'None' will allow cross-site delivery, but requires secure flag
-      secure: secure, // secure should be true if you are in a HTTPS environment
+      httpOnly: false,
+      sameSite: "strict", // 'None' will allow cross-site delivery, but requires secure flag
+      secure: false, // secure should be true if you are in a HTTPS environment
       expires: new Date(0),
     });
   } catch (error) {
