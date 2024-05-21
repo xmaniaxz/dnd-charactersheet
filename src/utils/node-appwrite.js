@@ -79,21 +79,32 @@ async function CreateDataBaseSession() {
 
 export async function LoginUser(email, password) {
   try {
-    const account = await createAdminSession();
+    const client = new Client()
+      .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT)
+      .setProject(process.env.NEXT_PUBLIC_PROJECT_ID)
+      .setKey(process.env.NEXT_PRIVATE_API_KEY);
+
+    const account = new Account(client);
     const session = await account.createEmailPasswordSession(email, password);
+
+    if (!session || !session.secret) {
+      throw new Error("Session creation failed or secret is missing.");
+    }
+
+    // Set the cookie
     cookies().set(userCookie, session.secret, {
       path: "/",
-      httpOnly: false,
-      sameSite: "strict", // 'None' will allow cross-site delivery, but requires secure flag
-      secure: false, // secure should be true if you are in a HTTPS environment
-      expires: SetExpiryDate(7),
+      httpOnly: true, // Ensure the cookie is not accessible via JavaScript
+      sameSite: "strict", // 'lax' or 'none' based on your requirements
+      secure: process.env.NODE_ENV === "production", // Ensure secure flag is set in production
+      expires: SetExpiryDate(7), // Cookie expiry date
     });
 
     return session;
   } catch (e) {
     return {
       function: "LoginUser",
-      error: JSON.parse(JSON.stringify(e.message)),
+      error: e.message || e.toString(),
     };
   }
 }
