@@ -9,6 +9,7 @@ import {
   GetLoggedInUser,
 } from "@/utils/node-appwrite";
 import PopUp from "@/components/dndSheet/popup";
+import { ErrorHandler } from "@/utils/ServerErrorHandler";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
@@ -22,11 +23,11 @@ export default function LoginPage() {
 
   const IsLoggedIn = async () => {
     try {
-      const res = await GetLoggedInUser();
+      const res = await ErrorHandler(await GetLoggedInUser());
+      console.log(res);
       if (res) {
         redirectTo("D&D/homepage");
       }
-    } catch (e) {
     } finally {
       setLoading(false);
     }
@@ -37,30 +38,17 @@ export default function LoginPage() {
   }, []);
 
   async function handleLogin() {
-    try {
-      setLoading(true);
-      await LoginUser(email, password);
-      setPassword("");
-      IsLoggedIn();
+    setLoading(true);
+    const req = await ErrorHandler(await LoginUser(email, password));
+    console.log(req)
+    if(req && req.error){
+      setErrorMessage(req.error);
       setLoading(false);
-    } catch (e) {
-      if (e instanceof AppwriteException) {
-        console.log(e.type);
-        switch (e.type) {
-          case "user_invalid_credentials":
-            setErrorMessage("Invalid username or password");
-            break;
-          case "general_argument_invalid":
-            setErrorMessage("Invalid Email adress");
-            break;
-          default:
-            setErrorMessage("Something went wrong, Try again");
-            break;
-        }
-      } else {
-        setErrorMessage(e);
-      }
+      return;
     }
+    setPassword("");
+    IsLoggedIn();
+    setLoading(false);
   }
 
   async function handleRegister() {
@@ -70,7 +58,14 @@ export default function LoginPage() {
         return;
       }
       setLoading(true);
-      await Registeruser(email, password, username);
+      const req = await ErrorHandler(await Registeruser(email, password, username));
+      console.log(req)
+      if(req && req.error){
+        setErrorMessage(req.error);
+        console.log(errorMessage);
+        setLoading(false);
+        return;
+      }
       setPassword("");
       setLoading(false);
       IsLoggedIn();

@@ -25,8 +25,10 @@ export default function HomePage() {
   const [optionalData, setOptionalData] = useState("");
   const IsLoggedIn = async () => {
     const user = await Server.GetLoggedInUser();
-    if (!user) {
+    console.log(user)
+    if (user && user.error) {
       router.push("/D&D");
+      console.log(user.error)
     } else {
       setUser(user);
       console.log("IsLoggedIn: User is logged in.");

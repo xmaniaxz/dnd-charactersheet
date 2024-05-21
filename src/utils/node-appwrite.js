@@ -8,7 +8,9 @@ import {
   ID,
   Query,
   Avatars,
+  AppwriteException,
 } from "node-appwrite";
+
 import api from "../JSON/api.json";
 import { cookies } from "next/headers";
 import { data } from "autoprefixer";
@@ -39,7 +41,7 @@ export async function createUserClient() {
 
   const session = cookies().get(userCookie);
   if (!session || !session.value) {
-    throw new Error("No session");
+    return new Error("No session found");
   }
 
   client.setSession(session.value);
@@ -88,11 +90,30 @@ export async function LoginUser(email, password) {
     });
 
     return session;
-  } catch (error) {
-    return console.error("LoginUser: " + error);
+  } catch (e) {
+    return {
+      function: LoginUser.name,
+      error: JSON.parse(JSON.stringify(e.message)),
+    };
   }
 }
 export async function Registeruser(email, password, name) {
+  if (!email) {
+    return {
+      function: Registeruser.name,
+      error: "Email is required",
+    };
+  } else if (!password) {
+    return {
+      function: Registeruser.name,
+      error: "Password is required",
+    };
+  } else if (!name) {
+    return {
+      function: Registeruser.name,
+      error: "Name is required",
+    };
+  }
   const { account } = await createAdminSession();
   await account.create(ID.unique(), email, password, name);
   const session = await account.createEmailPasswordSession(email, password);
@@ -121,12 +142,13 @@ export async function LogoutUser() {
 }
 
 export async function GetLoggedInUser() {
-  try {
-    const { account } = await createUserSession();
-    return await account.get();
-  } catch (error) {
-    console.error("getLoggedInUser: " + error);
-  }
+  const { account } = await createUserSession();
+  return await account.get().catch((e) => {
+    return {
+      function: GetLoggedInUser.name,
+      error: "User not logged in",
+    };
+  });
 }
 
 export async function GetUserLogo() {
@@ -256,14 +278,10 @@ export async function UnLinkSheetToTeam(sheet, teamID) {
     if (sheets.includes(sheet))
       sheets = sheets.filter((value) => value !== sheet);
     await UpdateLinkState(sheet, null);
-    if(sheets.length > 0)
-      {
-        await team.updatePrefs(teamID, { sheets: sheets });
-      }
-      else
-      await team.updatePrefs(teamID, {});
+    if (sheets.length > 0) {
+      await team.updatePrefs(teamID, { sheets: sheets });
+    } else await team.updatePrefs(teamID, {});
   }
-  
 }
 
 async function UpdateLinkState(SheetID, teamID) {
@@ -275,7 +293,7 @@ async function UpdateLinkState(SheetID, teamID) {
     SheetID: res[0].SheetID,
     LinkedTeam: teamID ? teamID : null,
     JSONFile: res[0].JSONFile,
-  }
+  };
   await database.updateDocument(
     process.env.NEXT_PUBLIC_DATABASE_ID,
     process.env.NEXT_PUBLIC_SHEET_COLLECTION_ID,
