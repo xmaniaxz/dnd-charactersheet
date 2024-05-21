@@ -83,8 +83,8 @@ export async function LoginUser(email, password) {
     const session = await account.createEmailPasswordSession(email, password);
     cookies().set(userCookie, session.secret, {
       path: "/",
-      httpOnly: false,
-      sameSite: "strict",
+      httpOnly: true,
+      sameSite: "None",
       secure: true,
       expires: SetExpiryDate(7),
     });
