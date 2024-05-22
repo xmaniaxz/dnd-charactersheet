@@ -7,7 +7,7 @@ export async function ErrorHandler(request) {
       return request;
     }
     publish("ShowPopUp", {
-              text: JSON.stringify(request.error),
+              text: request.error,
               visibility: true,
               backgroundColor: "rgba(255, 0, 0, 0.5)",
               top: "10px",

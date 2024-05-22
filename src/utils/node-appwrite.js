@@ -125,7 +125,7 @@ export async function Registeruser(email, password, name) {
       error: "Name is required",
     };
   }
-  const { account } = await createAdminSession();
+  const account = await createAdminSession();
   await account.create(ID.unique(), email, password, name);
   const session = await account.createEmailPasswordSession(email, password);
   cookies().set(userCookie, session.secret, {
