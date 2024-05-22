@@ -23,17 +23,25 @@
   background-color: rgba(255, 255, 255, 0.104);
 }
 
-.bluemapContainer {
+.bluemapContainer,
+.worldDownload {
   position: absolute;
-  bottom: 20px;
-  left: 20px;
   width: 30%;
   height: 60px;
   background-color: rgb(45, 109, 205);
   border: solid 1px rgb(139, 189, 229);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
-  padding: 10px;
+  padding: 5px;
+}
+
+.bluemapContainer {
+  bottom: 20px;
+  left: 20px;
+}
+.worldDownload {
+  bottom: calc(20px + 60px + 10px);
+  left: 20px;
 }
 
 .bluemapContainer:hover {
@@ -45,26 +53,25 @@
   height: 100%;
 }
 
-.serverImage{
-    user-select: none;
-    -webkit-user-drag: none;
-    position: absolute;
-    right: 20px;
-    bottom: 20px;
-    width: 180px;
-    aspect-ratio: 1/1;
-    transition: filter 0.3s ease;
+.serverImage {
+  user-select: none;
+  -webkit-user-drag: none;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  width: 180px;
+  aspect-ratio: 1/1;
+  transition: filter 0.3s ease;
 }
 
-
-.serverImageLink:hover{
-    filter: brightness(1.2);
+.serverImageLink:hover {
+  filter: brightness(1.2);
 }
 
-.noDrag{
-    -webkit-user-drag: none;
-    user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
+.noDrag {
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }

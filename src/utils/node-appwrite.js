@@ -534,6 +534,14 @@ export async function UploadFile(file) {
   }
 }
 
+export async function GetWorldFile(fileID){
+  const client = await createAdminClient();
+  console.log(fileID)
+  const storage = new Storage(client);
+  const file = await storage.getFile(process.env.NEXT_PUBLIC_WORLD_STORAGE, fileID);
+  return file;
+}
+
 async function CheckIfFileExists(fileName) {
   const client = await createAdminClient();
   const storage = new Storage(client);
