@@ -52,15 +52,13 @@ export default function Home() {
                 The SMP server is a survival server based on the Hermitcraft 10
                 season.
               </p>
-              <div className="bluemapContainer flexCenterAll">
-                <div
-                  className="flexCenterAll button"
-                  onClick={() => {
-                    router.push("https://map2.lostcausenetwork.com", "_blank");
-                  }}
-                >
-                  Map
-                </div>
+              <div
+                className="bluemapContainer flexCenterAll button"
+                onClick={() => {
+                  router.push("https://map2.lostcausenetwork.com", "_blank");
+                }}
+              >
+                <div className="flexCenterAll ">Map</div>
               </div>
               <Image
                 className="serverImage noDrag"
@@ -81,15 +79,15 @@ export default function Home() {
                 The Vaulthunters 3 server is a modded server based on the
                 Iskall85's modpack.
               </p>
-              <div className="worldDownload flexCenterAll">
-                <div
-                  className="flexCenterAll button"
-                  onClick={() => downloadFile("664dfbbf6b74a086ac89")}
-                >
+              <div
+                onClick={() => downloadFile("664dfbbf6b74a086ac89")}
+                className="worldDownload flexCenterAll button"
+              >
+                <div className="flexCenterAll">
                   <p>Download World (1.68GB)</p>
                 </div>
               </div>
-              <div className="bluemapContainer flexCenterAll button">
+              {/* <div className="bluemapContainer flexCenterAll button">
                 <div
                   onClick={() => {
                     router.push("https://map1.lostcausenetwork.com", "_blank");
@@ -97,7 +95,7 @@ export default function Home() {
                 >
                   Map
                 </div>
-              </div>
+              </div> */}
               <Image
                 className="serverImage serverImageLink button noDrag"
                 src="/VH3.jpg"
