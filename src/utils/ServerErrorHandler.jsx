@@ -5,6 +5,7 @@ export async function ErrorHandler(request) {
   if (request.error) {
     if (request.function === "LoginUser" || request.function === "Registeruser") {
       return request;
+     
     }
     publish("ShowPopUp", {
               text: request.error,

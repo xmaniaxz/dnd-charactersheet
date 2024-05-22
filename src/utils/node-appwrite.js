@@ -98,7 +98,7 @@ export async function LoginUser(email, password) {
         secure: process.env.NODE_ENV === "production", // Ensure secure flag is set in production
         expires: SetExpiryDate(7), // Cookie expiry date
       });
-      throw new Error(JSON.parse(JSON.stringify(session)));
+      return session;
       // return session;
     }
   } catch (e) {

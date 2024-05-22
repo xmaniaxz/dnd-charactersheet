@@ -23,7 +23,6 @@ export default function LoginPage() {
   const IsLoggedIn = async () => {
     try {
       const res = await ErrorHandler(await GetLoggedInUser());
-      console.log(res)
       if (res) {
         redirectTo("D&D/homepage");
       }
