@@ -177,7 +177,7 @@ export default function NavBar({onHeightChange}) {
               <InputField
                 labelName={"Background"}
                 onValueChange={(e) => {
-                  characterInfo.playerInfo.Background = e;
+                  characterInfo.playerInfo.Background = e.target.value;
                   setReloadPage(!reloadPage);
                 }}
                 setValue={characterInfo.playerInfo.Background}
@@ -185,7 +185,7 @@ export default function NavBar({onHeightChange}) {
               <InputField
                 labelName={"Alignment"}
                 onValueChange={(e) => {
-                  characterInfo.playerInfo.Alignment = e;
+                  characterInfo.playerInfo.Alignment = e.target.value;
                   setReloadPage(!reloadPage);
                 }}
                 setValue={characterInfo.playerInfo.Alignment}
@@ -193,7 +193,7 @@ export default function NavBar({onHeightChange}) {
               <InputField
                 labelName={"Player name"}
                 onValueChange={(e) => {
-                  characterInfo.playerInfo.PlayerName = e;
+                  characterInfo.playerInfo.PlayerName = e.target.value;
                   setReloadPage(!reloadPage);
                 }}
                 setValue={characterInfo.playerInfo.PlayerName}
@@ -201,7 +201,7 @@ export default function NavBar({onHeightChange}) {
               <InputField
                 labelName={"Experience"}
                 onValueChange={(e) => {
-                  characterInfo.playerInfo.Experience = e;
+                  characterInfo.playerInfo.Experience = e.target.value;
                   setReloadPage(!reloadPage);
                 }}
                 setValue={characterInfo.playerInfo.Experience}
