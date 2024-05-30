@@ -177,32 +177,32 @@ export default function NavBar({onHeightChange}) {
               <InputField
                 labelName={"Background"}
                 onValueChange={(e) => {
-                  characterInfo.playerInfo.Background = e.target.value;
-                  setReloadPage(!reloadPage);
+                  characterInfo.playerInfo.Background = e;
+                  setUpdateValue(!updateValue);
                 }}
                 setValue={characterInfo.playerInfo.Background}
               />
               <InputField
                 labelName={"Alignment"}
                 onValueChange={(e) => {
-                  characterInfo.playerInfo.Alignment = e.target.value;
-                  setReloadPage(!reloadPage);
+                  characterInfo.playerInfo.Alignment = e
+                  setUpdateValue(!updateValue);
                 }}
                 setValue={characterInfo.playerInfo.Alignment}
               />
               <InputField
                 labelName={"Player name"}
                 onValueChange={(e) => {
-                  characterInfo.playerInfo.PlayerName = e.target.value;
-                  setReloadPage(!reloadPage);
+                  characterInfo.playerInfo.PlayerName = e;
+                  setUpdateValue(!updateValue);
                 }}
                 setValue={characterInfo.playerInfo.PlayerName}
               />
               <InputField
                 labelName={"Experience"}
                 onValueChange={(e) => {
-                  characterInfo.playerInfo.Experience = e.target.value;
-                  setReloadPage(!reloadPage);
+                  characterInfo.playerInfo.Experience = e;
+                  setUpdateValue(!updateValue);
                 }}
                 setValue={characterInfo.playerInfo.Experience}
               />

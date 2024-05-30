@@ -8,12 +8,10 @@ import {
   ID,
   Query,
   Avatars,
-  AppwriteException,
 } from "node-appwrite";
 
 import api from "../JSON/api.json";
 import { cookies } from "next/headers";
-import { data } from "autoprefixer";
 const userCookie = "UserSession";
 
 function SetExpiryDate(_Days) {
@@ -135,6 +133,7 @@ export async function Registeruser(email, password, name) {
     secure: false, // secure should be true if you are in a HTTPS environment
     expires: SetExpiryDate(7),
   });
+  return {};
 }
 export async function LogoutUser() {
   try {
@@ -517,7 +516,7 @@ function ConvertClassToString(spell) {
 
 export async function UploadFile(file) {
   const File = file.get("file");
-  const client = await createUserClient();
+  const client = await createAdminClient();
   const storage = new Storage(client);
   const fileExists = await CheckIfFileExists(File.name);
   if (!fileExists) {
@@ -526,6 +525,7 @@ export async function UploadFile(file) {
       ID.unique(),
       File
     );
+    console.log(uploadResponse);
     return uploadResponse.$id;
   } else {
     const files = await storage.listFiles(process.env.NEXT_PUBLIC_BUCKET_ID);
@@ -534,11 +534,14 @@ export async function UploadFile(file) {
   }
 }
 
-export async function GetWorldFile(fileID){
+export async function GetWorldFile(fileID) {
   const client = await createAdminClient();
-  console.log(fileID)
+  console.log(fileID);
   const storage = new Storage(client);
-  const file = await storage.getFile(process.env.NEXT_PUBLIC_WORLD_STORAGE, fileID);
+  const file = await storage.getFile(
+    process.env.NEXT_PUBLIC_WORLD_STORAGE,
+    fileID
+  );
   return file;
 }
 

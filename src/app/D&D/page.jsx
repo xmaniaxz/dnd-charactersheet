@@ -58,12 +58,14 @@ export default function LoginPage() {
       const req = await ErrorHandler(await Registeruser(email, password, username));
       if(req && req.error){
         setErrorMessage(req.error);
+        console.log(req);
         setLoading(false);
         return;
       }
       setPassword("");
+      await IsLoggedIn();
       setLoading(false);
-      IsLoggedIn();
+   
     } catch (error) {
       console.error(error);
 
