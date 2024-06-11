@@ -7,10 +7,10 @@ export default function Healthbar() {
   const [maxHP, setMaxHP] = useState("");
 
   const CalcHealthPercentage = () => {
-    if ((currentHP / maxHP) * 100 + 1 > 100) {
-      return 100;
+    if ((currentHP / maxHP) * 100 +1 > 100) {
+      return 100 -4;
     }
-    return (currentHP / maxHP) * 100 + 1;
+    return (currentHP / maxHP) * 100 -4;
   };
 
   useEffect(() => {
