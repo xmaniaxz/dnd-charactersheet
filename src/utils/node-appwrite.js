@@ -108,19 +108,20 @@ export async function LoginUser(email, password) {
   }
 }
 export async function Registeruser(email, password, name) {
+  const functionName= "Registeruser"
   if (!email) {
     return {
-      function: Registeruser.name,
+      function: functionName,
       error: "Email is required",
     };
   } else if (!password) {
     return {
-      function: Registeruser.name,
+      function: functionName,
       error: "Password is required",
     };
   } else if (!name) {
     return {
-      function: Registeruser.name,
+      function: functionName,
       error: "Name is required",
     };
   }
@@ -156,7 +157,7 @@ export async function GetLoggedInUser() {
   const { account } = await createUserSession();
   return await account.get().catch((e) => {
     return {
-      function: GetLoggedInUser.name,
+      function: "GetLoggedInUser",
       error: "User not logged in",
     };
   });
