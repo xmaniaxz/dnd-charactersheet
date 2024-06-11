@@ -20,7 +20,7 @@ export default function CharacterPortrait({ data, onDeletion, onLink }) {
     SameSite=None; 
     Secure; 
     expires=${SetExpiryDate(14)}`;
-    window.location.href = "/D&D/characterpage";
+    window.open("/D&D/characterpage");
   };
 
   const deleteSheet = (event) => {

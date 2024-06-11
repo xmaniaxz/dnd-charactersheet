@@ -12,6 +12,12 @@ export default function CharacterSheet() {
   const { characterInfo, updateCharacterInfo } = useCharacterInfo();
   const [pageIsLoading, setPageIsLoading] = useState(true);
 
+  const SetExpiryDate = (_Days) => {
+    const expiryDate = new Date();
+    expiryDate.setDate(expiryDate.getDate() + _Days);
+    return expiryDate;
+  };
+
   const GetCharacter = () => {
     const characterInfoCookie = document.cookie.replace(
       /(?:(?:^|.*;\s*)characterInfo\s*\=\s*([^;]*).*$)|^.*$/,
@@ -67,10 +73,15 @@ export default function CharacterSheet() {
 
     const interval = setInterval(saveCharacterInfo, 300000);
 
-    // const handleBeforeUnload = async (event) => {
-    //   event.preventDefault();
-    //   saveCharacterInfo();
-    // };
+    const handleBeforeUnload = async (event) => {
+      event.preventDefault();
+      document.cookie = `characterInfo=${sheet.SheetID}; 
+    path=/D&D; 
+    SameSite=None; 
+    Secure; 
+    expires=${SetExpiryDate(14)}`;
+      saveCharacterInfo();
+    };
 
     const handleVisibilityChange = () => {
       if (document.visibilityState === "hidden") {
@@ -82,13 +93,13 @@ export default function CharacterSheet() {
       event.preventDefault();
       saveCharacterInfo();
     };
-    //window.addEventListener("beforeunload", handleBeforeUnload);
+    window.addEventListener("beforeunload", handleBeforeUnload);
     document.addEventListener("visibilitychange", handleVisibilityChange);
     window.addEventListener("popstate", handlePopState);
 
     return () => {
       clearInterval(interval);
-      //window.removeEventListener("beforeunload", handleBeforeUnload);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       window.removeEventListener("popstate", handlePopState);
     };

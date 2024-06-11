@@ -60,7 +60,7 @@ export default function LoginPage() {
         setErrorMessage(req.error);
         console.log(req);
         setLoading(false);
-        return;
+        throw new Error(req.error)
       }
       setPassword("");
       await IsLoggedIn();

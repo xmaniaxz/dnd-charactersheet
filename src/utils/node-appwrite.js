@@ -100,6 +100,7 @@ export async function LoginUser(email, password) {
       // return session;
     }
   } catch (e) {
+    console.error(e);
     return {
       function: "LoginUser",
       error: e.message || e.toString(),
