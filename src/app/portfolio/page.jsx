@@ -245,7 +245,7 @@ export default function Home() {
                 <br />
                 <br />
                 <Image
-                  src="/icons/github.svg"
+                  src="/icons/Github.svg"
                   alt="github logo"
                   height={logoHeight}
                   width={logoHeight}
