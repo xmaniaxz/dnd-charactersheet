@@ -45,7 +45,7 @@ export default function Home() {
       </header>
       <div className="">
         <div className="works">
-          <h1 className="underline text-center">things i've worked on</h1>
+          <h1 className="underline text-center">Things I've worked on</h1>
           <div
             className={`workContainer ${
               active.VodafoneZiggo ? "" : "collapsed"
@@ -207,7 +207,6 @@ export default function Home() {
                 <LanguagePopup icon={icons[3][0]} iconName={icons[3][1]} />
                 <LanguagePopup icon={icons[4][0]} iconName={icons[4][1]} />
                 <LanguagePopup icon={icons[6][0]} iconName={icons[6][1]} />
-                <LanguagePopup icon={icons[11][0]} iconName={icons[11][1]} />
               </div>
             </div>
             <br />
@@ -260,6 +259,94 @@ export default function Home() {
               </p>
             </div>
           </div>
+
+           {/* WoonFriesland Discord bot */}
+           <div className={`workContainer ${active.WFBot ? "" : "collapsed"}`}>
+            <div
+              className="flex flex-row button"
+              onClick={() => HandleClick("WFBot")}
+            >
+              <h2>WoonFriesland Discord bot</h2>
+              <span
+                className={`Icon transition ${active.WFBot ? "rotated" : ""}`}
+              >
+                expand_more
+              </span>
+              <div className="w-[50%] flex no-wrap gap-[20px] items-center">
+                <LanguagePopup icon={icons[8][0]} iconName={icons[8][1]} />
+                <LanguagePopup icon={icons[6][0]} iconName={icons[6][1]} />
+              </div>
+            </div>
+            <br />
+            <p>
+              This project is a discord bot that was made to check every couple of minutes to check if there were any new houses available on the WoonFriesland website.
+              <br />
+              <br />
+              Once it found a new house, it would post it to a discord channel where it would put a link to the website.
+              This way it would be easier to find a house.
+            </p>
+            <div>
+              <p>
+              <br />
+                <Image
+                  src="/icons/Github.svg"
+                  alt="github logo"
+                  height={logoHeight}
+                  width={logoHeight}
+                  className="noDrag hoverImage button invertColor"
+                  onClick={() => {
+                    window.open(
+                      "https://github.com/xmaniaxz/WoonFrieslandUpdate",
+                      "_blank"
+                    );
+                  }}
+                />
+              </p>
+            </div>
+          </div>
+
+          <h1 className="underline text-center">Things I'm working on</h1>
+
+          {/* Grappling Game*/}
+          <div className={`workContainer ${active.ClawGame ? "" : "collapsed"}`}>
+            <div
+              className="flex flex-row button"
+              onClick={() => HandleClick("ClawGame")}
+            >
+              <h2>ClawGame (name pending)</h2>
+              <span
+                className={`Icon transition ${active.ClawGame ? "rotated" : ""}`}
+              >
+                expand_more
+              </span>
+              <div className="w-[50%] flex no-wrap gap-[20px] items-center">
+                <LanguagePopup icon={icons[8][0]} iconName={icons[8][1]} />
+                <LanguagePopup icon={icons[6][0]} iconName={icons[6][1]} />
+              </div>
+            </div>
+            <br />
+            <p>
+              This is a current project I am working on, you play inside of a claw machine and you have to find a way out. 
+            </p>
+            {/* <div>
+              <p>
+              <br />
+                <Image
+                  src="/icons/Github.svg"
+                  alt="github logo"
+                  height={logoHeight}
+                  width={logoHeight}
+                  className="noDrag hoverImage button invertColor"
+                  onClick={() => {
+                    window.open(
+                      "https://github.com/xmaniaxz/WoonFrieslandUpdate",
+                      "_blank"
+                    );
+                  }}
+                />
+              </p>
+            </div> */}
+          </div>
         </div>
         <div className="rightInfoContainer">
           <div className="profileContainer">
@@ -309,8 +396,11 @@ export default function Home() {
                 );
               })}
             </div>
+            
           </div>
+          
         </div>
+        
       </div>
     </div>
   );
