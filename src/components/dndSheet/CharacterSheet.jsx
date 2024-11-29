@@ -59,7 +59,7 @@ export default function CharacterSheet() {
   };
 
   useEffect(() => {
-    setPageIsLoading(true);
+    setPageIsLoading(false);
 
     GetCharacter();
   }, []);
@@ -77,8 +77,8 @@ export default function CharacterSheet() {
       event.preventDefault();
       document.cookie = `characterInfo=${sheet.SheetID}; 
     path=/D&D; 
-    SameSite=lax;
-    secure=false; 
+    SameSite=None; 
+    Secure; 
     expires=${SetExpiryDate(14)}`;
       saveCharacterInfo();
     };
