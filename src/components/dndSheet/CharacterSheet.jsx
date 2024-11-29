@@ -77,8 +77,8 @@ export default function CharacterSheet() {
       event.preventDefault();
       document.cookie = `characterInfo=${sheet.SheetID}; 
     path=/D&D; 
-    SameSite=None; 
-    Secure; 
+    SameSite=lax;
+    secure=false; 
     expires=${SetExpiryDate(14)}`;
       saveCharacterInfo();
     };

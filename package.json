@@ -12,7 +12,7 @@
     "@material/web": "^1.4.0",
     "@radial-color-picker/react-color-picker": "^4.0.1",
     "appwrite": "^13.0.1",
-    "next": "^14.0.4",
+    "next": "^14.2.6",
     "next-safe-action": "^6.2.0",
     "node-appwrite": "^12.1.0-rc.4",
     "react": "^18.2.0",

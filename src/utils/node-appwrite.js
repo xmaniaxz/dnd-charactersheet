@@ -180,6 +180,7 @@ export async function GetUserLogo() {
 //#region CharacterSheets
 
 export async function GetCharacterSheet(sheetID) {
+  console.log("Firing sheetID" + sheetID)
   const database = await CreateDataBaseSession();
 
   const SheetList = await database.listDocuments(
@@ -187,6 +188,7 @@ export async function GetCharacterSheet(sheetID) {
     process.env.NEXT_PUBLIC_SHEET_COLLECTION_ID,
     [Query.equal("SheetID", sheetID)]
   );
+  console.log(SheetList.documents)
   return SheetList.documents;
 }
 

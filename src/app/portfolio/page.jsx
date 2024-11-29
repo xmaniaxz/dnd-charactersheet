@@ -160,10 +160,10 @@ export default function Home() {
                 personal use.
                 <br />
                 <br />
-                The pages that are currently available are the home page, the
+                The pages that are currently available are the homepage, the
                 portfolio page,
                 <br />
-                The Dungeons and dragons character management tool and a
+                The Dungeons and Dragons Character Management Tool and a
                 minecraft page that is used for my minecraft servers.
                 <br />
                 <br />
@@ -235,7 +235,7 @@ export default function Home() {
               <br />
               <p>
                 The tool itself was made over the course of 8 months on and off
-                where the last 5 months i have spent almost full-time on this
+                where the last 5 months I have spent almost full-time on this
                 project, while also learning how to use Next.js and Appwrite
                 <br />
                 <br />

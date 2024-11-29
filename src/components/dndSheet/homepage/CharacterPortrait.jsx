@@ -14,12 +14,9 @@ export default function CharacterPortrait({ data, onDeletion, onLink }) {
     return expiryDate;
   }
 
-  const sendToSheet = () => {
-    document.cookie = `characterInfo=${sheet.SheetID}; 
-    path=/D&D; 
-    SameSite=None; 
-    Secure; 
-    expires=${SetExpiryDate(14)}`;
+  const sendToSheet = async () => {
+    console.log(sheet.SheetID); 
+    document.cookie = `characterInfo=${sheet.SheetID}; path=/; SameSite=Strict; Secure; expires=${SetExpiryDate(14).toUTCString()}`;
     window.open("/D&D/characterpage");
   };
 
