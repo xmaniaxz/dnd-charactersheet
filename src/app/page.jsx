@@ -44,7 +44,7 @@ export default function Home() {
         </div>
       </header>
       <div className="fadeLine" />
-      <main className="content flexCenterAll">
+      <main className="contentBody flexCenterAll">
         <div className="backgroundImage">
           <img src="/AIImage.jpg" alt="" />
         </div>
