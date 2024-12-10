@@ -56,24 +56,32 @@
 }
 
 .workContainer {
-  padding: 22px;
+  padding: 20px;
   margin: 20px;
   border-radius: 20px;
   height: auto;
   display: flex;
   flex-direction: column;
   border: solid 1px rgba(255, 255, 255, 0.2);
-  max-height: 2000px; /* Adjust this value */
-  overflow: hidden;
-  transition: max-height 0.3s ease-in; /* Use max-height for smooth transition */
+  max-height: 2000px;
+  transition: max-height 0.3s ease-in; 
 }
 .workContainer h2{
   white-space: nowrap;
 }
 
 .workContainer.collapsed {
-  max-height: 76px; /* Adjust this value */
-  transition: max-height 0.3s ease-in;
+  max-height: 76px;
+}
+
+.content{
+  height: auto;
+  width: auto;
+  transition: scale 0.3s;
+  transform-origin: top;
+}
+.workContainer.collapsed .content {
+  scale: 1 0;
 }
 
 .worksGoToButton {
@@ -93,9 +101,9 @@
 }
 
 .logoPopup {
-  position: absolute;
+  position: absolute !important;
   pointer-events: none;
-  text-wrap: nowrap;
+  white-space: nowrap;
   transform: translateY(0px);
   background-color: rgb(23, 23, 23);
   padding: 0px 20px;

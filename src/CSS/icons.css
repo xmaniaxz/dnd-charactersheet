@@ -1,5 +1,5 @@
 .rotated {
-  transform: rotate(180deg);
+  transform: scaleY(-1);
 }
 
 .gg-push-chevron-down {

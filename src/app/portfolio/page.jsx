@@ -63,7 +63,7 @@ export default function Home() {
               >
                 expand_more
               </span>
-              <div className="w-[40%] overflow-hidden flex no-wrap gap-[20px] items-center">
+              <div className="w-[40%] flex no-wrap gap-[20px] items-center">
                 <LanguagePopup icon={icons[7][0]} iconName={icons[7][1]} />
                 <LanguagePopup icon={icons[8][0]} iconName={icons[8][1]} />
                 <LanguagePopup icon={icons[5][0]} iconName={icons[5][1]} />
@@ -72,56 +72,59 @@ export default function Home() {
             </div>
 
             <br />
-            <div>
-            <p>
-              I created a virtual museum for VodafoneZiggo, internally, where
-              colleagues could retrieve information or listen to radio or
-              podcasts.
+            <div className="content">
+              <p>
+                I created a virtual museum for VodafoneZiggo, internally, where
+                colleagues could retrieve information or listen to radio or
+                podcasts.
+                <br />
+                <br />
+                This project exists mainly out of Unity's WebGL pipeline and C#
+                scripts.
+                <br />
+                It also uses Unity's version control system and has a backend
+                system that uses PHP.
+                <br />
+                <br />
+                I mainly dealt with making the museum interactive and
+                user-friendly, while also making sure the connection to the
+                backend was working properly. The project uses JSON to send over
+                the data from the frontend to the backend and vice versa. The
+                project itself was basically my first experience where I had to
+                both make the 3D assets as well and the logic behind it.
+                <br />I spent 8 months on this project and learned a lot from
+                it, for instance, the need to load in audio files after
+                initializing the scene and the limitations of WebGL.
+              </p>
+              <br />
+              <button
+                className="worksGoToButton button"
+                onClick={() => {
+                  window.open("/portfolio/vodafoneziggo", "_blank");
+                }}
+              >
+                Take a look around
+              </button>
               <br />
               <br />
-              This project exists mainly out of Unity's WebGL pipeline and C#
-              scripts.
+              <h6 className="text-[red]">
+                warning: this is a big project and might take a while to load
+                the first time.
+              </h6>
               <br />
-              It also uses Unity's version control system and has a backend
-              system that uses PHP.
-              <br />
-              <br />
-              I mainly dealt with making the museum interactive and
-              user-friendly, while also making sure the connection to the
-              backend was working properly. The project uses JSON to send over
-              the data from the frontend to the backend and vice versa. The
-              project itself was basically my first experience where I had to
-              both make the 3D assets as well and the logic behind it.
-              <br />I spent 8 months on this project and learned a lot from it,
-              for instance, the need to load in audio files after initializing
-              the scene and the limitations of WebGL.
-            </p>
-            <br />
-            <button
-              className="worksGoToButton button"
-              onClick={() => {
-                window.open("/portfolio/vodafoneziggo", "_blank");
-              }}
-            >
-              Take a look around
-            </button>
-            <br />
-            <br />
-            <h6 className="text-[red]">
-              warning: this is a big project and might take a while to load the
-              first time.
-            </h6>
-            <br />
-            <Image
-              src="/icons/Github.svg"
-              alt="github logo"
-              height={logoHeight}
-              width={logoHeight}
-              className="noDrag hoverImage button invertColor"
-              onClick={() => {
-                window.open("https://github.com/xmaniaxz/Project404", "_blank");
-              }}
-            />
+              <Image
+                src="/icons/Github.svg"
+                alt="github logo"
+                height={logoHeight}
+                width={logoHeight}
+                className="noDrag hoverImage button invertColor"
+                onClick={() => {
+                  window.open(
+                    "https://github.com/xmaniaxz/Project404",
+                    "_blank"
+                  );
+                }}
+              />
             </div>
           </div>
 
@@ -153,7 +156,7 @@ export default function Home() {
               </div>
             </div>
             <br />
-            <div>
+            <div className="content">
               <p>
                 This is the project I am currently working on. It consists of
                 multiple pages created for my community as well as for my
@@ -210,7 +213,7 @@ export default function Home() {
               </div>
             </div>
             <br />
-            <div>
+            <div className="content">
               <p>
                 This project is made within the same workspace as the LCN
                 project. The reason why i am mentioning this project is because
@@ -239,8 +242,10 @@ export default function Home() {
                 project, while also learning how to use Next.js and Appwrite
                 <br />
                 <br />
-                The characterpage has all basic features but there are plans to add more to it in the future.
-                There are also plans to make a Dungeon Master Portal where players and DM can join a team and share information about the game.
+                The characterpage has all basic features but there are plans to
+                add more to it in the future. There are also plans to make a
+                Dungeon Master Portal where players and DM can join a team and
+                share information about the game.
                 <br />
                 <br />
                 <Image
@@ -260,8 +265,8 @@ export default function Home() {
             </div>
           </div>
 
-           {/* WoonFriesland Discord bot */}
-           <div className={`workContainer ${active.WFBot ? "" : "collapsed"}`}>
+          {/* WoonFriesland Discord bot */}
+          <div className={`workContainer ${active.WFBot ? "" : "collapsed"}`}>
             <div
               className="flex flex-row button"
               onClick={() => HandleClick("WFBot")}
@@ -278,75 +283,39 @@ export default function Home() {
               </div>
             </div>
             <br />
-            <p>
-              This project is a discord bot that was made to check every couple of minutes to check if there were any new houses available on the WoonFriesland website.
-              <br />
-              <br />
-              Once it found a new house, it would post it to a discord channel where it would put a link to the website.
-              This way it would be easier to find a house.
-            </p>
-            <div>
+            <div className="content">
               <p>
-              <br />
-                <Image
-                  src="/icons/Github.svg"
-                  alt="github logo"
-                  height={logoHeight}
-                  width={logoHeight}
-                  className="noDrag hoverImage button invertColor"
-                  onClick={() => {
-                    window.open(
-                      "https://github.com/xmaniaxz/WoonFrieslandUpdate",
-                      "_blank"
-                    );
-                  }}
-                />
+                This project is a discord bot that was made to check every
+                couple of minutes to check if there were any new houses
+                available on the WoonFriesland website.
+                <br />
+                <br />
+                Once it found a new house, it would post it to a discord channel
+                where it would put a link to the website. This way it would be
+                easier to find a house.
               </p>
-            </div>
-          </div>
-
-          <h1 className="underline text-center">Things I'm working on</h1>
-
-          {/* Grappling Game*/}
-          <div className={`workContainer ${active.ClawGame ? "" : "collapsed"}`}>
-            <div
-              className="flex flex-row button"
-              onClick={() => HandleClick("ClawGame")}
-            >
-              <h2>ClawGame (name pending)</h2>
-              <span
-                className={`Icon transition ${active.ClawGame ? "rotated" : ""}`}
-              >
-                expand_more
-              </span>
-              <div className="w-[50%] flex no-wrap gap-[20px] items-center">
-                <LanguagePopup icon={icons[8][0]} iconName={icons[8][1]} />
-                <LanguagePopup icon={icons[6][0]} iconName={icons[6][1]} />
+              <div>
+                <p>
+                  <br />
+                  <Image
+                    src="/icons/Github.svg"
+                    alt="github logo"
+                    height={logoHeight}
+                    width={logoHeight}
+                    className="noDrag hoverImage button invertColor"
+                    onClick={() => {
+                      window.open(
+                        "https://github.com/xmaniaxz/WoonFrieslandUpdate",
+                        "_blank"
+                      );
+                    }}
+                  />
+                </p>
               </div>
             </div>
-            <br />
-            <p>
-              This is a current project I am working on, you play inside of a claw machine and you have to find a way out. 
-            </p>
-            {/* <div>
-              <p>
-              <br />
-                <Image
-                  src="/icons/Github.svg"
-                  alt="github logo"
-                  height={logoHeight}
-                  width={logoHeight}
-                  className="noDrag hoverImage button invertColor"
-                  onClick={() => {
-                    window.open(
-                      "https://github.com/xmaniaxz/WoonFrieslandUpdate",
-                      "_blank"
-                    );
-                  }}
-                />
-              </p>
-            </div> */}
           </div>
+
+          {/* <h1 className="underline text-center">Things I'm working on</h1> */}
         </div>
         <div className="rightInfoContainer">
           <div className="profileContainer">
@@ -357,11 +326,12 @@ export default function Home() {
               width={500}
               alt=""
             />
+            <div className="content"></div>
             <div className="p-[15px]">
               <h3>About me:</h3>
               <br />
               <p>
-                Wesley (22) is a broad-minded man who is always busy providing
+                Wesley (23) is a broad-minded man who is always busy providing
                 the right solution for your problems. He is a great lover of
                 music.
                 <br />
@@ -378,7 +348,7 @@ export default function Home() {
                 <br />
                 <br />
                 Wesley absorbs knowledge that he lacks like a sponge. Are you
-                interested? Lets get in touch
+                interested? Let's get in touch!
               </p>
             </div>
           </div>
@@ -396,11 +366,8 @@ export default function Home() {
                 );
               })}
             </div>
-            
           </div>
-          
         </div>
-        
       </div>
     </div>
   );

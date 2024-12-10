@@ -96,6 +96,7 @@
   padding: 20px;
   transition: var(--transition-small);
   position:absolute;
+  z-index: 3;
 }
 
 .homeButton:hover{
