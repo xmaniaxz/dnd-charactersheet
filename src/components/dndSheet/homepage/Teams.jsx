@@ -35,6 +35,8 @@ export default function TeamsMenu({
             <br />
             <div className="w-full h-1/2 flex flex-col justify-center items-center gap-[30px]">
               <h1>Are you sure you want to delete this character?</h1>
+              <br />
+              <p>Sheet UUID: {OptionalData.Sheet.$id}</p>
               <h5>doing so will delete this forever.</h5>
               <div className="flex flex-row gap-[30px] w-1/2 absolute bottom-[100px]">
                 <button

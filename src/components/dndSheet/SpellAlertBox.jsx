@@ -45,7 +45,7 @@ export default function SpellAlertBox({
   const handleClick = (spellname, values) => {
     if (values === activeSpell) {
       onSelection(spellname);
-      console.log(spellname);
+      // console.log(spellname);
     } else {
       setActiveSpell(values);
     }

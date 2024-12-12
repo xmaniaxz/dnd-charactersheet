@@ -1,7 +1,10 @@
 import Image from "next/image";
 import styles from "@/CSS/homepage.module.css";
+import { useRouter } from "next/navigation";
+
 export default function CharacterPortrait({ data, onDeletion, onLink }) {
   const sheet = JSON.parse(data.JSONFile);
+  const router = useRouter();
   const GetImage = (imageID) => {
     const image = `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${process.env.NEXT_PUBLIC_BUCKET_ID}/files/${imageID}/view?project=${process.env.NEXT_PUBLIC_PROJECT_ID}`;
     return image;
@@ -15,10 +18,11 @@ export default function CharacterPortrait({ data, onDeletion, onLink }) {
   }
 
   const sendToSheet = async () => {
-    console.log(sheet.SheetID); 
-    document.cookie = `characterInfo=${sheet.SheetID}; path=/; SameSite=Strict; Secure; expires=${SetExpiryDate(14).toUTCString()}`;
-    window.open("/D&D/characterpage");
+    // document.cookie = `characterInfo=${sheet.SheetID}; path=/; SameSite=Strict; Secure; expires=${SetExpiryDate(14).toUTCString()}`;
+    const url = (`/D&D/characterpage?uuid=${sheet.SheetID}`);
+    window.open(url, "_blank");
   };
+
 
   const deleteSheet = (event) => {
     event.stopPropagation();
@@ -38,7 +42,7 @@ export default function CharacterPortrait({ data, onDeletion, onLink }) {
       <i
         className={`Icon transition button deleteButton red `}
         onClick={(e) => {
-          deleteSheet(e);
+          deleteSheet(e,sheet.SheetID);
         }}
       >
         Delete

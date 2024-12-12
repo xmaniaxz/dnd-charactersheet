@@ -24,7 +24,7 @@ export default function SpellList() {
   }, []);
 
   useEffect(() => {
-    console.log(characterInfo)
+    // console.log(characterInfo)
     if (characterInfo.playerSpells) {
       setSpellArray(characterInfo.playerSpells);
     } else {

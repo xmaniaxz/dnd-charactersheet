@@ -8,6 +8,7 @@ import TeamsMenu from "@/components/dndSheet/homepage/Teams";
 import Image from "next/image";
 import Clipboard from "./Clipboard";
 import CharacterPortrait from "@/components/dndSheet/homepage/CharacterPortrait";
+import { publish } from "@/utils/events";
 
 export default function HomePage() {
   const router = useRouter();
@@ -23,6 +24,7 @@ export default function HomePage() {
   const [forceUpdate, setForceUpdate] = useState(false);
   const [userLogo, setUserLogo] = useState(null);
   const [optionalData, setOptionalData] = useState("");
+  const [changeOccured, UpdatechangeOccured] = useState(false);
   const IsLoggedIn = async () => {
     const user = await Server.GetLoggedInUser();
     if (user && user.error) {
@@ -41,13 +43,6 @@ export default function HomePage() {
   const GetUserTeams = async () => {
     const teams = await Server.GetTeams();
     setUserTeams(teams);
-    // const activeTeamInfo = document.cookie.replace(
-    //   /(?:(?:^|.*;\s*)activeTeam\s*\=\s*([^;]*).*$)|^.*$/,
-    //   "$1"
-    // );
-    // if (activeTeamInfo) {
-    //   setSelectedTeam(JSON.parse(activeTeamInfo));
-    // }
   };
 
   useEffect(() => {
@@ -65,7 +60,6 @@ export default function HomePage() {
       setOptionalData((data) => ({ ...data, Teams: selectedTeam }));
       await GetSheetData();
       setForceUpdate(!forceUpdate);
-      // Set cookie after updating state
     } else {
       const teamData = userTeams.find((x) => x.name === team);
       const teamUsers = await Server.GetTeamUsers(teamData.$id);
@@ -75,8 +69,6 @@ export default function HomePage() {
       const res = await Server.GetLinkedSheets(teamData.$id);
       const sheets = typeof res === Array ? sheets.split(",") : res;
       sheets && (await GetSheetData(sheets));
-      // Set cookie after updating state
-
       document.cookie = `activeTeam=${JSON.stringify({
         name: team,
         users: teamUsers,
@@ -88,7 +80,6 @@ export default function HomePage() {
   const handleMenuCallback = async (x) => {
     const state = x.state;
     const data = x.data;
-    let reload = true;
     switch (state) {
       case -3:
         document.cookie =
@@ -106,7 +97,16 @@ export default function HomePage() {
 
         break;
       case 2:
-        await Server.JoinTeam(data);
+        const res= await Server.JoinTeam(data);
+        if(res){
+          publish("ShowPopUp", {
+            text: res,
+            visibility: true,
+            backgroundColor: "red",
+            top: "10px",
+            right: "20px",
+          });
+        }
         break;
       case 3:
         await Server.EditTeam(selectedTeam.data.$id, data);
@@ -116,13 +116,12 @@ export default function HomePage() {
         await GetSheetData();
         break;
       case 5:
-        await Server.UnLinkSheetToTeam(
-          data.SheetID,
-          data.LinkedTeam
-        );
+        await Server.UnLinkSheetToTeam(data.SheetID, data.LinkedTeam);
         break;
     }
-    location.reload();
+    await GetUserTeams();
+    await GetSheetData();
+    UpdatechangeOccured(!changeOccured);
     setMenuActive(null);
   };
 
@@ -150,7 +149,7 @@ export default function HomePage() {
   };
 
   return (
-    <div>
+    <div key={changeOccured}>
       {menuActive && (
         <TeamsMenu
           TeamOption={menuActive}
@@ -195,10 +194,9 @@ export default function HomePage() {
           </button>
           <button
             className={`${styles.teamsButton}`}
-            href={"./characterpage"}
             onClick={() => {
-              document.cookie = "characterInfo=new character; path=/D&D";
-              router.push("/D&D/characterpage");
+              const url = `/D&D/characterpage?uuid=new%character`;
+              window.open(url, "_blank");
             }}
           >
             New Sheet
@@ -273,9 +271,10 @@ export default function HomePage() {
                       setOptionalData((prev) => ({ ...prev, Sheet: data }));
                     }}
                     onLink={(e) => {
-                      e ? setMenuActive(4) : handleMenuCallback({state:5,data:data});
-                      setOptionalData({Teams: userTeams, SheetData: data});
-                      
+                      e
+                        ? setMenuActive(4)
+                        : handleMenuCallback({ state: 5, data: data });
+                      setOptionalData({ Teams: userTeams, SheetData: data });
                     }}
                   />
                 );
@@ -333,13 +332,15 @@ export default function HomePage() {
               <section className={`${styles.customList}`}>
                 {selectedTeam.users &&
                   selectedTeam.users.map((user, index) => {
-                    return user.roles.includes("DM") && (
-                      <li
-                        className={` ${styles.hoverAble} ${styles.Opacity}`}
-                        key={index + forceUpdate}
-                      >
-                        {user.userName}
-                      </li>
+                    return (
+                      user.roles.includes("DM") && (
+                        <li
+                          className={` ${styles.hoverAble} ${styles.Opacity}`}
+                          key={index + forceUpdate}
+                        >
+                          {user.userName}
+                        </li>
+                      )
                     );
                   })}
               </section>

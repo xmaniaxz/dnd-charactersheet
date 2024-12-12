@@ -38,7 +38,7 @@ export default function LoginPage() {
   async function handleLogin() {
     setLoading(true);
     const req = await ErrorHandler(await LoginUser(email, password));
-    if(req && req.error){
+    if (req && req.error) {
       setErrorMessage(req.error);
       setLoading(false);
       return;
@@ -55,17 +55,18 @@ export default function LoginPage() {
         return;
       }
       setLoading(true);
-      const req = await ErrorHandler(await Registeruser(email, password, username));
-      if(req && req.error){
+      const req = await ErrorHandler(
+        await Registeruser(email, password, username)
+      );
+      if (req && req.error) {
         setErrorMessage(req.error);
         console.log(req);
         setLoading(false);
-        throw new Error(req.error)
+        throw new Error(req.error);
       }
       setPassword("");
       await IsLoggedIn();
       setLoading(false);
-   
     } catch (error) {
       console.error(error);
 
@@ -117,6 +118,11 @@ export default function LoginPage() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleLogin();
+                }
+              }}
             />
           </div>
           <p className={`text-[red]`}>{errorMessage}</p>

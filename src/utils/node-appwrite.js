@@ -188,7 +188,7 @@ export async function GetCharacterSheet(sheetID) {
     process.env.NEXT_PUBLIC_SHEET_COLLECTION_ID,
     [Query.equal("SheetID", sheetID)]
   );
-  console.log(SheetList.documents)
+  // console.log(SheetList.documents)
   return SheetList.documents;
 }
 
@@ -203,11 +203,12 @@ export async function RemoveCharacterSheet(sheetID) {
 }
 
 export async function WriteSheetToDatabase(sheet) {
+  console.log(sheet);
   const database = await CreateDataBaseSession();
   const user = await GetLoggedInUser();
   const userID = user ? user.$id : null;
   const newCharacter = sheet.SheetID ? false : true;
-  const sheetID = sheet.SheetID ? sheet.SheetID : GenerateRandomID();
+  const sheetID = sheet && sheet.SheetID ? sheet.SheetID : GenerateRandomID();
   !sheet.SheetID && (sheet.SheetID = sheetID);
   const Sheet = {
     UserID: userID,
@@ -238,6 +239,7 @@ export async function WriteSheetToDatabase(sheet) {
     secure: false,
     expiryDate: SetExpiryDate(14),
   });
+  return sheetID;
 }
 
 export async function GetUserCharacterSheets(filters) {
@@ -365,7 +367,17 @@ export async function JoinTeam(teamID) {
   const Membership = await team.listMemberships(teamID);
   let role = "";
   Membership.total > 0 ? (role = ["Player"]) : (role = ["owner", "DM"]);
-  await team.createMembership(teamID, role, user.email);
+  console.log(Membership);
+  console.log(user);
+  try{
+    await team.createMembership(teamID, role, user.email);
+  }
+  catch(e){
+    console.log(e);
+    if(e.code === 409){
+      return "User already in team"
+    }
+  }
 }
 
 export async function LeaveTeam(teamID) {

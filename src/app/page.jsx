@@ -54,7 +54,6 @@ export default function Home() {
       <div className="fadeLine" />
       <footer className="footer">
         <h6>©2024 - Lost Cause Network - @Made by Wesley Bosman</h6>
-        
       </footer>
     </div>
   );

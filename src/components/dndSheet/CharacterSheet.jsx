@@ -1,30 +1,26 @@
 "use client";
-import TopbarInfo from "@/components/dndSheet/TopbarInfo";
-import StatsContainer from "@/components/dndSheet/StatsContainer";
-import BottomContainer from "@/components/dndSheet/BottomContainer";
 import { useEffect, useState } from "react";
 import { useCharacterInfo } from "@/components/dndSheet/characterinfocontext";
+import { CharacterInfo } from "@/utils/Variables";
 import { GetCharacterSheet, WriteSheetToDatabase } from "@/utils/node-appwrite";
 import PopUp from "@/components/dndSheet/popup";
 import { publish } from "@/utils/events";
+import TopbarInfo from "@/components/dndSheet/TopbarInfo";
+import StatsContainer from "@/components/dndSheet/StatsContainer";
+import BottomContainer from "@/components/dndSheet/BottomContainer";
 
 export default function CharacterSheet() {
   const { characterInfo, updateCharacterInfo } = useCharacterInfo();
+  const [prevCharacterInfo, updatePrevCharacterInfo] = useState(() => structuredClone(CharacterInfo));
   const [pageIsLoading, setPageIsLoading] = useState(true);
-
-  const SetExpiryDate = (_Days) => {
-    const expiryDate = new Date();
-    expiryDate.setDate(expiryDate.getDate() + _Days);
-    return expiryDate;
-  };
+  const [isSaving, setIsSaving] = useState(false); // Flag to track saving status
 
   const GetCharacter = () => {
-    const characterInfoCookie = document.cookie.replace(
-      /(?:(?:^|.*;\s*)characterInfo\s*\=\s*([^;]*).*$)|^.*$/,
-      "$1"
-    );
+    const urlParams = new URLSearchParams(window.location.search);
+    const characterInfoCookie = urlParams.get("uuid");
+
     if (characterInfoCookie) {
-      if (characterInfoCookie === "new character") {
+      if (characterInfoCookie === "new%character") {
         console.log("CharacterSheet.jsx: New Character Detected");
         setPageIsLoading(false);
         return;
@@ -35,14 +31,10 @@ export default function CharacterSheet() {
         try {
           let sheet = await GetCharacterSheet(ID);
           updateCharacterInfo(JSON.parse(sheet[0].JSONFile));
+          updatePrevCharacterInfo(JSON.parse(sheet[0].JSONFile));
+          console.log("changingPrevInfo");
         } catch (error) {
-          publish("ShowPopUp", {
-            text: error,
-            visibility: true,
-            backgroundColor: "red",
-            top: "10px",
-            right: "20px",
-          });
+          console.log(error);
         }
       };
       fetchSheet();
@@ -60,27 +52,44 @@ export default function CharacterSheet() {
 
   useEffect(() => {
     setPageIsLoading(false);
-
     GetCharacter();
   }, []);
 
-  useEffect(() => {
-    const saveCharacterInfo = () => {
-      console.log("trying to save sheet");
-      WriteSheetToDatabase(characterInfo);
-      GetCharacter();
-    };
+  const saveCharacterInfo = async () => {
+    if (isSaving) return; // Prevent simultaneous saves
+    setIsSaving(true);
 
+    try {
+      console.log("Trying to save sheet...");
+      const stringCharInfo = JSON.stringify(characterInfo);
+      const stringPrevCharInfo = JSON.stringify(prevCharacterInfo);
+
+      if (stringCharInfo !== stringPrevCharInfo) {
+        console.log("Saving sheet...");
+        const sheetID = await WriteSheetToDatabase(characterInfo);
+
+        // Update the URL without reloading
+        window.history.replaceState({}, "", `?uuid=${sheetID}`);
+
+        // Update previous character info to reflect saved state
+        updatePrevCharacterInfo(structuredClone(characterInfo));
+      } else {
+        console.log("No changes detected, skipping save.");
+      }
+    } catch (error) {
+      console.error("Error saving character info:", error);
+    } finally {
+      setIsSaving(false); // Reset the flag after saving
+    }
+  };
+
+  useEffect(() => {
     const interval = setInterval(saveCharacterInfo, 300000);
 
-    const handleBeforeUnload = async (event) => {
+    const handleBeforeUnload = (event) => {
       event.preventDefault();
-      document.cookie = `characterInfo=${sheet.SheetID}; 
-    path=/D&D; 
-    SameSite=None; 
-    Secure; 
-    expires=${SetExpiryDate(14)}`;
       saveCharacterInfo();
+      event.returnValue = ""; // Optional: Triggers browser confirmation dialog
     };
 
     const handleVisibilityChange = () => {
@@ -89,21 +98,15 @@ export default function CharacterSheet() {
       }
     };
 
-    const handlePopState = async (event) => {
-      event.preventDefault();
-      saveCharacterInfo();
-    };
     window.addEventListener("beforeunload", handleBeforeUnload);
     document.addEventListener("visibilitychange", handleVisibilityChange);
-    window.addEventListener("popstate", handlePopState);
 
     return () => {
       clearInterval(interval);
       window.removeEventListener("beforeunload", handleBeforeUnload);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
-      window.removeEventListener("popstate", handlePopState);
     };
-  }, [characterInfo]);
+  }, [characterInfo, prevCharacterInfo]);
 
   return (
     <div>
