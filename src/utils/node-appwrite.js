@@ -231,14 +231,14 @@ export async function WriteSheetToDatabase(sheet) {
       Sheet
     );
   }
-  //Set cookie correctly:
-  cookies().set("characterInfo", Sheet.SheetID, {
-    path: "/D&D",
-    httpOnly: false,
-    sameSite: "None",
-    secure: false,
-    expiryDate: SetExpiryDate(14),
-  });
+  // //Set cookie correctly:
+  // cookies().set("characterInfo", Sheet.SheetID, {
+  //   path: "/D&D",
+  //   httpOnly: false,
+  //   sameSite: "None",
+  //   secure: false,
+  //   expiryDate: SetExpiryDate(14),
+  // });
   return sheetID;
 }
 

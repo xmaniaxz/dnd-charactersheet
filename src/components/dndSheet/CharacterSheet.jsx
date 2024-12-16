@@ -55,6 +55,7 @@ export default function CharacterSheet() {
     GetCharacter();
   }, []);
 
+
   const saveCharacterInfo = async () => {
     if (isSaving) return; // Prevent simultaneous saves
     setIsSaving(true);
@@ -63,11 +64,12 @@ export default function CharacterSheet() {
       console.log("Trying to save sheet...");
       const stringCharInfo = JSON.stringify(characterInfo);
       const stringPrevCharInfo = JSON.stringify(prevCharacterInfo);
-
+      console.log(prevCharacterInfo)
+      console.log(stringCharInfo);
       if (stringCharInfo !== stringPrevCharInfo) {
         console.log("Saving sheet...");
         const sheetID = await WriteSheetToDatabase(characterInfo);
-
+        console.log("Sheet saved with ID:", sheetID);
         // Update the URL without reloading
         window.history.replaceState({}, "", `?uuid=${sheetID}`);
 
@@ -86,10 +88,11 @@ export default function CharacterSheet() {
   useEffect(() => {
     const interval = setInterval(saveCharacterInfo, 300000);
 
-    const handleBeforeUnload = (event) => {
+    const handleBeforeUnload = async (event) => {
+      await saveCharacterInfo();
       event.preventDefault();
-      saveCharacterInfo();
-      event.returnValue = ""; // Optional: Triggers browser confirmation dialog
+    
+      //event.returnValue = ""; // Optional: Triggers browser confirmation dialog
     };
 
     const handleVisibilityChange = () => {
