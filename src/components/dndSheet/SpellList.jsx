@@ -12,8 +12,18 @@ export default function SpellList() {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [activeSpell, setActiveSpell] = useState(null);
   const [forceUpdate, setForceUpdate] = useState(false);
-  const spellArrayKeys = ["cantrip", 1, 2, 3, 4, 5, 6, 7, 8, 9];
-  const [spellArray, setSpellArray] = useState(null);
+  const [spellArray, setSpellArray] = useState({
+    cantrip: { spellSlots: 0, spells: [{ prepared: false, spell: null }] },
+    1: { spellSlots: 0, spells: [{ prepared: false, spell: null }] },
+    2: { spellSlots: 0, spells: [{ prepared: false, spell: null }] },
+    3: { spellSlots: 0, spells: [{ prepared: false, spell: null }] },
+    4: { spellSlots: 0, spells: [{ prepared: false, spell: null }] },
+    5: { spellSlots: 0, spells: [{ prepared: false, spell: null }] },
+    6: { spellSlots: 0, spells: [{ prepared: false, spell: null }] },
+    7: { spellSlots: 0, spells: [{ prepared: false, spell: null }] },
+    8: { spellSlots: 0, spells: [{ prepared: false, spell: null }] },
+    9: { spellSlots: 0, spells: [{ prepared: false, spell: null }] },
+  });
 
   const fetchData = async () => {
     setSpellData(await GetServerSpells());
@@ -28,17 +38,8 @@ export default function SpellList() {
     if (characterInfo.playerSpells) {
       setSpellArray(characterInfo.playerSpells);
     } else {
-      setSpellArray(generateEmptySpellArray());
     }
   }, [characterInfo.playerSpells]);
-
-  const generateEmptySpellArray = () => {
-    const emptyArray = {};
-    spellArrayKeys.forEach((key) => {
-      emptyArray[key] = Array(1).fill({ prepared: false, spell: null });
-    });
-    return emptyArray;
-  };
 
   const handleClick = (index, level, spell) => {
     if (spell !== null) {
@@ -55,7 +56,6 @@ export default function SpellList() {
       setActiveLevel(level);
     }
   };
-  
 
   const handleOnReturn = () => {
     setOverlayActive(false);
@@ -72,29 +72,29 @@ export default function SpellList() {
 
     if (_spellIndex === -1) {
       // Spell not found, remove selected spell if it exists
-      updatedSpellArray[activeLevel].splice(selectedIndex, 1);
+      updatedSpellArray[activeLevel].spells.splice(selectedIndex, 1);
       // Filter all empty entries (where spell is null and prepared is false)
-      updatedSpellArray[activeLevel] = updatedSpellArray[activeLevel].filter(
+      updatedSpellArray[activeLevel].spells = updatedSpellArray[activeLevel].spells.filter(
         (entry) => entry.spell !== null || entry.prepared !== false
       );
       // Push a new empty entry
-      updatedSpellArray[activeLevel].push({ spell: null, prepared: false });
+      updatedSpellArray[activeLevel].spells.push({ spell: null, prepared: false });
     } else {
       // Update the selected spell with the found spell data
-      updatedSpellArray[activeLevel][selectedIndex] = {
-        prepared: spellArray[activeLevel][selectedIndex].prepared,
+      updatedSpellArray[activeLevel].spells[selectedIndex] = {
+        prepared: spellArray[activeLevel].spells[selectedIndex].prepared,
         spell: spellData[_spellIndex],
       };
-      setActiveSpell(updatedSpellArray[activeLevel][selectedIndex].spell);
+      setActiveSpell(updatedSpellArray[activeLevel].spells[selectedIndex].spell);
 
       // Check if a new empty field should be added
-      const lastIndex = updatedSpellArray[activeLevel].length - 1;
+      const lastIndex = updatedSpellArray[activeLevel].spells.length - 1;
       if (
-        updatedSpellArray[activeLevel][lastIndex].spell !== null ||
-        updatedSpellArray[activeLevel][lastIndex].prepared !== false
+        updatedSpellArray[activeLevel].spells[lastIndex].spell !== null ||
+        updatedSpellArray[activeLevel].spells[lastIndex].prepared !== false
       ) {
         // Push a new empty entry if the last entry is not empty
-        updatedSpellArray[activeLevel].push({ spell: null, prepared: false });
+        updatedSpellArray[activeLevel].spells.push({ spell: null, prepared: false });
       }
     }
 
@@ -115,8 +115,7 @@ export default function SpellList() {
   };
 
   useEffect(() => {
-    if(spellArray)
-    characterInfo.playerSpells = spellArray;
+    if (spellArray) characterInfo.playerSpells = spellArray;
   }, [forceUpdate]);
 
   return (
@@ -131,14 +130,31 @@ export default function SpellList() {
       )}
       <div className="spellList">
         {spellArray &&
-          spellArrayKeys.map((level) => (
+          Object.keys(spellArray).sort((a, b) => (a === 'cantrip' ? -1 : b === 'cantrip' ? 1 : a - b)).map((level) => (
             <div className="spellLevelContainer" key={level}>
-              <span className="levelHeader">{level}</span>
-              {spellArray[level].map((spell, index) => (
+              <span className="levelHeader">
+                {level}
+                <br />
+                <div className="flex gap-[1ch] text-[1.2ch]">
+                  <label htmlFor={`spellslots${level}`}>slots:</label>
+                  <input
+                    className="w-[100%]"
+                    id={`spellslots${level}`} 
+                    type="number"
+                    placeholder="0"
+                    value={spellArray[level].spellSlots === 0 ? "" : spellArray[level].spellSlots}
+                    onChange={(e) => {spellArray[level].spellSlots = e.target.value; setForceUpdate(!forceUpdate)}}
+                  />
+                </div>
+              </span>
+              {/* {spellArray[level].spells && console.log(spellArray[level].spells)} */}
+              {spellArray[level].spells.map((spell, index) => (
                 <div
                   key={index}
                   className={`w-full h-full ${
-                    spell.spell && activeSpell === spell.spell ? "activeSpell" : ""
+                    spell.spell && activeSpell === spell.spell
+                      ? "activeSpell"
+                      : ""
                   }`}
                 >
                   <div className="spellDetails">
