@@ -28,7 +28,6 @@ export default function StatBox({
 
   const handleProficiency = (type, isProficient) => {
     type = type.replace(" ", "");
-    //For some reason isProficient is being sent as an inversed variable
     try {
       characterInfo.playerStats.Proficiencies[type] = !isProficient;
     } catch (e) {
